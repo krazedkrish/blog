@@ -1,0 +1,20 @@
+#+LAYOUT: post
+#+TITLE: Select Multiple
+#+SUBTITLE: An awesome user-friendlier drop-in replacement for the standard <b>&#60;select&#62;</b>.
+#+DATE: 2015-08-14 17:15
+#+liquid: enabled
+#+select_multiple_link: <a href="http://krazedkrish.com/select-multiple" target="_blank">Select Multiple</a>
+#+select_multiple_rails_link: <a href="https://github.com/krazedkrish/select-multiple-rails" target="_blank">gem for rails 4</a>
+#+image: <div class="text-center"><a href="http://krazedkrish.com/select-multiple" target="_blank"><img src="/blog/img/blog/select-multiple.png" alt="an screenshot for select-multiple" /></a></div>
+#+caption: <a href="http://krazedkrish.com/select-multiple" target="_blank"><span class="caption text-muted"> Check it out.</span></a>
+{{ page.select_multiple_link }} is a user-friendlier drop-in replacement for the standard *<select>* with multiple attribute activated.
+It is a jquery plugin. The source code is fully open source, avaliable under the MIT license.
+
+It has a good design with check mark instead of that irritating traditional checkboxes. It works in an unobtrustive fashion.
+
+You can use some callback functions, for example to show alert messages when the items are selected. 
+
+And there is one more thing you would like about select multiple. I has {{ page.select_multiple_rails_link }} as well. 
+
+{{ page.image }}
+{{ page.caption }}
