@@ -8,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="Shalil Awaley">
 
-    <title>Select Multiple</title>
+    <title>Fun using pundit gem on Rails</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/2015/08/14/select-multiple/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2015/08/16/fun-using-pundit-on-rails/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -81,11 +81,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Select Multiple</h1>
+                    <h1>Fun using pundit gem on Rails</h1>
                     
-                    <h2 class="post-subheading">An awesome user-friendlier drop-in replacement for the standard <b>&#60;select&#62;</b>.</h2>
+                    <h2 class="post-subheading">Implementing ACL (Access control List) using pundit gem on Rails</h2>
                     
-                    <span class="meta">Posted by krazedkrish on August 14, 2015</span>
+                    <span class="meta">Posted by krazedkrish on August 16, 2015</span>
                 </div>
             </div>
         </div>
@@ -101,23 +101,37 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <p><a href="http://krazedkrish.com/select-multiple" target="_blank">Select Multiple</a> is a user-friendlier drop-in replacement for the standard <b>&lt;select&gt;</b> with multiple attribute activated.
-  It is a jquery plugin. The source code is fully open source, avaliable under the MIT license.</p>
-<p>It has a good design with check mark instead of that irritating traditional checkboxes. It works in an unobtrustive fashion.</p>
-<p>You can use some callback functions, for example to show alert messages when the items are selected.</p>
-<p>And there is one more thing you would like about select multiple. I has <a href="https://github.com/krazedkrish/select-multiple-rails" target="_blank">gem for rails 4</a> as well.</p>
-<p><div class="text-center"><a href="http://krazedkrish.com/select-multiple" target="_blank"><img src="/blog/img/blog/select-multiple.png" alt="an screenshot for select-multiple" /></a></div>
-  <a href="http://krazedkrish.com/select-multiple" target="_blank"><span class="caption text-muted"> Check it out.</span></a></p>
+                <p>While working on <a href="http://emitii.com/" target="_blank">Emitii.com</a> project in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a>, I got assigned the ACL(Access Controll List) task. After an android app using Ruboto, I knew implementing ACL would be the next fun project. Imaging, planing whole bunch access levels, and controlling the access. The superior person would be able to add, view and modify any thing, but the inferior one has only a limited view. Well, I first designed the proposal, with diagrams of hierarchy of access levels and permitted actions, and the usual Use Cases and Activity diagrams. I enjoyed creating diagrams through Xmind and Umbrello. And then added some visual effects using Inkscape.</p>
+<p>My proposed solution was simple, four levels of access, adhering to KISS principle as much as possible. The access level were, one to the vendor, then admin of each company(client) followed by project leads and project members. The permitted actions are exactly the ones you imagined. However, I also included an alternate solution, with an extra feature creating template roles. The use case actors were based on the persona of Software Architects, Solution Architects, Qas. Analyzing and comparing, many factors, the simpler one won.</p>
+<p>Starting on implementing, I did'nt touch the code for next day. Instead, I researched on the right gem. By noon, I narrowed down the gems to</p>
+<p><b><a href="https://github.com/be9/acl9" target="_blank">Acl9</a>:</b></p>
+<ul>
+  <li>It is highly configurable. One can dynamically grant authorization at the object level.</li>
+</ul>
+<p><b><a href="" target="_blank">CanCanCan</a>:</b></p>
+<ul>
+  <li>It is simple to implement, and ease to use.</li>
+</ul>
+<p><b><a href="https://github.com/elabs/pundit/" target="_blank">Pundit</a>:</b></p>
+<ul>
+  <li>Pundit is not limited to ActiveRecord or even an ActiveModel object.</li>
+</ul>
+<p>Though, acl9 felt the right tool for my toolbox, it was not. It's not just about ease of user, readability, write-ability, or time/space cost of code, but amount of time to develop the solution as well. The system was already using Devise for authentication, which acl9 was not compatible with. So, despite CanCanCan simplicity, pundit was chosen for it feature of scope.</p>
+<p>Following the TDD pattern, where you write the spec followed by its solution, there were about a hundred criteria, that I needed include. In this project, a major obstable I faced was, writing specs. The github site of pundit did not have instructions on writing specs for scoping. It might have been end of hope, if I didn't find <a href="http://netzfisch.github.io/ruby/2014/06/26/pundit-rails-authorisation-with-rspec.html " target="_blank">this only site</a> with just the thing I needed.</p>
+<p>Writing specs for Pundit was fun, but I tried covering the specs with least examples possible. By the time, the implementation of policy was complete, there were exactly 99 spec examples just for the policy.</p>
+<h2>5 minutes presentation On Pundit</h2>
+<p><div class="text-center"><iframe src="http://krazedkrish.github.io/presentation_pundit_gem/" frameborder="0" height="400px" width="100%"></iframe></div>
+  <span class="caption text-muted">Lunch and learn presentation in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a></span></p>
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/" data-toggle="tooltip" data-placement="top" title="Fun using pundit gem on Rails">Next Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/blog/2015/08/14/select-multiple/" data-toggle="tooltip" data-placement="top" title="Select Multiple">&larr; Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
