@@ -1,0 +1,38 @@
+#+LAYOUT: post
+#+TITLE: Fun using pundit gem on Rails
+#+SUBTITLE: Implementing ACL (Access control List) using pundit gem on Rails
+#+DATE: 2015-08-16 10:30
+#+liquid: enabled
+#+pundit_link: <a href="https://github.com/elabs/pundit/" target="_blank">Pundit</a>
+#+emitii_link: <a href="http://emitii.com/" target="_blank">Emitii.com</a>
+#+acl_link: <a href="https://github.com/be9/acl9" target="_blank">Acl9</a>
+#+cancancan_link: <a href="" target="_blank">CanCanCan</a>
+#+ei_link: <a href="" target="_blank">Emitii.com</a>
+#+pundit_rspec_link: <a href="http://netzfisch.github.io/ruby/2014/06/26/pundit-rails-authorisation-with-rspec.html " target="_blank">this only site</a>
+#+iframe: <div class="text-center"><iframe src="http://krazedkrish.github.io/presentation_pundit_gem/" frameborder="0" height="400px" width="100%"></iframe></div>
+#+caption: <span class="caption text-muted">Lunch and learn presentation in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a></span>
+#+jyaasa_link: <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a>
+
+While working on {{ page.emitii_link }} project in {{ page.jyaasa_link }}, I got assigned the ACL(Access Controll List) task. After an android app using Ruboto, I knew implementing ACL would be the next fun project. Imaging, planing whole bunch access levels, and controlling the access. The superior person would be able to add, view and modify any thing, but the inferior one has only a limited view. Well, I first designed the proposal, with diagrams of hierarchy of access levels and permitted actions, and the usual Use Cases and Activity diagrams. I enjoyed creating diagrams through Xmind and Umbrello. And then added some visual effects using Inkscape.
+
+My proposed solution was simple, four levels of access, adhering to KISS principle as much as possible. The access level were, one to the vendor, then admin of each company(client) followed by project leads and project members. The permitted actions are exactly the ones you imagined. However, I also included an alternate solution, with an extra feature creating template roles. The use case actors were based on the persona of Software Architects, Solution Architects, Qas. Analyzing and comparing, many factors, the simpler one won.
+
+Starting on implementing, I did'nt touch the code for next day. Instead, I researched on the right gem. By noon, I narrowed down the gems to
+
+    *{{ page.acl_link}}:*
+        - It is highly configurable. One can dynamically grant authorization at the object level.
+    *{{ page.cancancan_link }}:*
+        - It is simple to implement, and ease to use.
+    *{{ page.pundit_link}}:*
+        - Pundit is not limited to ActiveRecord or even an ActiveModel object.
+
+Though, acl9 felt the right tool for my toolbox, it was not. It's not just about ease of user, readability, write-ability, or time/space cost of code, but amount of time to develop the solution as well. The system was already using Devise for authentication, which acl9 was not compatible with. So, despite CanCanCan simplicity, pundit was chosen for it feature of scope.
+
+Following the TDD pattern, where you write the spec followed by its solution, there were about a hundred criteria, that I needed include. In this project, a major obstable I faced was, writing specs. The github site of pundit did not have instructions on writing specs for scoping. It might have been end of hope, if I didn't find {{ page.pundit_rspec_link }} with just the thing I needed.
+
+Writing specs for Pundit was fun, but I tried covering the specs with least examples possible. By the time, the implementation of policy was complete, there were exactly 99 spec examples just for the policy.
+
+** 5 minutes presentation On Pundit
+
+{{ page.iframe }}
+{{ page.caption }}
