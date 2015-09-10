@@ -3,6 +3,7 @@
 #+SUBTITLE: Tricks using ipython and bpython with django
 #+DATE: 2015-09-10 21:48
 #+liquid: enabled
+#+comments: true
 #+ipython_link: <a href="http://ipython.org" target="_blank">IPython</a>
 #+bpython_link: <a href="http://bpython-interpreter.org/" target="_blank">bpython</a>
 #+caption: <span class="caption text-muted"><a href="http://bpython-interpreter.org/screenshots.html" _target="blank">See more screenshots</a></span>

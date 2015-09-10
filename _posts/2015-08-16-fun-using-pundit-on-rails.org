@@ -3,6 +3,7 @@
 #+SUBTITLE: Implementing ACL (Access control List) using pundit gem on Rails
 #+DATE: 2015-08-16 10:30
 #+liquid: enabled
+#+comments: true
 #+pundit_link: <a href="https://github.com/elabs/pundit/" target="_blank">Pundit</a>
 #+emitii_link: <a href="http://emitii.com/" target="_blank">Emitii.com</a>
 #+acl_link: <a href="https://github.com/be9/acl9" target="_blank">Acl9</a>

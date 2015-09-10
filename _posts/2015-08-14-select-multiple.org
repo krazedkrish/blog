@@ -3,6 +3,7 @@
 #+SUBTITLE: An awesome user-friendlier drop-in replacement for the standard <b>&#60;select&#62;</b>.
 #+DATE: 2015-08-14 17:15
 #+liquid: enabled
+#+comments: true
 #+select_multiple_link: <a href="http://krazedkrish.com/select-multiple" target="_blank">Select Multiple</a>
 #+select_multiple_rails_link: <a href="https://github.com/krazedkrish/select-multiple-rails" target="_blank">gem for rails 4</a>
 #+image: <div class="text-center"><a href="http://krazedkrish.com/select-multiple" target="_blank"><img src="/blog/img/blog/select-multiple.png" alt="an screenshot for select-multiple" /></a></div>
