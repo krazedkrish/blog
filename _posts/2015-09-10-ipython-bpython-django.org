@@ -23,6 +23,10 @@ from IPython import embed
 embed()
 {% endhighlight %}
 
+#+BEGIN_QUOTE
+Note: This will not work for older versions of python
+#+END_QUOTE
+
 By the way running python manage.py shell in django starts {{ page.ipython_link }} by default if you have installed it.
 
 ** {{ page.bpython_link }}
@@ -59,6 +63,10 @@ Then insert the following code in ~/.pythonrc!
 :         pass
 : except:
 :     pass
+
+#+BEGIN_QUOTE
+Note: This will not work for older versions of python
+#+END_QUOTE
 
 Now run 
 
