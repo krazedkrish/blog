@@ -8,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="Shalil Awaley">
 
-    <title>IPython, bpython and django</title>
+    <title>Blogging with spree 3-0-stable</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/2015/09/10/ipython-bpython-django/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2015/11/03/blogging-with-spree-3-0-stable/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -81,11 +81,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>IPython, bpython and django</h1>
+                    <h1>Blogging with spree 3-0-stable</h1>
                     
-                    <h2 class="post-subheading">Tricks using ipython and bpython with django</h2>
+                    <h2 class="post-subheading">A blogging extension for spree 3.0 stable</h2>
                     
-                    <span class="meta">Posted by krazedkrish on September 10, 2015</span>
+                    <span class="meta">Posted by krazedkrish on November 3, 2015</span>
                 </div>
             </div>
         </div>
@@ -101,54 +101,43 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <h2><a href="http://ipython.org" target="_blank">IPython</a></h2>
-<p>I am sure you have used <a href="http://ipython.org" target="_blank">IPython</a> for a number of purposes. For interactive shell, usually because it has some enhancements. You would also probable use it for RELP(Read Eval Print Loop). Let me brag about my favourite editor. RELP comes from the names of Lisp primitive function which implements this functionality, just the reason Emacs acts the way you want it to.</p>
-<p>It's a must for a Pythonista to know this. Within any arbitary place in your python code (including django) you can drop into an <a href="http://ipython.org" target="_blank">IPython</a> shell.</p>
+                <h2><a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a></h2>
+<p>(also known as <a href="http://spreecommerce.com/" target="_blank">Spree</a>) is an open source e-commerce solution based on Ruby on Rails. It was created by Sean Schofield in 2007 and has since had over 740 contributors</p>
+<p>If you are using <a href="http://spreecommerce.com/" target="_blank">Spree</a>, you must be wishing to add a blog for you site. Since spree 3.0 you must be struggling to do it.</p>
 <blockquote>
-  <p>You didn't! Try inserting these, in between your codes.</p>
+  <p>Well, I did. And I am writing this blog, so that you dont &#8230;(tl;dw)</p>
 </blockquote>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">embed</span>
-<span class="n">embed</span><span class="p">()</span>
+<p>Here is how you do it:</p>
+<h3>Installation:</h3>
+<ul>
+  <li>Add <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a> to your Gemfile:</li>
+</ul>
+<div class="highlight"><pre><span class="n">gem</span> <span class="s1">&#39;spree_blogging_spree&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s1">&#39;krazedkrish/spree-blogging-spree&#39;</span><span class="p">,</span> <span class="ss">branch</span><span class="p">:</span> <span class="s1">&#39;3-0-stable&#39;</span>
 </pre></div>
-<blockquote>
-  <p>Note: This will not work for older versions of python</p>
-</blockquote>
-<p>By the way running python manage.py shell in django starts <a href="http://ipython.org" target="_blank">IPython</a> by default if you have installed it.</p>
-<h2><a href="http://bpython-interpreter.org/" target="_blank">bpython</a></h2>
-<p>You have used  right! I am sure you loved its auto-complete and syntax highlight features. If you havent used it then, check out the screenshot below.</p>
-<p><center><img src="http://bpython-interpreter.org/images/4.png"></center>
-  <span class="caption text-muted"><a href="http://bpython-interpreter.org/screenshots.html" _target="blank">See more screenshots</a></span></p>
-<p>Did you like it? If you did then you might want to use it for django as well.</p>
-<p>Start by modifying your ~/.bashrc to define a python startup environment variable</p>
-<div class="highlight"><pre><span class="nb">export </span><span class="nv">PYTHONSTARTUP</span><span class="o">=</span>~/.pythonrc
+<ul>
+  <li>Bundle your dependencies and run the installation generator:</li>
+</ul>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+<span class="err">$</span> <span class="n">rake</span> <span class="ss">railties</span><span class="p">:</span><span class="ss">install</span><span class="p">:</span><span class="n">migrations</span>
+<span class="err">$</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
 </pre></div>
-<p>Then insert the following code in ~/.pythonrc!</p>
-<div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span>
-    <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="n">project</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">+</span><span class="s">&quot;.settings&quot;</span><span class="p">)</span>
-    <span class="k">exec</span><span class="p">(</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s"> import settings&quot;</span><span class="o">%</span><span class="n">project</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Imported django settings&#39;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">exec_strs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s">.models import *&quot;</span><span class="o">%</span><span class="n">apps</span> <span class="k">for</span> <span class="n">apps</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span> <span class="p">]</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">exec_strs</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">exec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-</pre></div>
-<blockquote>
-  <p>Note: This will not work for older versions of python</p>
-</blockquote>
-<p>Now run</p>
-<div class="highlight"><pre><span class="nv">$ </span><span class="nb">exec</span> <span class="nv">$SHELL</span>
-</pre></div>
-<p>From now, when you go to the django project folder(where manage.py resides) run <a href="http://bpython-interpreter.org/" target="_blank">bpython</a> instead of python manage.py shell</p>
+<h3>Alternatives:</h3>
+<p>Several other contributors have forked and added spree 3-0 stable compatibility. Here are some alternative fork you might wanna check:</p>
+<ul>
+  <li><a href="https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable">https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
+  <li><a href="https://github.com/coalla/spree-blogging-spree/tree/3-0-stable">https://github.com/coalla/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/garpit/spree-blogging-spree/tree/3-0-stable">https://github.com/garpit/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable">https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
+</ul>
+<h3>More about <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a></h3>
+<p>The blog is found under <b>/blog</b> on the website font end. Blog entries have fields for title, body, summary, date published, and author. Each blog entry can also have categories and tags associated with it.</p>
+<p>The <a href="http://github.com/spree/spree_editor/">Spree Editor</a> extension can be used to provide a rich text experience when editing the body of a blog entry.</p>
+<p>The author is an instance of <code>Spree.user_class</code>, typically a <code>Spree::User</code>. The author can be selected from users with the blogger role when editing a blog entry in the admin. Some additional fields, including nickname, website URL, and Google Plus URL are added to the user model. Google Authorship information is added to the page head when the Google Plus URL is set.</p>
+<p>There is no commenting system yet. One option for adding comments is to override the <span style="text-decoration:underline;">spree/blog_entries/comments partial</span> and include and external commenting system, such as <a href="http://disqus.com/">Disqus</a>.</p>
+<p>Admin users can preview blog entries before they're made publicly visible.</p>
+<p>Lastly hope you guys contribute and help the blogging site become better.</p>
 
 
                 <hr>
@@ -156,13 +145,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/" data-toggle="tooltip" data-placement="top" title="Fun using pundit gem on Rails">&larr; Previous Post</a>
+                        <a href="/blog/2015/09/10/ipython-bpython-django/" data-toggle="tooltip" data-placement="top" title="IPython, bpython and django">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/" data-toggle="tooltip" data-placement="top" title="Blogging with spree 3-0-stable">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
