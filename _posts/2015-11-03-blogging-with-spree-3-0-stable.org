@@ -1,0 +1,59 @@
+#+LAYOUT: post
+#+TITLE: Blogging with spree 3-0-stable
+#+SUBTITLE: A blogging extension for spree 3.0 stable
+#+DATE: 2015-11-03 12:00
+#+liquid: enabled
+#+comments: true
+#+spreecommerce_link: <a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a>
+#+spree_link: <a href="http://spreecommerce.com/" target="_blank">Spree</a>
+#+blogging_spree_link: <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a>
+#+caption: <span class="caption text-muted"><a href="http://bpython-interpreter.org/screenshots.html" _target="blank">See more screenshots</a></span>
+#+image: <center><img src="http://bpython-interpreter.org/images/4.png"></center>
+
+** {{ page.spreecommerce_link }}
+(also known as {{ page.spree_link }}) is an open source e-commerce solution based on Ruby on Rails. It was created by Sean Schofield in 2007 and has since had over 740 contributors
+
+If you are using {{ page.spree_link }}, you must be wishing to add a blog for you site. Since spree 3.0 you must be struggling to do it.
+
+#+BEGIN_QUOTE
+Well, I did. And I am writing this blog, so that you dont ...(tl;dw)
+#+END_QUOTE
+
+Here is how you do it:
+*** Installation:
+
+- Add {{ page.blogging_spree_link }} to your Gemfile:
+{% highlight ruby%}
+  gem 'spree_blogging_spree', github: 'krazedkrish/spree-blogging-spree', branch: '3-0-stable'
+{% endhighlight %}
+
+- Bundle your dependencies and run the installation generator:
+
+: $ bundle install
+: $ rake railties:install:migrations
+: $ rake db:migrate
+
+*** Alternatives:
+
+Several other contributors have forked and added spree 3-0 stable compatibility. Here are some alternative fork you might wanna check:
+
+- [[https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable][https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable]]
+- [[https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2][https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2]]
+- [[https://github.com/coalla/spree-blogging-spree/tree/3-0-stable][https://github.com/coalla/spree-blogging-spree/tree/3-0-stable]]
+- [[https://github.com/garpit/spree-blogging-spree/tree/3-0-stable][https://github.com/garpit/spree-blogging-spree/tree/3-0-stable]]
+- [[https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable][https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable]]
+- [[https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2][https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2]]
+
+*** More about {{ page.blogging_spree_link }}
+
+The blog is found under */blog* on the website font end. Blog entries have fields for title, body, summary, date published, and author. Each blog entry can also have categories and tags associated with it.
+
+The [[http://github.com/spree/spree_editor/][Spree Editor]] extension can be used to provide a rich text experience when editing the body of a blog entry.
+
+The author is an instance of ~Spree.user_class~, typically a ~Spree::User~. The author can be selected from users with the blogger role when editing a blog entry in the admin. Some additional fields, including nickname, website URL, and Google Plus URL are added to the user model. Google Authorship information is added to the page head when the Google Plus URL is set.
+
+There is no commenting system yet. One option for adding comments is to override the _spree/blog_entries/comments partial_ and include and external commenting system, such as [[http://disqus.com/][Disqus]].
+
+Admin users can preview blog entries before they're made publicly visible.
+
+Lastly hope you guys contribute and help the blogging site become better.
