@@ -18,10 +18,10 @@ It's a must for a Pythonista to know this. Within any arbitary place in your pyt
 You didn't! Try inserting these, in between your codes.
 #+END_QUOTE
 
-{% highlight python %}
+#+BEGIN_SRC python
 from IPython import embed
 embed()
-{% endhighlight %}
+#+END_SRC
 
 #+BEGIN_QUOTE
 Note: This will not work for older versions of python
@@ -39,30 +39,32 @@ You have used {{ page.bpython }} right! I am sure you loved its auto-complete an
 Did you like it? If you did then you might want to use it for django as well.
 
 Start by modifying your ~/.bashrc to define a python startup environment variable
-{% highlight bash %}
+#+BEGIN_SRC sh
 export PYTHONSTARTUP=~/.pythonrc
-{% endhighlight %}
+#+END_SRC
 
 Then insert the following code in ~/.pythonrc!
 
-: try:
-:     import os
-:     import sys
-:     project = os.path.basename( os.getcwd() )
-:     os.environ.setdefault("DJANGO_SETTINGS_MODULE", project+".settings")
-:     exec("from %s import settings"%project)
-:     print('Imported django settings')
-:     try:
-:         exec_strs = ["from %s.models import *"%apps for apps in settings.INSTALLED_APPS ]
-:         for x in exec_strs:
-:             try:
-:                 exec(x)
-:             except:
-:                 pass
-:     except:
-:         pass
-: except:
-:     pass
+#+BEGIN_SRC python
+try:
+    import os
+    import sys
+    project = os.path.basename( os.getcwd() )
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", project+".settings")
+    exec("from %s import settings"%project)
+    print('Imported django settings')
+    try:
+        exec_strs = ["from %s.models import *"%apps for apps in settings.INSTALLED_APPS ]
+        for x in exec_strs:
+            try:
+                exec(x)
+            except:
+                pass
+    except:
+        pass
+except:
+    pass
+#+END_SRC
 
 #+BEGIN_QUOTE
 Note: This will not work for older versions of python
@@ -70,8 +72,8 @@ Note: This will not work for older versions of python
 
 Now run 
 
-{% highlight bash %}
+#+BEGIN_SRC sh
 $ exec $SHELL
-{% endhighlight %}
+#+END_SRC
 
 From now, when you go to the django project folder(where manage.py resides) run {{ page.bpython_link }} instead of python manage.py shell
