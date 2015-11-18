@@ -1,0 +1,191 @@
+#+LAYOUT: post
+#+TITLE: Deploying Spree with ansible
+#+SUBTITLE: Wanna automate your spree deployment on ubuntu in 5 minutes?
+#+DATE: 2015-11-18 17:40
+#+liquid: enabled
+#+comments: true
+#+ansible_website: <a href="http://www.ansible.com/" target="_blank">Ansible</a>
+#+ansible_guide_link: <a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank">Installation:</a>
+#+spreecommerce_link: <a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a>
+#+spree_link: <a href="http://spreecommerce.com/" target="_blank">Spree</a>
+#+kiss_link: <a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank">Keep It Simple, Stupid (KISS)</a>
+#+playbook_link: <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">playbook</a>
+#+ansible_ubuntu_spree_link: <a href="https://guides.spreecommerce.com/developer/ansible-ubuntu.html" target="_blank">official spree guide</a>
+
+** {{ page.ansible_website }}
+According to the website {{ page.ansible_website }} is opensource, simple, agentless and yet powerful. It is an app deployment, configuration management and orchestration - all from one system. And I very much agree.
+
+There are configuration management and provisioning tool, similar to Chef, Puppet or Salt.
+
+#+BEGIN_QUOTE
+But then why ansible?
+
+{{ page.kiss_link }}
+#+END_QUOTE
+
+Ok, so how to begin? Here is how you do it:
+*** {{ page.ansible_guide_link }} Installation:
+
+- Archlinux
+ 
+  #+BEGIN_SRC sh
+  $ sudo pacman -S ansible
+  #+END_SRC
+
+- Ubuntu
+
+  To configure the PPA on your machine and install ansible run these commands:
+
+  #+BEGIN_SRC sh
+  $ sudo apt-get install software-properties-common
+  $ sudo apt-add-repository ppa:ansible/ansible
+  $ sudo apt-get update
+  $ sudo apt-get install ansible
+  #+END_SRC
+
+- Install using pip
+
+  #+BEGIN_SRC sh
+  $ sudo pip install ansible
+  #+END_SRC
+
+*** Configuring {{ page.playbook_link}}
+#+BEGIN_QUOTE
+Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.
+#+END_QUOTE
+
+Basically a playbook has
+- tasks:
+  that we run
+- handlers:
+  that tasks run
+- files:
+  that we copy to server
+- templates: 
+  that are files with variables
+- variables:
+  that we modify to deploy different site in different servers
+
+There are other terms like roles, meta, vault, facts, etc that you would be interested to learn for further knowlege.
+
+#+BEGIN_QUOTE
+Are we going to configure all these by ourselves?
+
+No, lets keep it DDIA (Don't Do It Again)
+#+END_QUOTE
+
+So, someone has already done that. Prepared the templates, tasks, etc, and we will just customize the variables. Here is the playbook that spreecommerce suggests: [[https://github.com/radar/ansible-rails-app][ansible-rails-app]]
+
+Now, we clone it. Its going to install:
+
+- Ruby 2.1
+- PostgreSQL
+- nginx
+- Puma (jungle)
+
+All we have to do is:
+1) Change the app name and deploy directory in vars/defaults.yml.
+   vars/defaults.yml
+
+  #+BEGIN_SRC ruby
+  ## webapp
+  
+  webserver_name: spree.krazedkrish.com
+  deploy_directory: /data/spree
+  app_name: krazedkrish
+  
+  ## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src
+  rubyTmpDir: /usr/local/src
+  rubyUrl: http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.0.tar.gz
+  rubyCompressedFile: ruby-2.1.0.tar.gz
+  rubyName: ruby-2.1.0
+  tmpRubyPath: "{{rubyTmpDir}}/{{rubyName}}"
+  #+END_SRC
+  
+  Make sure you update the variables webserver_name, deploy_directory, and app_name. You might also want to update the ruby variables, if you are using different version of ruby.
+
+2) Rename hosts.example to hosts and change it to your hosts. For example if you deployment host ip is 192.168.56.101. Insert the ip in the host file
+  #+BEGIN_SRC
+  192.168.56.101
+  #+END_SRC
+
+Note: If you want to understand some details of the playbook, you can check out the {{ page.ansible_ubuntu_spree_link }}.
+
+*** Deploy ansible playbook
+First, set up key-based authentication on the server so we are not asked for our password:
+
+#+BEGIN_SRC sh
+$ ssh-copy-id -i ~/.ssh/id_rsa root@spree.example.com
+#+END_SRC
+
+Then run ansible playbook to install ruby, followed by deploy, postgresql and nginx.
+
+#+BEGIN_SRC sh
+$ ansible-playbook ruby-webapp.yml -t ruby,deploy,postgresql,nginx -i hosts
+#+END_SRC
+
+*** Capistrano Deploy
+
+Add capistrano gem to Gemfile 
+
+#+BEGIN_SRC ruby
+group :development do
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+end
+#+END_SRC
+
+Then run bundle install and set up Capistrano within our application by running this command:
+
+#+BEGIN_SRC sh
+$ bundle install
+$ cap install
+#+END_SRC
+
+Now, the following lines need to be uncommented in the Capfile.
+#+BEGIN_SRC ruby
+require 'capistrano/bundler'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+#+END_SRC
+
+Next, the capistrano needs to be configured. I suggest you copy the deploy.rb from [[https://github.com/radar/ansible-rails-app][ansible-rails-app]] to config/deploy.rb. The following parameters should configured and ssh forward options should be added.
+#+BEGIN_SRC ruby
+set :application, 'krazedkrish'
+set :repo_url, 'git@github.com:krazedkrish/krazedkrish.git'
+set :deploy_to, '/home/deploy/www/krazedkrish'
+...
+...
+set :ssh_options, {:forward_agent => true}
+#+END_SRC
+
+Then configure config/deploy/production.rb to point to the correct server, and finally run this command to deploy:
+
+#+BEGIN_SRC sh
+$ bundle exec cap production deploy
+#+END_SRC
+
+One of the final steps, the one that restarts Puma, will probably fail because we have not yet set up Puma on the server. We can rectify this by setting that up on the server using Ansible within the ansible-rails-app directory:
+
+#+BEGIN_SRC sh
+$ ansible-playbook ruby-webapp.yml -t puma
+#+END_SRC
+
+Now run the deploy command again
+
+#+BEGIN_SRC sh
+$ bundle exec cap production deploy
+#+END_SRC
+
+It succeed congratulations. Now to deploy, updated code next time all you have to do is ... You know it right.
+
+#+BEGIN_SRC sh
+$ bundle exec cap production deploy
+#+END_SRC
+
+#+BEGIN_QUOTE
+So, deploying with Ansible is fun right. So, if you like is make sure you star it.
+
+[[https://github.com/ansible/ansible][https://github.com/ansible/ansible]]
+#+END_QUOTE
