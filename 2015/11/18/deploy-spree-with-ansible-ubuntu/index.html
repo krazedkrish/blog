@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Shalil Awaley">
+
+    <title>Deploying Spree with ansible</title>
+
+    <link rel="canonical" href="http://krazedkrish.com/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/landing-page.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/blog/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="/blog/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+	<body id="index">
+		<header id="blog">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="http://krazedkrish.com#home">krazedkrish</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="page-scroll" href="/#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/#recent">Recent Works</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/#contact">Contact</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/projects">Projects</a>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+</header>
+        <div class="post-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Deploying Spree with ansible</h1>
+                    
+                    <h2 class="post-subheading">Wanna automate your spree deployment on ubuntu in 5 minutes?</h2>
+                    
+                    <span class="meta">Posted by krazedkrish on November 18, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <h2><a href="http://www.ansible.com/" target="_blank">Ansible</a></h2>
+<p>According to the website <a href="http://www.ansible.com/" target="_blank">Ansible</a> is opensource, simple, agentless and yet powerful. It is an app deployment, configuration management and orchestration - all from one system. And I very much agree.</p>
+<p>There are configuration management and provisioning tool, similar to Chef, Puppet or Salt.</p>
+<blockquote>
+  <p>But then why ansible?</p>
+  <p><a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank">Keep It Simple, Stupid (KISS)</a></p>
+</blockquote>
+<p>Ok, so how to begin? Here is how you do it:</p>
+<h3><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank">Installation:</a> Installation:</h3>
+<ul>
+  <li>Archlinux
+<div class="highlight"><pre><span class="nv">$ </span>sudo pacman -S ansible
+</pre></div>
+  </li>
+  <li>Ubuntu
+    <p>To configure the PPA on your machine and install ansible run these commands:</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install software-properties-common
+<span class="nv">$ </span>sudo apt-add-repository ppa:ansible/ansible
+<span class="nv">$ </span>sudo apt-get update
+<span class="nv">$ </span>sudo apt-get install ansible
+</pre></div>
+  </li>
+  <li>Install using pip
+<div class="highlight"><pre><span class="nv">$ </span>sudo pip install ansible
+</pre></div>
+  </li>
+</ul>
+<h3>Configuring <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">playbook</a></h3>
+<blockquote>
+  <p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
+</blockquote>
+<p>Basically a playbook has</p>
+<ul>
+  <li>tasks:
+    that we run</li>
+  <li>handlers:
+    that tasks run</li>
+  <li>files:
+    that we copy to server</li>
+  <li>templates:
+    that are files with variables</li>
+  <li>variables:
+    that we modify to deploy different site in different servers</li>
+</ul>
+<p>There are other terms like roles, meta, vault, facts, etc that you would be interested to learn for further knowlege.</p>
+<blockquote>
+  <p>Are we going to configure all these by ourselves?</p>
+  <p>No, lets keep it DDIA (Don't Do It Again)</p>
+</blockquote>
+<p>So, someone has already done that. Prepared the templates, tasks, etc, and we will just customize the variables. Here is the playbook that spreecommerce suggests: <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a></p>
+<p>Now, we clone it. Its going to install:</p>
+<ul>
+  <li>Ruby 2.1</li>
+  <li>PostgreSQL</li>
+  <li>nginx</li>
+  <li>Puma (jungle)</li>
+</ul>
+<p>All we have to do is:</p>
+<ol>
+  <li>Change the app name and deploy directory in vars/defaults.yml.
+    vars/defaults.yml
+<div class="highlight"><pre><span class="c1">## webapp</span>
+
+<span class="ss">webserver_name</span><span class="p">:</span> <span class="n">spree</span><span class="o">.</span><span class="n">krazedkrish</span><span class="o">.</span><span class="n">com</span>
+<span class="ss">deploy_directory</span><span class="p">:</span> <span class="sr">/data/s</span><span class="n">pree</span>
+<span class="ss">app_name</span><span class="p">:</span> <span class="n">krazedkrish</span>
+
+<span class="c1">## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src</span>
+<span class="ss">rubyTmpDir</span><span class="p">:</span> <span class="sr">/usr/</span><span class="n">local</span><span class="o">/</span><span class="n">src</span>
+<span class="ss">rubyUrl</span><span class="p">:</span> <span class="ss">http</span><span class="p">:</span><span class="sr">//</span><span class="n">cache</span><span class="o">.</span><span class="n">ruby</span><span class="o">-</span><span class="n">lang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="ss">rubyCompressedFile</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="ss">rubyName</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+<span class="ss">tmpRubyPath</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span>
+</pre></div>
+    <p>Make sure you update the variables webserver_name, deploy_directory, and app_name. You might also want to update the ruby variables, if you are using different version of ruby.</p>
+  </li>
+  <li>Rename hosts.example to hosts and change it to your hosts. For example if you deployment host ip is 192.168.56.101. Insert the ip in the host file
+<div class="highlight"><pre>192.168.56.101
+</pre></div>
+  </li>
+</ol>
+<p>Note: If you want to understand some details of the playbook, you can check out the <a href="https://guides.spreecommerce.com/developer/ansible-ubuntu.html" target="_blank">official spree guide</a>.</p>
+<h3>Deploy ansible playbook</h3>
+<p>First, set up key-based authentication on the server so we are not asked for our password:</p>
+<div class="highlight"><pre><span class="nv">$ </span>ssh-copy-id -i ~/.ssh/id_rsa root@spree.example.com
+</pre></div>
+<p>Then run ansible playbook to install ruby, followed by deploy, postgresql and nginx.</p>
+<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t ruby,deploy,postgresql,nginx -i hosts
+</pre></div>
+<h3>Capistrano Deploy</h3>
+<p>Add capistrano gem to Gemfile</p>
+<div class="highlight"><pre><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano-bundler&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1.2&#39;</span>
+<span class="k">end</span>
+</pre></div>
+<p>Then run bundle install and set up Capistrano within our application by running this command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle install
+<span class="nv">$ </span>cap install
+</pre></div>
+<p>Now, the following lines need to be uncommented in the Capfile.</p>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;capistrano/bundler&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/assets&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/migrations&#39;</span>
+</pre></div>
+<p>Next, the capistrano needs to be configured. I suggest you copy the deploy.rb from <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a> to config/deploy.rb. The following parameters should configured and ssh forward options should be added.</p>
+<div class="highlight"><pre><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">&#39;krazedkrish&#39;</span>
+<span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">&#39;git@github.com:krazedkrish/krazedkrish.git&#39;</span>
+<span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">&#39;/home/deploy/www/krazedkrish&#39;</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="n">set</span> <span class="ss">:ssh_options</span><span class="p">,</span> <span class="p">{</span><span class="ss">:forward_agent</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span>
+</pre></div>
+<p>Then configure config/deploy/production.rb to point to the correct server, and finally run this command to deploy:</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<p>One of the final steps, the one that restarts Puma, will probably fail because we have not yet set up Puma on the server. We can rectify this by setting that up on the server using Ansible within the ansible-rails-app directory:</p>
+<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t puma
+</pre></div>
+<p>Now run the deploy command again</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<p>It succeed congratulations. Now to deploy, updated code next time all you have to do is &#8230; You know it right.</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<blockquote>
+  <p>So, deploying with Ansible is fun right. So, if you like is make sure you star it.</p>
+  <p><a href="https://github.com/ansible/ansible">https://github.com/ansible/ansible</a></p>
+</blockquote>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/" data-toggle="tooltip" data-placement="top" title="Blogging with spree 3-0-stable">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<br />
+
+<!-- Disqus Comment -->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    // Required: on line below, replace text in quotes with your forum shortname
+    var disqus_shortname = 'krazedkrish';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+    </div>
+</div>
+
+		<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a class="social" href="https://twitter.com/krazedkrish">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-twitter fa-fw"></i> -->
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="social" href="https://github.com/krazedkrish">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-github fa-fw"></i> -->
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="social" href="https://np.linkedin.com/pub/shalil-awaley/69/618/b21">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-linkedin fa-fw"></i> -->
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted text-center">Copyright &copy; krazedkrish 2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+		<!-- jQuery Version 1.11.0 -->
+<script src="/blog/js/jquery-1.11.0.js"></script>
+
+<!-- Plugin JavaScript -->
+    <script src="/blog/js/jquery.easing.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/blog/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/blog/js/landing-page.js"></script>
+
+<!-- Contact Validation JavaScript -->
+<script src="/blog"></script>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66064598-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	</body>
+</html>
