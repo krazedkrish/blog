@@ -24,7 +24,7 @@ But then why ansible?
 #+END_QUOTE
 
 Ok, so how to begin? Here is how you do it:
-*** {{ page.ansible_guide_link }} Installation:
+*** {{ page.ansible_guide_link }}
 
 - Archlinux
  
