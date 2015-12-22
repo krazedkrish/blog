@@ -1,0 +1,66 @@
+#+LAYOUT: post
+#+TITLE: How to begin emacs
+#+SUBTITLE: Want to configure the most awesome editor in minutes
+#+DATE: 2015-11-18 17:40
+#+liquid: enabled
+#+comments: true
+#+tenessentials_link: <a href="http://web.psung.name/emacstips/essential.html">these 10 Essentials</a>
+#+tenminyoutube_video: <iframe width="420" height="315" src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1"></iframe>
+#+elpa_link: <a href="http://www.emacswiki.org/emacs/ELPA" target="_blank">elpa</a>
+#+melpa_link: <a href="https://melpa.org/#/" target="_blank">melpa</a>
+#+quelpa_link: <a href="https://github.com/quelpa/quelpa" target="_blank">quelpa</a>
+#+elget_link: <a href="https://github.com/dimitri/el-get" target="_blank">el-get</a>
+#+emacskicker_link: <a href="https://github.com/dimitri/emacs-kicker/" target="_blank">https://github.com/dimitri/emacs-kicker/</a>
+#+my_emacskicker_link: <a href="https://github.com/krazedkrish/emacs-kicker/" target="_blank">mine [https://github.com/krazedkrish/emacs-kicker/]</a>
+#+spacemacs_link: <a href="https://github.com/syl20bnr/spacemacs" target="_blank">Spacemacs</a>
+
+You have already installed the most awesome editor called emacs. And you have just opened it disappointed to find that it has nothing.
+
+If you are reading this blog then /Congratulations! You will surely understand why emacs is awesome, unlike the others who gave up on emacs after first try./
+
+** How to begin?
+This is the question that i get asked a lot. But first
+
+*** Before you begin...
+Well, you need to have some background knowledge, I suggest you read {{page.tenessentials_link}} first.
+
+#+BEGIN_QUOTE
+You also need a basic understand of buffer, emacs, major mode, minor modes, etc you can learn from the video below
+
+{{ page.tenminyoutube_video }}
+#+END_QUOTE
+
+Ok, now back to how to begin? Here is how you do it:
+*** How to begin?
+You need to configure emacs in ~/.emacs.d/init.el. What you do is, you include the packages which are the modes and you configure them (like set keybindings, font, width, etc)
+
+There are lots of tools like {{page.elpa_link}}, {{page.melpa_link}}, {{page.quelpa_link}}. But what is suggest you is {{page.elget_link}}. Lets do it the easy way.
+
+*** Easy Way
+
+**** Step 1
+We are going to use the {{page.emacskick_link}}, so I suggest you fork it in github and clone it. You can fork {{page.my_emacskicker_link}} as well. If your are a pythonista or rubyist you can my clone python, or ruby branch respectively.
+
+#+BEGIN_SRC
+$ # here is how you configure mine
+$ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
+#+END_SRC
+
+**** Step 2
+Open emacs, all the packages are going to be installed you might need to restart emacs later.
+
+**** Step 3
+Open ~/.emacs.d/init.el and insert the extra packages you want below the following lines, then restart again:
+#+BEGIN_SRC
+;; now set our own packages
+(setq
+ my:el-get-packages
+ '(el-get				; el-get is self-hosting
+#+END_SRC
+
+*** More Easier Way
+There is actually a more easier way, which i actually don't suggest you unless you are a vim user. The more easier way is to use {{page.spacemacs_link}}.
+
+#+BEGIN_QUOTE
+Enjoy you new emacs
+#+END_QUOTE
