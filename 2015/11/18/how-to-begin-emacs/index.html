@@ -8,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="Shalil Awaley">
 
-    <title>My Blog</title>
+    <title>How to begin emacs</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2015/11/18/how-to-begin-emacs/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -76,118 +76,112 @@
         <!-- /.container -->
     </nav>
 </header>
-        <div class="page-header">
-
-  <div class="container">
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-message">
-          <h1>My Blog</h1>
-          <hr class="small">
-          <h3>random thoughts of my mind</h3>
+        <div class="post-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>How to begin emacs</h1>
+                    
+                    <h2 class="post-subheading">Want to configure the most awesome editor in minutes</h2>
+                    
+                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-  </div>
-  <!-- /.container -->
-
+    <!-- /.container -->
 </div>
 <!-- /.page-header -->
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			
-<div class="post-preview">
-    <a href="/blog/2015/11/18/how-to-begin-emacs/">
-        <h2 class="post-title">            How to begin emacs
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Want to configure the most awesome editor in minutes
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
-        <h2 class="post-title">            Deploying Spree with ansible
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Wanna automate your spree deployment on ubuntu in 5 minutes?
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<div class="post-preview">
-    <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
-        <h2 class="post-title">            Blogging with spree 3-0-stable
-        </h2>
-        
-        <h3 class="post-subtitle">
-            A blogging extension for spree 3.0 stable
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 3, 2015</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/blog/2015/09/10/ipython-bpython-django/">
-        <h2 class="post-title">            IPython, bpython and django
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Tricks using ipython and bpython with django
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on September 10, 2015</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/blog/2015/08/16/fun-using-pundit-on-rails/">
-        <h2 class="post-title">            Fun using pundit gem on Rails
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Implementing ACL (Access control List) using pundit gem on Rails
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on August 16, 2015</p>
-</div>
-<hr>
+                <p>You have already installed the most awesome editor called emacs. And you have just opened it disappointed to find that it has nothing.</p>
+<p>If you are reading this blog then <i>Congratulations! You will surely understand why emacs is awesome, unlike the others who gave up on emacs after first try.</i></p>
+<h2>How to begin?</h2>
+<p>This is the question that i get asked a lot. But first</p>
+<h3>Before you begin&#8230;</h3>
+<p>Well, you need to have some background knowledge, I suggest you read <a href="http://web.psung.name/emacstips/essential.html">these 10 Essentials</a> first.</p>
+<blockquote>
+  <p>You also need a basic understand of buffer, emacs, major mode, minor modes, etc you can learn from the video below</p>
+  <p><iframe width="420" height="315" src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1"></iframe></p>
+</blockquote>
+<p>Ok, now back to how to begin? Here is how you do it:</p>
+<h3>How to begin?</h3>
+<p>You need to configure emacs in ~/.emacs.d/init.el. What you do is, you include the packages which are the modes and you configure them (like set keybindings, font, width, etc)</p>
+<p>There are lots of tools like <a href="http://www.emacswiki.org/emacs/ELPA" target="_blank">elpa</a>, <a href="https://melpa.org/#/" target="_blank">melpa</a>, <a href="https://github.com/quelpa/quelpa" target="_blank">quelpa</a>. But what is suggest you is <a href="https://github.com/dimitri/el-get" target="_blank">el-get</a>. Lets do it the easy way.</p>
+<h3>Easy Way</h3>
+<h4>Step 1</h4>
+<p>We are going to use the , so I suggest you fork it in github and clone it. You can fork <a href="https://github.com/krazedkrish/emacs-kicker/" target="_blank">mine [https://github.com/krazedkrish/emacs-kicker/]</a> as well. If your are a pythonista or rubyist you can my clone python, or ruby branch respectively.</p>
+<div class="highlight"><pre>$ # here is how you configure mine
+$ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
+</pre></div>
+<h4>Step 2</h4>
+<p>Open emacs, all the packages are going to be installed you might need to restart emacs later.</p>
+<h4>Step 3</h4>
+<p>Open ~/.emacs.d/init.el and insert the extra packages you want below the following lines, then restart again:</p>
+<div class="highlight"><pre>;; now set our own packages
+(setq
+ my:el-get-packages
+ &#39;(el-get				; el-get is self-hosting
+</pre></div>
+<h3>More Easier Way</h3>
+<p>There is actually a more easier way, which i actually don't suggest you unless you are a vim user. The more easier way is to use <a href="https://github.com/syl20bnr/spacemacs" target="_blank">Spacemacs</a>.</p>
+<blockquote>
+  <p>Enjoy you new emacs</p>
+</blockquote>
 
 
-<!-- Pager -->
+                <hr>
 
-<ul class="pager">
-    
-    
-    <li class="next">
-        <a href="/blog/page2">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/" data-toggle="tooltip" data-placement="top" title="Deploying Spree with ansible">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
 
+            </div>
+        </div>
+    </div>
+</article>
 
-		</div>
-	</div>
-</div>
 <br />
+
+<!-- Disqus Comment -->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    // Required: on line below, replace text in quotes with your forum shortname
+    var disqus_shortname = 'krazedkrish';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+    </div>
+</div>
+
 		<!-- Footer -->
 <footer>
     <div class="container">
