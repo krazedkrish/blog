@@ -1,6 +1,7 @@
 #+LAYOUT: post
 #+TITLE: Fun using pundit gem on Rails
 #+SUBTITLE: Implementing ACL (Access control List) using pundit gem on Rails
+#+DESCRIPTION: Implementing ACL (Access control List) using pundit gem on Rails
 #+DATE: 2015-08-16 10:30
 #+liquid: enabled
 #+comments: true

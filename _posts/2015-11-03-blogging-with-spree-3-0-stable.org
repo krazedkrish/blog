@@ -1,6 +1,7 @@
 #+LAYOUT: post
 #+TITLE: Blogging with spree 3-0-stable
 #+SUBTITLE: A blogging extension for spree 3.0 stable
+#+DESCRIPTION: A blogging extension for spree 3.0 stable
 #+DATE: 2015-11-03 12:00
 #+liquid: enabled
 #+comments: true
