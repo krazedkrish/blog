@@ -1,0 +1,129 @@
+#+LAYOUT: post
+#+TITLE: Awesome Emacs plugins you might not know.
+#+SUBTITLE: You might not have heard of these cool plugins.
+#+DESCRIPTION: new and awesome unheard emacs plugins
+#+DATE: 2015-12-27 11:20
+#+liquid: enabled
+#+comments: true
+#+highlight_symbol_link: <a href="https://github.com/nschum/highlight-symbol.el" target="_blank">highlight-symbol</a>
+#+highlight_symbol_img: <a href="https://github.com/nschum/highlight-symbol.el" target="_blank"><div class="text-center"><hr/><img src="https://nschum.de/src/emacs/highlight-symbol/highlight-symbol.png" alt="Highlight Symbol an awesome highlight symbol plugin" /><span class="caption text-muted">Highlight Symbol screenshot.</span></div></a>
+#+flx_ido_link: <a href="https://github.com/lewang/flx" target="_blank">flx-ido</a>
+#+lewang_link: <a href="https://github.com/lewang/flx" target="_blank">lewang</a>
+#+flx_ido_youtube_video: <div class="text-center"><iframe width="420" height="315" src="https://www.youtube.com/embed/_swuJ1RuMgk?autoplay=0&autohide=1"></iframe></div>
+#+hideshowvis_link: <a href="http://www.emacswiki.org/emacs/hideshowvis.el" target="_blank">hideshowvis</a>
+#+download_hideshowvis_link: <a href="http://www.emacswiki.org/emacs/download/hideshowvis.el" target="_blank">http://www.emacswiki.org/emacs/download/hideshowvis.el</a>
+#+mode_icons_link: <a href="http://github.com/rhoit/mode-icons" target="_blank">mode-icons</a>
+#+original_mode_icons_link: <a href="https://github.com/ryuslash/mode-icons" target="_blank">ryuslash's mode-icons</a>
+#+powerline_link: <a href="http://www.emacswiki.org/emacs/PowerLine" target="_blank">Emacs Powerline</a>
+#+milkypostman_powerline_link: <a href="https://github.com/milkypostman/powerline" target="_blank">Milkypostman's Powerline</a>
+#+vim_powerline_link: <a href="https://github.com/Lokaltog/vim-powerline" target="_blank">vim-powerline</a>
+#+evilpowerline_screenshot_img: <div class="text-center"><hr/><a href="https://github.com/laynor/emacs-conf/blob/master/packages/sm-package-powerline.el" target="_blank"><img src="http://www.emacswiki.org/pics/static/PowerlineEvilScreenshot" alt="Cool Emacs Evil Powerline Screenshot" /><span class="caption text-muted">Evil Powerline screenshot.</span></a></div>
+#+rhoit_dot_emacs_link: <a href="https://github.com/rhoit/dot-emacs" target="_blank">rhoit's dot-emacs configuration</a>
+#+rhoit_link: <a href="https://github/rhoit">rhoit</a>
+#+rhoit_powerline_screenshot_img: <div class="text-center"><hr/><a href="https://pbs.twimg.com/media/CW7Rw4NUEAECRDH.png" target="_blank"><img src="https://pbs.twimg.com/media/CW7Rw4NUEAECRDH.png" alt="Cool Emacs Evil Powerline Screenshot" /><span class="caption text-muted">Rhoits Mode Icons + Powerline screenshot.</span></a></div>
+#+rhoit_modeline_config_link: <a href="https://github.com/rhoit/dot-emacs/blob/master/config/modeline.cfg.el" target="_blank">modeline.cfg-el</a>
+#+spacemacs_link: <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>
+
+You have already heard of and used popular plugins like projectile, magit, flymakes, smmooth-scroll, yasnippit, highlight-indentation, highlight-parentheses, sublimity, neotree and ofcourse <lang>-mode. So, what almost all emacs users use them.
+
+Ok, now let me mention some cool and awesome emacs plugins and modes.
+
+* 5 cool emacs plugins
+
+*** 1. {{ page.highlight_symbol_link}}
+Highlight-symbol is one of the coolest emacs mode you will be using frequently one you know what it does. Ok, so what does it do ? Well, it is useful for automatic and manual symbol highlighting for searched text/regex/phrases and replace them.
+
+Here is the screenshot from the official highlight-symbol page.
+
+{{ page.highlight_symbol_img }}
+
+#+BEGIN_SRC elisp
+;; highlight-sysmbol configurations
+(global-set-key [(control f3)] 'highlight-symbol-at-point)
+(global-set-key [f3] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+(global-set-key [(control shift f3)] 'unhighlight-regexp)
+(global-set-key [(control shift mouse-1)]
+                (lambda (event)
+                  (interactive "e")
+                  (save-excursion
+                    (goto-char (posn-point (event-start event)))
+                    (highlight-symbol-at-point))))
+#+END_SRC
+
+*** 2. {{ page.flx_ido_link }}
+{{ page.flx_ido_link }} is a better alternative for the default ido. Unlike, default ido and emacs-helm search and others, it matches both abbreviations and substrings and their combimations. I guess the right phrase is /awesome fuzzy matching in emacs/. It uses the flx matching engine coded by {{ page.lewang_link }} himself. It is available by default in MELPA and Mermalade. So, el-get users will have to add it manually. By the way, {{ page.spacemacs_link}} users might not know that it is already avaliable in {{ page.spacemacs_link}}, you just need to add it in in the *~/.spacemacs* configurations.
+
+In the github site, there is demo for helm support, all though it has not been added yet. Well, I have been eagerly waiting for its release.
+
+Here is a Screencast showing rationale and ido workflow
+
+{{ page.flx_ido_youtube_video }}
+
+*** 3. {{ page.hideshowvis_link }}
+
+Its an old code folding emacs plugin under the GNU-GPL 2 license, but still works like a charm. Its minor mode will add little +/- displays to foldable regions in the buffer and to folded regions. It is indented to be used in conjunction with hideshow.el which is a part of GNU Emacs.
+
+You can download it from {{ page.download_hideshowvis_link }}
+
+*** 4. {{ page.mode_icons_link}}
+
+Forked originally from {{page.original_mode_icons_link}} this {{page.mode_icons_link}}-mode is simply cool. It shows mode icons instead of the mode name, if the icon is present. Currently it supports only major modes
+
+Here is the list of supported major modes and the respective icons:
+
+| Modes      | icon                                                                     |
+|------------+--------------------------------------------------------------------------|
+| Coffee     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/coffee.png]] |
+| CSS        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/css.png]]    |
+| Emacs-Lisp | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/emacs.png]]  |
+| Haml       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/haml.png]]   |
+| HTML       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/html.png]]   |
+| JS         | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/js.png]]     |
+| Lisp       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/cl.png]]     |
+| Org-mode   | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/org.png]]    |
+| PHP        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/php.png]]    |
+| Python     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/python.png]] |
+| Ruby       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/ruby.png]]   |
+| SVG        | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/svg.png]]    |
+| Sass       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/sass.png]]   |
+| Scheme     | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/scheme.png]] |
+| Shell      | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/bash.png]]   |
+| Slim       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/slim.png]]   |
+| YAML       | [[https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/yaml.png]]   |
+
+As per the conversation with {{ page.rhoit_link }} he is working on adding the minor mode icons as well.
+
+*** 5. {{ page.powerline_link}}
+
+{{ page.vim_powerline_link }} was said to be very popular, you can find its influence in vim-airline and themes for tmux, bash, zsh, etc. I use it in my laptop, in zsh, tmux and ofcourse emacs.
+
+Here is a screenshot of Powerline with Evil integration
+
+{{ page.evilpowerline_screenshot_img }}
+
+{{ page.milkypostman_powerline_link }} is very popular. I personally like the {{page.spacemacs_link}}'s powerline theme.
+
+If you are thinking of adding {{ page.mode_icons_link }} with {{ page.spacemacs_link}}'s {{page.powerline_link}} and wondering how it looks in normal emacs then look below:
+
+{{ page.rhoit_powerline_screenshot_img }}
+
+So, you want to add it to your emacs. Ok here is how you do it.
+
+#+BEGIN_QUOTE
+*Step 1: Install the {{ page.milkypostman_powerline_link }} mode-line theme*
+
+*Step 2: Download {{ page.rhoit_modeline_config_link }} from {{ page.rhoit_dot_emacs_link }}*
+
+*Step 3: Add load it in your emacs configuration*
+
+#+BEGIN_SRC elisp
+;; In your ~/.emacs.d/init.el
+(load "~/.emacs.d/config/modeline.cfg.el")
+;; ~/.emacs.d/config/modeline.cfg.el is the location of the file
+#+END_SRC
+
+#+END_QUOTE
+
+Ok guys, enjoy these /awesome plugins/ in your emacs.
