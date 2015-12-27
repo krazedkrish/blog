@@ -20,7 +20,7 @@
 #+evilpowerline_screenshot_img: <div class="text-center"><hr/><a href="https://github.com/laynor/emacs-conf/blob/master/packages/sm-package-powerline.el" target="_blank"><img src="http://www.emacswiki.org/pics/static/PowerlineEvilScreenshot" alt="Cool Emacs Evil Powerline Screenshot" /><span class="caption text-muted">Evil Powerline screenshot.</span></a></div>
 #+rhoit_dot_emacs_link: <a href="https://github.com/rhoit/dot-emacs" target="_blank">rhoit's dot-emacs configuration</a>
 #+rhoit_link: <a href="https://github/rhoit">rhoit</a>
-#+rhoit_powerline_screenshot_img: <div class="text-center"><hr/><a href="https://pbs.twimg.com/media/CW7Rw4NUEAECRDH.png" target="_blank"><img src="https://pbs.twimg.com/media/CW7Rw4NUEAECRDH.png" alt="Cool Emacs Evil Powerline Screenshot" /><span class="caption text-muted">Rhoits Mode Icons + Powerline screenshot.</span></a></div>
+#+rhoit_powerline_screenshot_img: <div class="text-center"><hr/><a href="https://raw.githubusercontent.com/rhoit/dot-emacs/dump/screenshot/modline02.png" target="_blank"><img src="https://raw.githubusercontent.com/rhoit/dot-emacs/dump/screenshot/modline02.png" alt="Rhoit's Cool Emacs Powerline Screenshot" /><span class="caption text-muted">Rhoits Mode Icons + Powerline screenshot.</span></a></div>
 #+rhoit_modeline_config_link: <a href="https://github.com/rhoit/dot-emacs/blob/master/config/modeline.cfg.el" target="_blank">modeline.cfg-el</a>
 #+spacemacs_link: <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>
 
