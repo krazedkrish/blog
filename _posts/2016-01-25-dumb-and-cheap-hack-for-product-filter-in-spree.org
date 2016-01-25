@@ -1,0 +1,88 @@
+#+LAYOUT: post
+#+TITLE: Dumb and Cheap Hack for Product Filter in Spree
+#+SUBTITLE: Spree: Feeling lazy, here is how to build easy Product Filters
+#+DESCRIPTION: quick tricks for product filter
+#+DATE: 2016-01-27 21:00
+#+liquid: enabled
+#+comments: true
+#+product_filter_sample_link: <a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">this sample/guide</a>
+#+custom_search_path: <em>/lib/spree/custom_search.rb</em>
+#+config_init_spree: <em>/config/initializers/spree.rb</em>
+#+require_code: <code>require "#{Rails.root}/lib/spree/custom_search"</code>
+#+product_filter_gem_link: <a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">&lt;spree gem&gt;/core/lib/spree/core/product_filters.rb</a>
+#+maxivak_link: <a href="https://gist.github.com/maxivak/cc73b88699c9c6b45a95" target="_blank">https://gist.github.com/maxivak/cc73b88699c9c6b45a95</a>
+#+randerx_link: <a href="https://gist.github.com/Ranger-X/2511088" target="_blank">https://gist.github.com/Ranger-X/2511088</a>
+#+berkes_link: <a href="https://gist.github.com/berkes/1931810" target="_blank">https://gist.github.com/berkes/1931810</a>
+#+killthekitten_link: <a href="https://gist.github.com/killthekitten/4486585" target="_blank">https://gist.github.com/killthekitten/4486585</a>
+
+#+BEGIN_QUOTE
+Disclaimer:
+
+This is not a standard way to create product filter. But its quick and it works.
+
+If you want to follow the standard follow {{page.product_filter_sample_link}}.
+#+END_QUOTE
+
+
+* Quick tricks for Product Filter
+
+Here is how to do it:
+
+**** 1. create {{page.custom_search_path}} file in your project folder
+
+**** 2. add {{page.require_code}} to {{ page.config_init_spree }}
+
+**** 3. create the module for ProductFilters
+
+#+BEGIN_SRC ruby
+module Spree
+  module Core
+    module ProductFilters
+
+    ...
+    # your search scopes here
+    ...
+
+    end
+  end
+end
+#+END_SRC
+
+**** 4. add the search scopes required.
+
+#+BEGIN_SRC ruby
+module Spree
+  module Core
+    module ProductFilters
+
+    # example scope
+    # may be you guys can opitmize/shorten 2 queries in 1
+    # I will be glad, if you include it in comments
+    Spree::Product.add_search_scope :in_taxonomy do |taxonomy|
+      taxons=Spree::Taxonomy.includes(taxons: :products).where(:id=>taxonomy).select(:id).map &:taxon_ids
+      taxons=taxons.flatten
+
+      # the line below will be concatinated to the select query for the product
+      # so you dont have to with "Spree::Product..."
+      in_taxons(taxons)
+    end
+
+    end
+  end
+end
+#+END_SRC
+
+Again, this is not a standard approach. But If all you need is to add one line why follow the standard Product Filter.
+Standards are to ease the development time. What if! not following the standards does less harm and more good, I say:
+
+#+BEGIN_QUOTE
+"Be agile and lazy! Be awesome!!"
+#+END_QUOTE
+
+You dont agree with me. No Problem! Here are some useful reference for you for building standard ones.
+
+- {{ page.product_filter_gem_link }}
+- {{ page.maxivak_link }}
+- {{ page.randerx_link }}
+- {{ page.berkes_link }}
+- {{ page.killthekitten_link }}
