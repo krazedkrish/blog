@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-      <meta name="description" content="configure the most awesome editor in minutes" />
+      <meta name="description" content="quick tricks for product filter" />
     
     <meta name="author" content="Shalil Awaley">
 
-    <title>How to begin emacs</title>
+    <title>Dumb and Cheap Hack for Product Filter in Spree</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/2015/12/22/how-to-begin-emacs/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2016/01/27/dumb-and-cheap-hack-for-product-filter-in-spree/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -84,11 +84,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>How to begin emacs</h1>
+                    <h1>Dumb and Cheap Hack for Product Filter in Spree</h1>
                     
-                    <h2 class="post-subheading">Want to configure the most awesome editor in minutes</h2>
+                    <h2 class="post-subheading">Spree: Feeling lazy, here is how to build easy Product Filters</h2>
                     
-                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on December 22, 2015</span>
+                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on January 27, 2016</span>
                 </div>
             </div>
         </div>
@@ -104,40 +104,62 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <p>You have already installed the most awesome editor called emacs. And you have just opened it disappointed to find that it has nothing.</p>
-<p>If you are reading this blog then <i>Congratulations! You will surely understand why emacs is awesome, unlike the others who gave up on emacs after first try.</i></p>
-<h2>How to begin?</h2>
-<p>This is the question that i get asked a lot. But first</p>
-<h3>Before you begin&#8230;</h3>
-<p>Well, you need to have some background knowledge, I suggest you read <a href="http://web.psung.name/emacstips/essential.html">these 10 Essentials</a> first.</p>
-<blockquote>
-  <p>You also need a basic understand of buffer, emacs, major mode, minor modes, etc you can learn from the video below</p>
-  <p><iframe width="420" height="315" src="https://www.youtube.com/embed/K3_SFerNIeI?autoplay=0&autohide=1"></iframe></p>
+                <blockquote>
+  <p>Disclaimer:</p>
+  <p>This is not a standard way to create product filter. But its quick and it works.</p>
+  <p>If you want to follow the standard follow <a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">this sample/guide</a>.</p>
 </blockquote>
-<p>Ok, now back to how to begin? Here is how you do it:</p>
-<h3>How to begin?</h3>
-<p>You need to configure emacs in ~/.emacs.d/init.el. What you do is, you include the packages which are the modes and you configure them (like set keybindings, font, width, etc)</p>
-<p>There are lots of tools like <a href="http://www.emacswiki.org/emacs/ELPA" target="_blank">elpa</a>, <a href="https://melpa.org/#/" target="_blank">melpa</a>, <a href="https://github.com/quelpa/quelpa" target="_blank">quelpa</a>. But what is suggest you is <a href="https://github.com/dimitri/el-get" target="_blank">el-get</a>. Lets do it the easy way.</p>
-<h3>Easy Way</h3>
-<h4>Step 1</h4>
-<p>We are going to use the , so I suggest you fork it in github and clone it. You can fork <a href="https://github.com/krazedkrish/emacs-kicker/" target="_blank">mine [https://github.com/krazedkrish/emacs-kicker/]</a> as well. If your are a pythonista or rubyist you can my clone python, or ruby branch respectively.</p>
-<div class="highlight"><pre>$ # here is how you configure mine
-$ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
+<h1>Quick tricks for Product Filter</h1>
+<p>Here is how to do it:</p>
+<h4>1. create <em>/lib/spree/custom_search.rb</em> file in your project folder</h4>
+<h4>2. add <code>require "#{Rails.root}/lib/spree/custom_search"</code> to <em>/config/initializers/spree.rb</em></h4>
+<h4>3. create the module for ProductFilters</h4>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Spree</span>
+  <span class="k">module</span> <span class="nn">Core</span>
+    <span class="k">module</span> <span class="nn">ProductFilters</span>
+
+    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+    <span class="c1"># your search scopes here</span>
+    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre></div>
-<h4>Step 2</h4>
-<p>Open emacs, all the packages are going to be installed you might need to restart emacs later.</p>
-<h4>Step 3</h4>
-<p>Open ~/.emacs.d/init.el and insert the extra packages you want below the following lines, then restart again:</p>
-<div class="highlight"><pre>;; now set our own packages
-(setq
- my:el-get-packages
- &#39;(el-get				; el-get is self-hosting
+<h4>4. add the search scopes required.</h4>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Spree</span>
+  <span class="k">module</span> <span class="nn">Core</span>
+    <span class="k">module</span> <span class="nn">ProductFilters</span>
+
+    <span class="c1"># example scope</span>
+    <span class="c1"># may be you guys can opitmize/shorten 2 queries in 1</span>
+    <span class="c1"># I will be glad, if you include it in comments</span>
+    <span class="no">Spree</span><span class="o">::</span><span class="no">Product</span><span class="o">.</span><span class="n">add_search_scope</span> <span class="ss">:in_taxonomy</span> <span class="k">do</span> <span class="o">|</span><span class="n">taxonomy</span><span class="o">|</span>
+      <span class="n">taxons</span><span class="o">=</span><span class="no">Spree</span><span class="o">::</span><span class="no">Taxonomy</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">taxons</span><span class="p">:</span> <span class="ss">:products</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span><span class="o">=&gt;</span><span class="n">taxonomy</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:taxon_ids</span>
+      <span class="n">taxons</span><span class="o">=</span><span class="n">taxons</span><span class="o">.</span><span class="n">flatten</span>
+
+      <span class="c1"># the line below will be concatinated to the select query for the product</span>
+      <span class="c1"># so you dont have to with &quot;Spree::Product...&quot;</span>
+      <span class="n">in_taxons</span><span class="p">(</span><span class="n">taxons</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre></div>
-<h3>More Easier Way</h3>
-<p>There is actually a more easier way, which i actually don't suggest you unless you are a vim user. The more easier way is to use <a href="https://github.com/syl20bnr/spacemacs" target="_blank">Spacemacs</a>.</p>
+<p>Again, this is not a standard approach. But If all you need is to add one line why follow the standard Product Filter.
+  Standards are to ease the development time. What if! not following the standards does less harm and more good, I say:</p>
 <blockquote>
-  <p>Enjoy you new emacs</p>
+  <p>&#8220;Be agile and lazy! Be awesome!!&#8221;</p>
 </blockquote>
+<p>You dont agree with me. No Problem! Here are some useful reference for you for building standard ones.</p>
+<ul>
+  <li><a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">&lt;spree gem&gt;/core/lib/spree/core/product_filters.rb</a></li>
+  <li><a href="https://gist.github.com/maxivak/cc73b88699c9c6b45a95" target="_blank">https://gist.github.com/maxivak/cc73b88699c9c6b45a95</a></li>
+  <li><a href="https://gist.github.com/Ranger-X/2511088" target="_blank">https://gist.github.com/Ranger-X/2511088</a></li>
+  <li><a href="https://gist.github.com/berkes/1931810" target="_blank">https://gist.github.com/berkes/1931810</a></li>
+  <li><a href="https://gist.github.com/killthekitten/4486585" target="_blank">https://gist.github.com/killthekitten/4486585</a></li>
+</ul>
 
 
                 <hr>
@@ -145,13 +167,9 @@ $ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/" data-toggle="tooltip" data-placement="top" title="Deploying Spree with ansible">&larr; Previous Post</a>
+                        <a href="/blog/2015/12/27/awesome-emacs-plugins/" data-toggle="tooltip" data-placement="top" title="Awesome Emacs plugins you might not know.">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/blog/2015/12/27/awesome-emacs-plugins/" data-toggle="tooltip" data-placement="top" title="Awesome Emacs plugins you might not know.">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
