@@ -1,0 +1,65 @@
+#+LAYOUT: post
+#+TITLE: How to show notification on ssh login
+#+SUBTITLE: love team work, with ssh and  x2x, and you want to feel secure then ...
+#+DESCRIPTION: show notification when user logins through ssh
+#+DATE: 2016-02-26 16:00
+#+liquid: enabled
+#+comments: true
+#+xcowsay_utils_link: <a href="https://github.com/haude/xcowsay-utils" target="_blank">https://gist.github.com/killthekitten/4486585</a>
+
+** Here  is how to do it
+
+1. Append the following to _/etc/pam.d/sshd_
+
+  #+BEGIN_SRC bash
+    session optional pam_exec.so seteuid /etc/ssh/login-notify.sh
+  #+END_SRC
+
+2. Create a new file _/etc/ssh/login-notify.sh_ and add execution permission to the file
+
+  #+BEGIN_SRC bash
+    $ sudo touch /etc/ssh/login-notify.sh
+    $ sudo chmod +x /etc/ssh/login-notify.sh
+  #+END_SRC
+
+3. Add the following to /etc/ssh/login-notify.sh
+
+  #+BEGIN_SRC bash
+  #!/bin/sh
+
+  if [ "$PAM_TYPE" != "close_session" ]; then
+    host="`hostname`"
+    message="SSH Login: $PAM_USER from $PAM_RHOST on $host"
+    DISPLAY=:0 /usr/games/xcowsay "$message"&
+  fi
+  #+END_SRC
+
+  #+BEGIN_QUOTE
+    if your are and arch user replace this line
+
+      DISPLAY=:0 /usr/games/xcowsay "$message"&
+
+    with the following
+
+      DISPLAY=:0 /usr/bin/xcowsay "$message"&
+
+    if you want to used notifi-send instead you can replace it with
+
+      DISPLAY=:0 /usr/bin/notify-send "$message"&
+    What I acutally use is {{page.xcowsay_utils_link}}
+  #+END_QUOTE
+
+5. If want a mail to be sent as a notification (probably because you want notification from the server), then replace the DISPLAY statement with
+
+  #+BEGIN_SRC bash
+    {
+      echo "User: $PAM_USER"
+      echo "Remote Host: $PAM_RHOST"
+      echo "Service: $PAM_SERVICE"
+      echo "TTY: $PAM_TTY"
+      echo "Date: `date`"
+      echo "Server: `uname -a`"
+    } | mail -s "$PAM_SERVICE login on `hostname -s` for account $PAM_USER" root
+  #+END_SRC
+
+  or something you like
