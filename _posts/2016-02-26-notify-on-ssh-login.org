@@ -5,7 +5,7 @@
 #+DATE: 2016-02-26 16:00
 #+liquid: enabled
 #+comments: true
-#+xcowsay_utils_link: <a href="https://github.com/haude/xcowsay-utils" target="_blank">https://gist.github.com/killthekitten/4486585</a>
+#+xcowsay_utils_link: <a href="https://github.com/haude/xcowsay-utils" target="_blank">https://github.com/haude/xcowsay-utils</a>
 
 ** Here  is how to do it
 
@@ -43,7 +43,7 @@
 
       DISPLAY=:0 /usr/bin/xcowsay "$message"&
 
-    if you want to used notifi-send instead you can replace it with
+    if you want to used notify-send instead you can replace it with
 
       DISPLAY=:0 /usr/bin/notify-send "$message"&
     What I acutally use is {{page.xcowsay_utils_link}}
