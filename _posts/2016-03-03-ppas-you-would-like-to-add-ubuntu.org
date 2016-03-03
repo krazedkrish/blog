@@ -1,0 +1,55 @@
+#+LAYOUT: post
+#+TITLE: 5 Useful List of ppas for Ubuntu 14.04
+#+SUBTITLE: Being a developer using Ubuntu 14.04, you will always wanna use these 5 ppa
+#+DESCRIPTION: ppa for git tmux emacs nodejs postgresql ubuntu
+#+DATE: 2016-03-03 13:00
+#+liquid: enabled
+#+comments: true
+
+** As a developer whenever you install ubuntu 14.04, you would wanna use these 5 ppas
+
+1. For Git 2.x
+
+  #+BEGIN_SRC bash
+    ppa:git-core/ppa
+  #+END_SRC
+
+2. Emacs Snapshot
+
+  #+BEGIN_SRC bash
+    ppa:ubuntu-elisp/ppa
+  #+END_SRC
+
+3. Tmux, vim, rxvt-unicode, swig, figlet-fonts, apt-cacher-ng
+
+  #+BEGIN_SRC bash
+    ppa:pi-rho/dev
+  #+END_SRC
+
+4. Nodejs
+
+  #+BEGIN_SRC bash
+    ppa:chris-lea/node.js
+  #+END_SRC
+
+  you can also run the following script instead
+
+  #+BEGIN_SRC bash
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+  #+END_SRC
+
+5. Postgresql
+
+  #+BEGIN_SRC bash
+    wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+  #+END_SRC
+
+*** Note:
+
+#+BEGIN_QUOTE
+  #+BEGIN_SRC
+    $ sudo add-apt-repository ppa:chris-lea/node.js
+    $ sudo apt-get update
+    $ sudo apt-get install <package name>
+  #+END_SRC
+#+END_QUOTE
