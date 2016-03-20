@@ -8,6 +8,8 @@
 #+spreecommerce_link: <a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a>
 #+spree_link: <a href="http://spreecommerce.com/" target="_blank">Spree</a>
 #+blogging_spree_link: <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a>
+#+github_unofficial_buttons: <div class="row"><div class="col-md-2"><a aria-label="Fork krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# forks on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#forks_count" data-count-href="/krazedkrish/spree-blogging-spree/network" data-style="mega" data-icon="octicon-repo-forked" href="https://github.com/krazedkrish/spree-blogging-spree/fork" class="github-button">Fork</a> </div><div class="col-md-2"> <a aria-label="Star krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#stargazers_count" data-count-href="/krazedkrish/spree-blogging-spree/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Star</a> </div><div class="col-md-2"> <a aria-label="Watch krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#subscribers_count" data-count-href="/krazedkrish/spree-blogging-spree/watchers" data-style="mega" data-icon="octicon-eye" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Watch</a> </div><div class="col-md-2 col-md-offset-3"> <a aria-label="Follow @krazedkrish on GitHub" data-style="mega" href="https://github.com/krazedkrish" class="github-button">Follow @krazedkrish</a> </div> </div>
+#+github_unofficial_script: <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 ** {{ page.spreecommerce_link }}
 (also known as {{ page.spree_link }}) is an open source e-commerce solution based on Ruby on Rails. It was created by Sean Schofield in 2007 and has since had over 740 contributors
@@ -58,3 +60,11 @@ There is no commenting system yet. One option for adding comments is to override
 Admin users can preview blog entries before they're made publicly visible.
 
 Lastly hope you guys contribute and help the blogging site become better.
+
+*** You might also..
+
+If you like my blog and this gem you would really wanna do one of these:
+
+{{ page.github_unofficial_buttons }}
+
+{{ page.github_unofficial_script }}
