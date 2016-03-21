@@ -1,0 +1,136 @@
+#+LAYOUT: post
+#+TITLE: Awesome git commands
+#+SUBTITLE: Of course you use git. Lets use it in awesome ways
+#+DESCRIPTION: awesome git commands
+#+DATE: 2016-03-21 16:30
+#+liquid: enabled
+#+comments: true
+
+  #+BEGIN_QUOTE
+    To understand these you must have a good understanding of git.
+  #+END_QUOTE
+
+** Some use-cases
+
+First here are some situations that you usually face in software development:
+
+----------
+
+- You have made a lot of changes. You had to solve 1 issue, instead you solved 3.
+  Now you want to commit all of those separately instead of a single one. What do you do? Create backups? Well, thats bad.
+
+----------
+
+- You have again made a lot of changes. Now you decide to remove some of those, like console.log, debugger, binding.pry, embed(), etc.
+  How can it be done efficiently ? B`y adding git gutter mode to your editor and searching for the edits you made recently.
+
+----------
+
+- You perfectly understand what merge and rebase do. Imagine, you got stuck in a worse bug.
+  While solving it, you created another branch and made a lot of comments.
+  Now, you wanna add only some of the commits from that branch.
+  For example there were lots of debugging, commenting, logging, verbose, etc involved and you committed solutions separately.
+  Now you wanna add only those solutions from that temporary branch to develop branch. Would you merge or rebase.
+
+----------
+
+- You made some commits and now you with you could go back.
+
+----------
+
+- You want to change something in the history, a statement, author name, file name, delete/add/modify files/lines. and so on.
+
+----------
+
+** Solutions
+
+1. git add -p
+
+   /Add the changes selectively using the patch mode./
+
+   #+BEGIN_SRC bash
+     $ git add -p
+   #+END_SRC
+
+2. git checkout -p
+
+   /Checkout lines of file/files selectively using patch mode./
+
+   #+BEGIN_SRC bash
+     $ git checkout -p
+   #+END_SRC
+
+3. git cherry-pick <commit>
+
+   /Given one or more existing commits, apply the change each one introduces, recording a new commit for each.
+   This requires your working tree to be clean (no modifications from the HEAD commit)./
+
+   #+BEGIN_SRC bash
+     $ git cherry-pick <commit>
+   #+END_SRC
+
+   You would also want to use --no-commit a lot with it.
+
+   This would cherry-pick but would not commit. Otherwise, git cherry-pick would commit automatically commit.
+
+   #+BEGIN_SRC bash
+     $ git cherry-pick -n <commit>
+   #+END_SRC
+
+   You can also cherry-pick a range of commits.
+   The following command would cherry-pick a range from the <newercommit> to, but excluding <oldercommit>
+
+   #+BEGIN_SRC bash
+     $ git cherry-pick <oldercommit>..<newercommit>
+   #+END_SRC
+
+   If you want to include the <oldercommit> as well in the range, then run the following one.
+
+   #+BEGIN_SRC bash
+     $ git cherry-pick <oldercommit>^..<newercommit>
+   #+END_SRC
+
+4. git revert <commmit>
+
+   /Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them.
+   This requires your working tree to be clean (no modifications from the HEAD commit)./
+
+   #+BEGIN_SRC bash
+     $ git revert <commmit>
+   #+END_SRC
+
+   For --no-commit and range, its same as above.
+
+   #+BEGIN_SRC bash
+     $ git revert -n <commmit>                   # revert but no commit
+     $ git revert <oldercommit>..<newercommit>   # revert a range excluding the <oldercommit>
+     $ git revert <oldercommit>^..<newercommit>  # revert a range including the <oldercommit>
+   #+END_SRC
+
+5. git rebase -i <commit>
+
+   /Don't be afraid to rebase/
+
+   #+BEGIN_SRC bash
+     $ git revert -i <commmit>
+   #+END_SRC
+
+   You can do a lot of things. The following actions are avaliable for you.
+
+   - p, pick = use commit
+
+   - r, reword = use commit, but edit the commit message
+
+   - e, edit = use commit, but stop for amending
+
+   - s, squash = use commit, but meld into previous commit
+
+   - f, fixup = like "squash", but discard this commit's log message
+
+   - x, exec = run command (the rest of the line) using shell
+
+#+BEGIN_QUOTE
+  Tip: Instead of these commands you can you magit, that has all. I am sure you would like it.
+
+  Check it out [[https://github.com/magit/magit/]]
+#+END_QUOTE
