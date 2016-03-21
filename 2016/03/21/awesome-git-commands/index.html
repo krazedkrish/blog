@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-      <meta name="description" content="ppa for git tmux emacs nodejs postgresql ubuntu" />
+      <meta name="description" content="awesome git commands" />
     
     <meta name="author" content="Shalil Awaley">
 
-    <title>5 Useful List of ppas for Ubuntu 14.04</title>
+    <title>Awesome git commands</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/2016/03/03/ppas-you-would-like-to-add-ubuntu/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2016/03/21/awesome-git-commands/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -84,11 +84,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>5 Useful List of ppas for Ubuntu 14.04</h1>
+                    <h1>Awesome git commands</h1>
                     
-                    <h2 class="post-subheading">Being a developer using Ubuntu 14.04, you will always wanna use these 5 ppa</h2>
+                    <h2 class="post-subheading">Of course you use git. Lets use it in awesome ways</h2>
                     
-                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on March 3, 2016</span>
+                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on March 21, 2016</span>
                 </div>
             </div>
         </div>
@@ -104,38 +104,96 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-                <h2>As a developer whenever you install ubuntu 14.04, you would wanna use these 5 ppas</h2>
+                <blockquote>
+  <p>To understand these you must have a good understanding of git.</p>
+</blockquote>
+<h2>Some use-cases</h2>
+<p>First here are some situations that you usually face in software development:</p>
+<hr />
+<ul>
+  <li>You have made a lot of changes. You had to solve 1 issue, instead you solved 3.
+    Now you want to commit all of those separately instead of a single one. What do you do? Create backups? Well, thats bad.</li>
+</ul>
+<hr />
+<ul>
+  <li>You have again made a lot of changes. Now you decide to remove some of those, like console.log, debugger, binding.pry, embed(), etc.
+    How can it be done efficiently ? B`y adding git gutter mode to your editor and searching for the edits you made recently.</li>
+</ul>
+<hr />
+<ul>
+  <li>You perfectly understand what merge and rebase do. Imagine, you got stuck in a worse bug.
+    While solving it, you created another branch and made a lot of comments.
+    Now, you wanna add only some of the commits from that branch.
+    For example there were lots of debugging, commenting, logging, verbose, etc involved and you committed solutions separately.
+    Now you wanna add only those solutions from that temporary branch to develop branch. Would you merge or rebase.</li>
+</ul>
+<hr />
+<ul>
+  <li>You made some commits and now you with you could go back.</li>
+</ul>
+<hr />
+<ul>
+  <li>You want to change something in the history, a statement, author name, file name, delete/add/modify files/lines. and so on.</li>
+</ul>
+<hr />
+<h2>Solutions</h2>
 <ol>
-  <li>For Git 2.x
-<div class="highlight"><pre>ppa:git-core/ppa
+  <li>git add -p
+    <p><i>Add the changes selectively using the patch mode.</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git add -p
 </pre></div>
   </li>
-  <li>Emacs Snapshot
-<div class="highlight"><pre>ppa:ubuntu-elisp/ppa
+  <li>git checkout -p
+    <p><i>Checkout lines of file/files selectively using patch mode.</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git checkout -p
 </pre></div>
   </li>
-  <li>Tmux, vim, rxvt-unicode, swig, figlet-fonts, apt-cacher-ng
-<div class="highlight"><pre>ppa:pi-rho/dev
+  <li>git cherry-pick &lt;commit&gt;
+    <p><i>Given one or more existing commits, apply the change each one introduces, recording a new commit for each.
+      This requires your working tree to be clean (no modifications from the HEAD commit).</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;commit&gt;
+</pre></div>
+    <p>You would also want to use &#8211;no-commit a lot with it.</p>
+    <p>This would cherry-pick but would not commit. Otherwise, git cherry-pick would commit automatically commit.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick -n &lt;commit&gt;
+</pre></div>
+    <p>You can also cherry-pick a range of commits.
+      The following command would cherry-pick a range from the &lt;newercommit&gt; to, but excluding &lt;oldercommit&gt;</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;oldercommit&gt;..&lt;newercommit&gt;
+</pre></div>
+    <p>If you want to include the &lt;oldercommit&gt; as well in the range, then run the following one.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;oldercommit&gt;^..&lt;newercommit&gt;
 </pre></div>
   </li>
-  <li>Nodejs
-<div class="highlight"><pre>ppa:chris-lea/node.js
+  <li>git revert &lt;commmit&gt;
+    <p><i>Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them.
+      This requires your working tree to be clean (no modifications from the HEAD commit).</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git revert &lt;commmit&gt;
 </pre></div>
-    <p>you can also run the following script instead</p>
-<div class="highlight"><pre>curl -sL https://deb.nodesource.com/setup_5.x <span class="p">|</span> sudo -E bash -
+    <p>For &#8211;no-commit and range, its same as above.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git revert -n &lt;commmit&gt;                   <span class="c"># revert but no commit</span>
+<span class="nv">$ </span>git revert &lt;oldercommit&gt;..&lt;newercommit&gt;   <span class="c"># revert a range excluding the &lt;oldercommit&gt;</span>
+<span class="nv">$ </span>git revert &lt;oldercommit&gt;^..&lt;newercommit&gt;  <span class="c"># revert a range including the &lt;oldercommit&gt;</span>
 </pre></div>
   </li>
-  <li>Postgresql
-<div class="highlight"><pre>wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc <span class="p">|</span> sudo apt-key add -
+  <li>git rebase -i &lt;commit&gt;
+    <p><i>Don't be afraid to rebase</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git revert -i &lt;commmit&gt;
 </pre></div>
+    <p>You can do a lot of things. The following actions are avaliable for you.</p>
+    <ul>
+      <li>p, pick = use commit</li>
+      <li>r, reword = use commit, but edit the commit message</li>
+      <li>e, edit = use commit, but stop for amending</li>
+      <li>s, squash = use commit, but meld into previous commit</li>
+      <li>f, fixup = like &#8220;squash&#8221;, but discard this commit's log message</li>
+      <li>x, exec = run command (the rest of the line) using shell</li>
+    </ul>
   </li>
 </ol>
-<h3>Note:</h3>
 <blockquote>
-<div class="highlight"><pre>$ sudo add-apt-repository ppa:chris-lea/node.js
-$ sudo apt-get update
-$ sudo apt-get install &lt;package name&gt;
-</pre></div>
+  <p>Tip: Instead of these commands you can you magit, that has all. I am sure you would like it.</p>
+  <p>Check it out <a href="https://github.com/magit/magit/">https://github.com/magit/magit/</a></p>
 </blockquote>
 
 
@@ -144,13 +202,9 @@ $ sudo apt-get install &lt;package name&gt;
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/blog/2016/02/26/notify-on-ssh-login/" data-toggle="tooltip" data-placement="top" title="How to show notification on ssh login">&larr; Previous Post</a>
+                        <a href="/blog/2016/03/03/ppas-you-would-like-to-add-ubuntu/" data-toggle="tooltip" data-placement="top" title="5 Useful List of ppas for Ubuntu 14.04">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/blog/2016/03/21/awesome-git-commands/" data-toggle="tooltip" data-placement="top" title="Awesome git commands">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
