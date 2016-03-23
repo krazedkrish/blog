@@ -112,7 +112,7 @@ First here are some situations that you usually face in software development:
    /Don't be afraid to rebase/
 
    #+BEGIN_SRC bash
-     $ git revert -i <commmit>
+     $ git rebase -i <commmit>
    #+END_SRC
 
    You can do a lot of things. The following actions are avaliable for you.
