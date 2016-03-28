@@ -1,0 +1,48 @@
+---
+layout: all
+---
+
+{% for post in site.posts limit: 10 %}
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="{{ post.url | prepend: site.baseurl }}">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          {% if post.subtitle %}
+          <h2 class="post-subheading">{{ post.subtitle }}</h2>
+          {% endif %}
+        </div>
+        </a>
+    <p class="meta">Posted by {% if post.author %}{{ post.author }}{% else %}<a href="{{site.social.first.url}}">@{{ site.title }}</a >{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        {{ post.content }}
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="{{ post.url | prepend: site.baseurl }}">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+{% endfor %}
