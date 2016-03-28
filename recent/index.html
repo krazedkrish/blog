@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+      <meta name="description" content="">
+    
+    <meta name="author" content="Shalil Awaley">
+
+    <title>krazedkrish</title>
+
+    <link rel="canonical" href="http://krazedkrish.com/blog/recent/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/landing-page.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/blog/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+	<body id="index">
+    
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/03/21/awesome-git-commands/">
+        <div class="post-heading">
+          <h1>Awesome git commands</h1>
+          
+          <h2 class="post-subheading">Of course you use git. Lets use it in awesome ways</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on March 21, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <blockquote>
+  <p>To understand these you must have a good understanding of git.</p>
+</blockquote>
+<h2>Some use-cases</h2>
+<p>First here are some situations that you usually face in software development:</p>
+<hr />
+<ul>
+  <li>You have made a lot of changes. You had to solve 1 issue, instead you solved 3.
+    Now you want to commit all of those separately instead of a single one. What do you do? Create backups? Well, thats bad.</li>
+</ul>
+<hr />
+<ul>
+  <li>You have again made a lot of changes. Now you decide to remove some of those, like console.log, debugger, binding.pry, embed(), etc.
+    How can it be done efficiently ? B`y adding git gutter mode to your editor and searching for the edits you made recently.</li>
+</ul>
+<hr />
+<ul>
+  <li>You perfectly understand what merge and rebase do. Imagine, you got stuck in a worse bug.
+    While solving it, you created another branch and made a lot of comments.
+    Now, you wanna add only some of the commits from that branch.
+    For example there were lots of debugging, commenting, logging, verbose, etc involved and you committed solutions separately.
+    Now you wanna add only those solutions from that temporary branch to develop branch. Would you merge or rebase.</li>
+</ul>
+<hr />
+<ul>
+  <li>You made some commits and now you with you could go back.</li>
+</ul>
+<hr />
+<ul>
+  <li>You want to change something in the history, a statement, author name, file name, delete/add/modify files/lines. and so on.</li>
+</ul>
+<hr />
+<h2>Solutions</h2>
+<ol>
+  <li>git add -p
+    <p><i>Add the changes selectively using the patch mode.</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git add -p
+</pre></div>
+  </li>
+  <li>git checkout -p
+    <p><i>Checkout lines of file/files selectively using patch mode.</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git checkout -p
+</pre></div>
+  </li>
+  <li>git cherry-pick &lt;commit&gt;
+    <p><i>Given one or more existing commits, apply the change each one introduces, recording a new commit for each.
+      This requires your working tree to be clean (no modifications from the HEAD commit).</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;commit&gt;
+</pre></div>
+    <p>You would also want to use &#8211;no-commit a lot with it.</p>
+    <p>This would cherry-pick but would not commit. Otherwise, git cherry-pick would commit automatically commit.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick -n &lt;commit&gt;
+</pre></div>
+    <p>You can also cherry-pick a range of commits.
+      The following command would cherry-pick a range from the &lt;newercommit&gt; to, but excluding &lt;oldercommit&gt;</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;oldercommit&gt;..&lt;newercommit&gt;
+</pre></div>
+    <p>If you want to include the &lt;oldercommit&gt; as well in the range, then run the following one.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git cherry-pick &lt;oldercommit&gt;^..&lt;newercommit&gt;
+</pre></div>
+  </li>
+  <li>git revert &lt;commmit&gt;
+    <p><i>Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them.
+      This requires your working tree to be clean (no modifications from the HEAD commit).</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git revert &lt;commmit&gt;
+</pre></div>
+    <p>For &#8211;no-commit and range, its same as above.</p>
+<div class="highlight"><pre><span class="nv">$ </span>git revert -n &lt;commmit&gt;                   <span class="c"># revert but no commit</span>
+<span class="nv">$ </span>git revert &lt;oldercommit&gt;..&lt;newercommit&gt;   <span class="c"># revert a range excluding the &lt;oldercommit&gt;</span>
+<span class="nv">$ </span>git revert &lt;oldercommit&gt;^..&lt;newercommit&gt;  <span class="c"># revert a range including the &lt;oldercommit&gt;</span>
+</pre></div>
+  </li>
+  <li>git rebase -i &lt;commit&gt;
+    <p><i>Don't be afraid to rebase</i></p>
+<div class="highlight"><pre><span class="nv">$ </span>git rebase -i &lt;commmit&gt;
+</pre></div>
+    <p>You can do a lot of things. The following actions are avaliable for you.</p>
+    <ul>
+      <li>p, pick = use commit</li>
+      <li>r, reword = use commit, but edit the commit message</li>
+      <li>e, edit = use commit, but stop for amending</li>
+      <li>s, squash = use commit, but meld into previous commit</li>
+      <li>f, fixup = like &#8220;squash&#8221;, but discard this commit's log message</li>
+      <li>x, exec = run command (the rest of the line) using shell</li>
+    </ul>
+  </li>
+</ol>
+<blockquote>
+  <p>Tip: Instead of these commands you can you magit, that has all. I am sure you would like it.</p>
+  <p>Check it out <a href="https://github.com/magit/magit/">https://github.com/magit/magit/</a></p>
+</blockquote>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/03/21/awesome-git-commands/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/03/03/ppas-you-would-like-to-add-ubuntu/">
+        <div class="post-heading">
+          <h1>5 Useful List of ppas for Ubuntu 14.04</h1>
+          
+          <h2 class="post-subheading">Being a developer using Ubuntu 14.04, you will always wanna use these 5 ppa</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on March 3, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2>As a developer whenever you install ubuntu 14.04, you would wanna use these 5 ppas</h2>
+<ol>
+  <li>For Git 2.x
+<div class="highlight"><pre>ppa:git-core/ppa
+</pre></div>
+  </li>
+  <li>Emacs Snapshot
+<div class="highlight"><pre>ppa:ubuntu-elisp/ppa
+</pre></div>
+  </li>
+  <li>Tmux, vim, rxvt-unicode, swig, figlet-fonts, apt-cacher-ng
+<div class="highlight"><pre>ppa:pi-rho/dev
+</pre></div>
+  </li>
+  <li>Nodejs
+<div class="highlight"><pre>ppa:chris-lea/node.js
+</pre></div>
+    <p>you can also run the following script instead</p>
+<div class="highlight"><pre>curl -sL https://deb.nodesource.com/setup_5.x <span class="p">|</span> sudo -E bash -
+</pre></div>
+  </li>
+  <li>Postgresql
+<div class="highlight"><pre>wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc <span class="p">|</span> sudo apt-key add -
+</pre></div>
+  </li>
+</ol>
+<h3>Note:</h3>
+<blockquote>
+<div class="highlight"><pre>$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install &lt;package name&gt;
+</pre></div>
+</blockquote>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/03/03/ppas-you-would-like-to-add-ubuntu/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/02/26/notify-on-ssh-login/">
+        <div class="post-heading">
+          <h1>How to show notification on ssh login</h1>
+          
+          <h2 class="post-subheading">love team work, with ssh and  x2x, and you want to feel secure then ...</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on February 26, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2>Here  is how to do it</h2>
+<ol>
+  <li>Append the following to <span style="text-decoration:underline;">/etc/pam.d/sshd</span>
+<div class="highlight"><pre>session optional pam_exec.so seteuid /etc/ssh/login-notify.sh
+</pre></div>
+  </li>
+  <li>Create a new file <span style="text-decoration:underline;">/etc/ssh/login-notify.sh</span> and add execution permission to the file
+<div class="highlight"><pre><span class="nv">$ </span>sudo touch /etc/ssh/login-notify.sh
+<span class="nv">$ </span>sudo chmod +x /etc/ssh/login-notify.sh
+</pre></div>
+  </li>
+  <li>Add the following to /etc/ssh/login-notify.sh
+<div class="highlight"><pre><span class="c">#!/bin/sh</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$PAM_TYPE&quot;</span> !<span class="o">=</span> <span class="s2">&quot;close_session&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nv">host</span><span class="o">=</span><span class="s2">&quot;`hostname`&quot;</span>
+  <span class="nv">message</span><span class="o">=</span><span class="s2">&quot;SSH Login: $PAM_USER from $PAM_RHOST on $host&quot;</span>
+  <span class="nv">DISPLAY</span><span class="o">=</span>:0 /usr/games/xcowsay <span class="s2">&quot;$message&quot;</span><span class="p">&amp;</span>
+<span class="k">fi</span>
+</pre></div>
+    <blockquote>
+      <p>if your are and arch user replace this line</p>
+      <p>DISPLAY=:0 /usr/games/xcowsay &#8220;$message&#8221;&amp;</p>
+      <p>with the following</p>
+      <p>DISPLAY=:0 /usr/bin/xcowsay &#8220;$message&#8221;&amp;</p>
+      <p>if you want to used notify-send instead you can replace it with</p>
+      <p>DISPLAY=:0 /usr/bin/notify-send &#8220;$message&#8221;&amp;
+        What I acutally use is <a href="https://github.com/haude/xcowsay-utils" target="_blank">https://github.com/haude/xcowsay-utils</a></p>
+    </blockquote>
+  </li>
+  <li>If want a mail to be sent as a notification (probably because you want notification from the server), then replace the DISPLAY statement with
+<div class="highlight"><pre><span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;User: $PAM_USER&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Remote Host: $PAM_RHOST&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Service: $PAM_SERVICE&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;TTY: $PAM_TTY&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Date: `date`&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Server: `uname -a`&quot;</span>
+<span class="o">}</span> <span class="p">|</span> mail -s <span class="s2">&quot;$PAM_SERVICE login on `hostname -s` for account $PAM_USER&quot;</span> root
+</pre></div>
+    <p>or something you like</p>
+  </li>
+</ol>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/02/26/notify-on-ssh-login/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/01/27/dumb-and-cheap-hack-for-product-filter-in-spree/">
+        <div class="post-heading">
+          <h1>Dumb and Cheap Hack for Product Filter in Spree</h1>
+          
+          <h2 class="post-subheading">Spree: Feeling lazy, here is how to build easy Product Filters</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on January 27, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <blockquote>
+  <p>Disclaimer:</p>
+  <p>This is not a standard way to create product filter. But its quick and it works.</p>
+  <p>If you want to follow the standard follow <a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">this sample/guide</a>.</p>
+</blockquote>
+<h1>Quick tricks for Product Filter</h1>
+<p>Here is how to do it:</p>
+<h4>1. create <em>/lib/spree/custom_search.rb</em> file in your project folder</h4>
+<h4>2. add <code>require "#{Rails.root}/lib/spree/custom_search"</code> to <em>/config/initializers/spree.rb</em></h4>
+<h4>3. create the module for ProductFilters</h4>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Spree</span>
+  <span class="k">module</span> <span class="nn">Core</span>
+    <span class="k">module</span> <span class="nn">ProductFilters</span>
+
+    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+    <span class="c1"># your search scopes here</span>
+    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+<h4>4. add the search scopes required.</h4>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Spree</span>
+  <span class="k">module</span> <span class="nn">Core</span>
+    <span class="k">module</span> <span class="nn">ProductFilters</span>
+
+    <span class="c1"># example scope</span>
+    <span class="c1"># may be you guys can opitmize/shorten 2 queries in 1</span>
+    <span class="c1"># I will be glad, if you include it in comments</span>
+    <span class="no">Spree</span><span class="o">::</span><span class="no">Product</span><span class="o">.</span><span class="n">add_search_scope</span> <span class="ss">:in_taxonomy</span> <span class="k">do</span> <span class="o">|</span><span class="n">taxonomy</span><span class="o">|</span>
+      <span class="n">taxons</span><span class="o">=</span><span class="no">Spree</span><span class="o">::</span><span class="no">Taxonomy</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">taxons</span><span class="p">:</span> <span class="ss">:products</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span><span class="o">=&gt;</span><span class="n">taxonomy</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:taxon_ids</span>
+      <span class="n">taxons</span><span class="o">=</span><span class="n">taxons</span><span class="o">.</span><span class="n">flatten</span>
+
+      <span class="c1"># the line below will be concatinated to the select query for the product</span>
+      <span class="c1"># so you dont have to with &quot;Spree::Product...&quot;</span>
+      <span class="n">in_taxons</span><span class="p">(</span><span class="n">taxons</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+<p>Again, this is not a standard approach. But If all you need is to add one line why follow the standard Product Filter.
+  Standards are to ease the development time. What if! not following the standards does less harm and more good, I say:</p>
+<blockquote>
+  <p>&#8220;Be agile and lazy! Be awesome!!&#8221;</p>
+</blockquote>
+<p>You dont agree with me. No Problem! Here are some useful reference for you for building standard ones.</p>
+<ul>
+  <li><a href="https://github.com/spree/spree/blob/master/core/lib/spree/core/product_filters.rb" target="_blank">&lt;spree gem&gt;/core/lib/spree/core/product_filters.rb</a></li>
+  <li><a href="https://gist.github.com/maxivak/cc73b88699c9c6b45a95" target="_blank">https://gist.github.com/maxivak/cc73b88699c9c6b45a95</a></li>
+  <li><a href="https://gist.github.com/Ranger-X/2511088" target="_blank">https://gist.github.com/Ranger-X/2511088</a></li>
+  <li><a href="https://gist.github.com/berkes/1931810" target="_blank">https://gist.github.com/berkes/1931810</a></li>
+  <li><a href="https://gist.github.com/killthekitten/4486585" target="_blank">https://gist.github.com/killthekitten/4486585</a></li>
+</ul>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/01/27/dumb-and-cheap-hack-for-product-filter-in-spree/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/12/27/awesome-emacs-plugins/">
+        <div class="post-heading">
+          <h1>Awesome Emacs plugins you might not know.</h1>
+          
+          <h2 class="post-subheading">You might not have heard of these cool plugins.</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on December 27, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <p>You have already heard of and used popular plugins like projectile, magit, flymakes, smmooth-scroll, yasnippit, highlight-indentation, highlight-parentheses, sublimity, neotree and ofcourse &lt;lang&gt;-mode. So, what almost all emacs users use them.</p>
+<p>Ok, now let me mention some cool and awesome emacs plugins and modes.</p>
+<h1>5 cool emacs plugins</h1>
+<h3>1. <a href="https://github.com/nschum/highlight-symbol.el" target="_blank">highlight-symbol</a></h3>
+<p>Highlight-symbol is one of the coolest emacs mode you will be using frequently one you know what it does. Ok, so what does it do ? Well, it is useful for automatic and manual symbol highlighting for searched text/regex/phrases and replace them.</p>
+<p>Here is the screenshot from the official highlight-symbol page.</p>
+<p><a href="https://github.com/nschum/highlight-symbol.el" target="_blank"><div class="text-center"><hr/><img src="https://nschum.de/src/emacs/highlight-symbol/highlight-symbol.png" alt="Highlight Symbol an awesome highlight symbol plugin" /><span class="caption text-muted">Highlight Symbol screenshot.</span></div></a></p>
+<div class="highlight"><pre><span class="c1">;; highlight-sysmbol configurations</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">control</span> <span class="nv">f3</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;highlight-symbol-at-point</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[f3]</span> <span class="ss">&#39;highlight-symbol-next</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">shift</span> <span class="nv">f3</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;highlight-symbol-prev</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">meta</span> <span class="nv">f3</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;highlight-symbol-query-replace</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">control</span> <span class="nv">shift</span> <span class="nv">f3</span><span class="p">)</span><span class="nv">]</span> <span class="ss">&#39;unhighlight-regexp</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="nv">[</span><span class="p">(</span><span class="nv">control</span> <span class="nv">shift</span> <span class="nv">mouse-1</span><span class="p">)</span><span class="nv">]</span>
+                <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">event</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nv">interactive</span> <span class="s">&quot;e&quot;</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nv">save-excursion</span>
+                    <span class="p">(</span><span class="nv">goto-char</span> <span class="p">(</span><span class="nv">posn-point</span> <span class="p">(</span><span class="nv">event-start</span> <span class="nv">event</span><span class="p">)))</span>
+                    <span class="p">(</span><span class="nv">highlight-symbol-at-point</span><span class="p">))))</span>
+</pre></div>
+<h3>2. <a href="https://github.com/lewang/flx" target="_blank">flx-ido</a></h3>
+<p><a href="https://github.com/lewang/flx" target="_blank">flx-ido</a> is a better alternative for the default ido. Unlike, default ido and emacs-helm search and others, it matches both abbreviations and substrings and their combimations. I guess the right phrase is <i>awesome fuzzy matching in emacs</i>. It uses the flx matching engine coded by <a href="https://github.com/lewang/flx" target="_blank">lewang</a> himself. It is available by default in MELPA and Mermalade. So, el-get users will have to add it manually. By the way, <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a> users might not know that it is already avaliable in <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>, you just need to add it in in the <b>~/.spacemacs</b> configurations.</p>
+<p>In the github site, there is demo for helm support, all though it has not been added yet. Well, I have been eagerly waiting for its release.</p>
+<p>Here is a Screencast showing rationale and ido workflow</p>
+<p><div class="text-center"><iframe width="420" height="315" src="https://www.youtube.com/embed/_swuJ1RuMgk?autoplay=0&autohide=1"></iframe></div></p>
+<h3>3. <a href="http://www.emacswiki.org/emacs/hideshowvis.el" target="_blank">hideshowvis</a></h3>
+<p>Its an old code folding emacs plugin under the GNU-GPL 2 license, but still works like a charm. Its minor mode will add little +/- displays to foldable regions in the buffer and to folded regions. It is indented to be used in conjunction with hideshow.el which is a part of GNU Emacs.</p>
+<p>You can download it from <a href="http://www.emacswiki.org/emacs/download/hideshowvis.el" target="_blank">http://www.emacswiki.org/emacs/download/hideshowvis.el</a></p>
+<h3>4. <a href="http://github.com/rhoit/mode-icons" target="_blank">mode-icons</a></h3>
+<p>Forked originally from <a href="https://github.com/ryuslash/mode-icons" target="_blank">ryuslash's mode-icons</a> this <a href="http://github.com/rhoit/mode-icons" target="_blank">mode-icons</a>-mode is simply cool. It shows mode icons instead of the mode name, if the icon is present. Currently it supports only major modes</p>
+<p>Here is the list of supported major modes and the respective icons:</p>
+<table>
+  <tr><th>Modes</th><th>icon</th></tr>
+  <tr><td>Coffee</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/coffee.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/coffee.png" /></td></tr>
+  <tr><td>CSS</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/css.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/css.png" /></td></tr>
+  <tr><td>Emacs-Lisp</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/emacs.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/emacs.png" /></td></tr>
+  <tr><td>Haml</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/haml.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/haml.png" /></td></tr>
+  <tr><td>HTML</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/html.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/html.png" /></td></tr>
+  <tr><td>JS</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/js.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/js.png" /></td></tr>
+  <tr><td>Lisp</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/cl.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/cl.png" /></td></tr>
+  <tr><td>Org-mode</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/org.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/org.png" /></td></tr>
+  <tr><td>PHP</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/php.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/php.png" /></td></tr>
+  <tr><td>Python</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/python.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/python.png" /></td></tr>
+  <tr><td>Ruby</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/ruby.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/ruby.png" /></td></tr>
+  <tr><td>SVG</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/svg.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/svg.png" /></td></tr>
+  <tr><td>Sass</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/sass.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/sass.png" /></td></tr>
+  <tr><td>Scheme</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/scheme.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/scheme.png" /></td></tr>
+  <tr><td>Shell</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/bash.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/bash.png" /></td></tr>
+  <tr><td>Slim</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/slim.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/slim.png" /></td></tr>
+  <tr><td>YAML</td><td><img src="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/yaml.png" alt="https://raw.githubusercontent.com/rhoit/mode-icons/dump/icons/yaml.png" /></td></tr>
+</table>
+<p>As per the conversation with <a href="https://github/rhoit">rhoit</a> he is working on adding the minor mode icons as well.</p>
+<h3>5. <a href="http://www.emacswiki.org/emacs/PowerLine" target="_blank">Emacs Powerline</a></h3>
+<p><a href="https://github.com/Lokaltog/vim-powerline" target="_blank">vim-powerline</a> was said to be very popular, you can find its influence in vim-airline and themes for tmux, bash, zsh, etc. I use it in my laptop, in zsh, tmux and ofcourse emacs.</p>
+<p>Here is a screenshot of Powerline with Evil integration</p>
+<p><div class="text-center"><hr/><a href="https://github.com/laynor/emacs-conf/blob/master/packages/sm-package-powerline.el" target="_blank"><img src="http://www.emacswiki.org/pics/static/PowerlineEvilScreenshot" alt="Cool Emacs Evil Powerline Screenshot" /><span class="caption text-muted">Evil Powerline screenshot.</span></a></div></p>
+<p><a href="https://github.com/milkypostman/powerline" target="_blank">Milkypostman's Powerline</a> is very popular. I personally like the <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>'s powerline theme.</p>
+<p>If you are thinking of adding <a href="http://github.com/rhoit/mode-icons" target="_blank">mode-icons</a> with <a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>'s <a href="http://www.emacswiki.org/emacs/PowerLine" target="_blank">Emacs Powerline</a> and wondering how it looks in normal emacs then look below:</p>
+<p><div class="text-center"><hr/><a href="https://raw.githubusercontent.com/rhoit/dot-emacs/dump/screenshot/modline02.png" target="_blank"><img src="https://raw.githubusercontent.com/rhoit/dot-emacs/dump/screenshot/modline02.png" alt="Rhoit's Cool Emacs Powerline Screenshot" /><span class="caption text-muted">Rhoits Mode Icons + Powerline screenshot.</span></a></div></p>
+<p>So, you want to add it to your emacs. Ok here is how you do it.</p>
+<blockquote>
+  <p><b>Step 1: Install the <a href="https://github.com/milkypostman/powerline" target="_blank">Milkypostman's Powerline</a> mode-line theme</b></p>
+  <p><b>Step 2: Download <a href="https://github.com/rhoit/dot-emacs/blob/master/config/modeline.cfg.el" target="_blank">modeline.cfg-el</a> from <a href="https://github.com/rhoit/dot-emacs" target="_blank">rhoit's dot-emacs configuration</a></b></p>
+  <p><b>Step 3: Add load it in your emacs configuration</b></p>
+<div class="highlight"><pre><span class="c1">;; In your ~/.emacs.d/init.el</span>
+<span class="p">(</span><span class="nb">load</span> <span class="s">&quot;~/.emacs.d/config/modeline.cfg.el&quot;</span><span class="p">)</span>
+<span class="c1">;; ~/.emacs.d/config/modeline.cfg.el is the location of the file</span>
+</pre></div>
+</blockquote>
+<p>Ok guys, enjoy these <i>awesome plugins</i> in your emacs.</p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/12/27/awesome-emacs-plugins/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/12/22/how-to-begin-emacs/">
+        <div class="post-heading">
+          <h1>How to begin emacs</h1>
+          
+          <h2 class="post-subheading">Want to configure the most awesome editor in minutes</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on December 22, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <p>You have already installed the most awesome editor called emacs. And you have just opened it disappointed to find that it has nothing.</p>
+<p>If you are reading this blog then <i>Congratulations! You will surely understand why emacs is awesome, unlike the others who gave up on emacs after first try.</i></p>
+<h2>How to begin?</h2>
+<p>This is the question that i get asked a lot. But first</p>
+<h3>Before you begin&#8230;</h3>
+<p>Well, you need to have some background knowledge, I suggest you read <a href="http://web.psung.name/emacstips/essential.html">these 10 Essentials</a> first.</p>
+<blockquote>
+  <p>You also need a basic understand of buffer, emacs, major mode, minor modes, etc you can learn from the video below</p>
+  <p><iframe width="420" height="315" src="https://www.youtube.com/embed/K3_SFerNIeI?autoplay=0&autohide=1"></iframe></p>
+</blockquote>
+<p>Ok, now back to how to begin? Here is how you do it:</p>
+<h3>How to begin?</h3>
+<p>You need to configure emacs in ~/.emacs.d/init.el. What you do is, you include the packages which are the modes and you configure them (like set keybindings, font, width, etc)</p>
+<p>There are lots of tools like <a href="http://www.emacswiki.org/emacs/ELPA" target="_blank">elpa</a>, <a href="https://melpa.org/#/" target="_blank">melpa</a>, <a href="https://github.com/quelpa/quelpa" target="_blank">quelpa</a>. But what is suggest you is <a href="https://github.com/dimitri/el-get" target="_blank">el-get</a>. Lets do it the easy way.</p>
+<h3>Easy Way</h3>
+<h4>Step 1</h4>
+<p>We are going to use the , so I suggest you fork it in github and clone it. You can fork <a href="https://github.com/krazedkrish/emacs-kicker/" target="_blank">mine [https://github.com/krazedkrish/emacs-kicker/]</a> as well. If your are a pythonista or rubyist you can my clone python, or ruby branch respectively.</p>
+<div class="highlight"><pre>$ # here is how you configure mine
+$ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
+</pre></div>
+<h4>Step 2</h4>
+<p>Open emacs, all the packages are going to be installed you might need to restart emacs later.</p>
+<h4>Step 3</h4>
+<p>Open ~/.emacs.d/init.el and insert the extra packages you want below the following lines, then restart again:</p>
+<div class="highlight"><pre>;; now set our own packages
+(setq
+ my:el-get-packages
+ &#39;(el-get				; el-get is self-hosting
+</pre></div>
+<h3>More Easier Way</h3>
+<p>There is actually a more easier way, which i actually don't suggest you unless you are a vim user. The more easier way is to use <a href="https://github.com/syl20bnr/spacemacs" target="_blank">Spacemacs</a>.</p>
+<blockquote>
+  <p>Enjoy you new emacs</p>
+</blockquote>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/12/22/how-to-begin-emacs/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
+        <div class="post-heading">
+          <h1>Deploying Spree with ansible</h1>
+          
+          <h2 class="post-subheading">Wanna automate your spree deployment on ubuntu in 5 minutes?</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2><a href="http://www.ansible.com/" target="_blank">Ansible</a></h2>
+<p>According to the website <a href="http://www.ansible.com/" target="_blank">Ansible</a> is opensource, simple, agentless and yet powerful. It is an app deployment, configuration management and orchestration - all from one system. And I very much agree.</p>
+<p>There are configuration management and provisioning tool, similar to Chef, Puppet or Salt.</p>
+<blockquote>
+  <p>But then why ansible?</p>
+  <p><a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank">Keep It Simple, Stupid (KISS)</a></p>
+</blockquote>
+<p>Ok, so how to begin? Here is how you do it:</p>
+<h3><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank">Installation:</a></h3>
+<ul>
+  <li>Archlinux
+<div class="highlight"><pre><span class="nv">$ </span>sudo pacman -S ansible
+</pre></div>
+  </li>
+  <li>Ubuntu
+    <p>To configure the PPA on your machine and install ansible run these commands:</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install software-properties-common
+<span class="nv">$ </span>sudo apt-add-repository ppa:ansible/ansible
+<span class="nv">$ </span>sudo apt-get update
+<span class="nv">$ </span>sudo apt-get install ansible
+</pre></div>
+  </li>
+  <li>Install using pip
+<div class="highlight"><pre><span class="nv">$ </span>sudo pip install ansible
+</pre></div>
+  </li>
+</ul>
+<h3>Configuring <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">playbook</a></h3>
+<blockquote>
+  <p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
+</blockquote>
+<p>Basically a playbook has</p>
+<ul>
+  <li>tasks:
+    that we run</li>
+  <li>handlers:
+    that tasks run</li>
+  <li>files:
+    that we copy to server</li>
+  <li>templates:
+    that are files with variables</li>
+  <li>variables:
+    that we modify to deploy different site in different servers</li>
+</ul>
+<p>There are other terms like roles, meta, vault, facts, etc that you would be interested to learn for further knowlege.</p>
+<blockquote>
+  <p>Are we going to configure all these by ourselves?</p>
+  <p>No, lets keep it DDIA (Don't Do It Again)</p>
+</blockquote>
+<p>So, someone has already done that. Prepared the templates, tasks, etc, and we will just customize the variables. Here is the playbook that spreecommerce suggests: <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a></p>
+<p>Now, we clone it. Its going to install:</p>
+<ul>
+  <li>Ruby 2.1</li>
+  <li>PostgreSQL</li>
+  <li>nginx</li>
+  <li>Puma (jungle)</li>
+</ul>
+<p>All we have to do is:</p>
+<ol>
+  <li>Change the app name and deploy directory in vars/defaults.yml.
+    vars/defaults.yml
+<div class="highlight"><pre><span class="c1">## webapp</span>
+
+<span class="ss">webserver_name</span><span class="p">:</span> <span class="n">spree</span><span class="o">.</span><span class="n">krazedkrish</span><span class="o">.</span><span class="n">com</span>
+<span class="ss">deploy_directory</span><span class="p">:</span> <span class="sr">/data/s</span><span class="n">pree</span>
+<span class="ss">app_name</span><span class="p">:</span> <span class="n">krazedkrish</span>
+
+<span class="c1">## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src</span>
+<span class="ss">rubyTmpDir</span><span class="p">:</span> <span class="sr">/usr/</span><span class="n">local</span><span class="o">/</span><span class="n">src</span>
+<span class="ss">rubyUrl</span><span class="p">:</span> <span class="ss">http</span><span class="p">:</span><span class="sr">//</span><span class="n">cache</span><span class="o">.</span><span class="n">ruby</span><span class="o">-</span><span class="n">lang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="ss">rubyCompressedFile</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="ss">rubyName</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+<span class="ss">tmpRubyPath</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span>
+</pre></div>
+    <p>Make sure you update the variables webserver_name, deploy_directory, and app_name. You might also want to update the ruby variables, if you are using different version of ruby.</p>
+  </li>
+  <li>Rename hosts.example to hosts and change it to your hosts. For example if you deployment host ip is 192.168.56.101. Insert the ip in the host file
+<div class="highlight"><pre>192.168.56.101
+</pre></div>
+  </li>
+</ol>
+<p>Note: If you want to understand some details of the playbook, you can check out the <a href="https://guides.spreecommerce.com/developer/ansible-ubuntu.html" target="_blank">official spree guide</a>.</p>
+<h3>Deploy ansible playbook</h3>
+<p>First, set up key-based authentication on the server so we are not asked for our password:</p>
+<div class="highlight"><pre><span class="nv">$ </span>ssh-copy-id -i ~/.ssh/id_rsa root@spree.example.com
+</pre></div>
+<p>Then run ansible playbook to install ruby, followed by deploy, postgresql and nginx.</p>
+<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t ruby,deploy,postgresql,nginx -i hosts
+</pre></div>
+<h3>Capistrano Deploy</h3>
+<p>Add capistrano gem to Gemfile</p>
+<div class="highlight"><pre><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;capistrano-bundler&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1.2&#39;</span>
+<span class="k">end</span>
+</pre></div>
+<p>Then run bundle install and set up Capistrano within our application by running this command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle install
+<span class="nv">$ </span>cap install
+</pre></div>
+<p>Now, the following lines need to be uncommented in the Capfile.</p>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;capistrano/bundler&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/assets&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/migrations&#39;</span>
+</pre></div>
+<p>Next, the capistrano needs to be configured. I suggest you copy the deploy.rb from <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a> to config/deploy.rb. The following parameters should configured and ssh forward options should be added.</p>
+<div class="highlight"><pre><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">&#39;krazedkrish&#39;</span>
+<span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">&#39;git@github.com:krazedkrish/krazedkrish.git&#39;</span>
+<span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">&#39;/home/deploy/www/krazedkrish&#39;</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="n">set</span> <span class="ss">:ssh_options</span><span class="p">,</span> <span class="p">{</span><span class="ss">:forward_agent</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span>
+</pre></div>
+<p>Then configure config/deploy/production.rb to point to the correct server, and finally run this command to deploy:</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<p>One of the final steps, the one that restarts Puma, will probably fail because we have not yet set up Puma on the server. We can rectify this by setting that up on the server using Ansible within the ansible-rails-app directory:</p>
+<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t puma
+</pre></div>
+<p>Now run the deploy command again</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<p>It succeed congratulations. Now to deploy, updated code next time all you have to do is &#8230; You know it right.</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
+</pre></div>
+<blockquote>
+  <p>So, deploying with Ansible is fun right. So, if you like is make sure you star it.</p>
+  <p><a href="https://github.com/ansible/ansible">https://github.com/ansible/ansible</a></p>
+</blockquote>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
+        <div class="post-heading">
+          <h1>Blogging with spree 3-0-stable</h1>
+          
+          <h2 class="post-subheading">A blogging extension for spree 3.0 stable</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 3, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2><a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a></h2>
+<p>(also known as <a href="http://spreecommerce.com/" target="_blank">Spree</a>) is an open source e-commerce solution based on Ruby on Rails. It was created by Sean Schofield in 2007 and has since had over 740 contributors</p>
+<p>If you are using <a href="http://spreecommerce.com/" target="_blank">Spree</a>, you must be wishing to add a blog for you site. Since spree 3.0 you must be struggling to do it.</p>
+<blockquote>
+  <p>Well, I did. And I am writing this blog, so that you dont &#8230;(tl;dw)</p>
+</blockquote>
+<p>Here is how you do it:</p>
+<h3>Installation:</h3>
+<ul>
+  <li>Add <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a> to your Gemfile:</li>
+</ul>
+<div class="highlight"><pre><span class="n">gem</span> <span class="s1">&#39;spree_blogging_spree&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s1">&#39;krazedkrish/spree-blogging-spree&#39;</span><span class="p">,</span> <span class="ss">branch</span><span class="p">:</span> <span class="s1">&#39;3-0-stable&#39;</span>
+</pre></div>
+<ul>
+  <li>Bundle your dependencies and run the installation generator:</li>
+</ul>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+<span class="err">$</span> <span class="n">rake</span> <span class="ss">railties</span><span class="p">:</span><span class="ss">install</span><span class="p">:</span><span class="n">migrations</span>
+<span class="err">$</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</pre></div>
+<h3>Alternatives:</h3>
+<p>Several other contributors have forked and added spree 3-0 stable compatibility. Here are some alternative fork you might wanna check:</p>
+<ul>
+  <li><a href="https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable">https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
+  <li><a href="https://github.com/coalla/spree-blogging-spree/tree/3-0-stable">https://github.com/coalla/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/garpit/spree-blogging-spree/tree/3-0-stable">https://github.com/garpit/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable">https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable</a></li>
+  <li><a href="https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
+</ul>
+<h3>More about <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a></h3>
+<p>The blog is found under <b>/blog</b> on the website font end. Blog entries have fields for title, body, summary, date published, and author. Each blog entry can also have categories and tags associated with it.</p>
+<p>The <a href="http://github.com/spree/spree_editor/">Spree Editor</a> extension can be used to provide a rich text experience when editing the body of a blog entry.</p>
+<p>The author is an instance of <code>Spree.user_class</code>, typically a <code>Spree::User</code>. The author can be selected from users with the blogger role when editing a blog entry in the admin. Some additional fields, including nickname, website URL, and Google Plus URL are added to the user model. Google Authorship information is added to the page head when the Google Plus URL is set.</p>
+<p>There is no commenting system yet. One option for adding comments is to override the <span style="text-decoration:underline;">spree/blog_entries/comments partial</span> and include and external commenting system, such as <a href="http://disqus.com/">Disqus</a>.</p>
+<p>Admin users can preview blog entries before they're made publicly visible.</p>
+<p>Lastly hope you guys contribute and help the blogging site become better.</p>
+<h3>You might also..</h3>
+<p>If you like my blog and this gem you would really wanna do one of these:</p>
+<p><div class="row"><div class="col-md-2"><a aria-label="Fork krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# forks on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#forks_count" data-count-href="/krazedkrish/spree-blogging-spree/network" data-style="mega" data-icon="octicon-repo-forked" href="https://github.com/krazedkrish/spree-blogging-spree/fork" class="github-button">Fork</a> </div><div class="col-md-2"> <a aria-label="Star krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#stargazers_count" data-count-href="/krazedkrish/spree-blogging-spree/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Star</a> </div><div class="col-md-2"> <a aria-label="Watch krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#subscribers_count" data-count-href="/krazedkrish/spree-blogging-spree/watchers" data-style="mega" data-icon="octicon-eye" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Watch</a> </div><div class="col-md-2 col-md-offset-3"> <a aria-label="Follow @krazedkrish on GitHub" data-style="mega" href="https://github.com/krazedkrish" class="github-button">Follow @krazedkrish</a> </div> </div></p>
+<p><script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script></p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/09/10/ipython-bpython-django/">
+        <div class="post-heading">
+          <h1>IPython, bpython and django</h1>
+          
+          <h2 class="post-subheading">Tricks using ipython and bpython with django</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on September 10, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2><a href="http://ipython.org" target="_blank">IPython</a></h2>
+<p>I am sure you have used <a href="http://ipython.org" target="_blank">IPython</a> for a number of purposes. For interactive shell, usually because it has some enhancements. You would also probable use it for RELP(Read Eval Print Loop). Let me brag about my favourite editor. RELP comes from the names of Lisp primitive function which implements this functionality, just the reason Emacs acts the way you want it to.</p>
+<p>It's a must for a Pythonista to know this. Within any arbitary place in your python code (including django) you can drop into an <a href="http://ipython.org" target="_blank">IPython</a> shell.</p>
+<blockquote>
+  <p>You didn't! Try inserting these, in between your codes.</p>
+</blockquote>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">embed</span>
+<span class="n">embed</span><span class="p">()</span>
+</pre></div>
+<blockquote>
+  <p>Note: This will not work for older versions of python</p>
+</blockquote>
+<p>By the way running python manage.py shell in django starts <a href="http://ipython.org" target="_blank">IPython</a> by default if you have installed it.</p>
+<h2><a href="http://bpython-interpreter.org/" target="_blank">bpython</a></h2>
+<p>You have used  right! I am sure you loved its auto-complete and syntax highlight features. If you havent used it then, check out the screenshot below.</p>
+<p><center><img src="http://bpython-interpreter.org/images/4.png"></center>
+  <span class="caption text-muted"><a href="http://bpython-interpreter.org/screenshots.html" _target="blank">See more screenshots</a></span></p>
+<p>Did you like it? If you did then you might want to use it for django as well.</p>
+<p>Start by modifying your ~/.bashrc to define a python startup environment variable</p>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">PYTHONSTARTUP</span><span class="o">=</span>~/.pythonrc
+</pre></div>
+<p>Then insert the following code in ~/.pythonrc!</p>
+<div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">+</span><span class="s">&quot;.settings&quot;</span><span class="p">)</span>
+    <span class="k">exec</span><span class="p">(</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s"> import settings&quot;</span><span class="o">%</span><span class="n">project</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Imported django settings&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">exec_strs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s">.models import *&quot;</span><span class="o">%</span><span class="n">apps</span> <span class="k">for</span> <span class="n">apps</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span> <span class="p">]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">exec_strs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">exec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+<blockquote>
+  <p>Note: This will not work for older versions of python</p>
+</blockquote>
+<p>Now run</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">exec</span> <span class="nv">$SHELL</span>
+</pre></div>
+<p>From now, when you go to the django project folder(where manage.py resides) run <a href="http://bpython-interpreter.org/" target="_blank">bpython</a> instead of python manage.py shell</p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/09/10/ipython-bpython-django/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/">
+        <div class="post-heading">
+          <h1>Fun using pundit gem on Rails</h1>
+          
+          <h2 class="post-subheading">Implementing ACL (Access control List) using pundit gem on Rails</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on August 16, 2015</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <p>While working on <a href="http://emitii.com/" target="_blank">Emitii.com</a> project in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a>, I got assigned the ACL(Access Controll List) task. After an android app using Ruboto, I knew implementing ACL would be the next fun project. Imaging, planing whole bunch access levels, and controlling the access. The superior person would be able to add, view and modify any thing, but the inferior one has only a limited view. Well, I first designed the proposal, with diagrams of hierarchy of access levels and permitted actions, and the usual Use Cases and Activity diagrams. I enjoyed creating diagrams through Xmind and Umbrello. And then added some visual effects using Inkscape.</p>
+<p>My proposed solution was simple, four levels of access, adhering to KISS principle as much as possible. The access level were, one to the vendor, then admin of each company(client) followed by project leads and project members. The permitted actions are exactly the ones you imagined. However, I also included an alternate solution, with an extra feature creating template roles. The use case actors were based on the persona of Software Architects, Solution Architects, Qas. Analyzing and comparing, many factors, the simpler one won.</p>
+<p>Starting on implementing, I did'nt touch the code for next day. Instead, I researched on the right gem. By noon, I narrowed down the gems to</p>
+<p><b><a href="https://github.com/be9/acl9" target="_blank">Acl9</a>:</b></p>
+<ul>
+  <li>It is highly configurable. One can dynamically grant authorization at the object level.</li>
+</ul>
+<p><b><a href="" target="_blank">CanCanCan</a>:</b></p>
+<ul>
+  <li>It is simple to implement, and ease to use.</li>
+</ul>
+<p><b><a href="https://github.com/elabs/pundit/" target="_blank">Pundit</a>:</b></p>
+<ul>
+  <li>Pundit is not limited to ActiveRecord or even an ActiveModel object.</li>
+</ul>
+<p>Though, acl9 felt the right tool for my toolbox, it was not. It's not just about ease of user, readability, write-ability, or time/space cost of code, but amount of time to develop the solution as well. The system was already using Devise for authentication, which acl9 was not compatible with. So, despite CanCanCan simplicity, pundit was chosen for it feature of scope.</p>
+<p>Following the TDD pattern, where you write the spec followed by its solution, there were about a hundred criteria, that I needed include. In this project, a major obstable I faced was, writing specs. The github site of pundit did not have instructions on writing specs for scoping. It might have been end of hope, if I didn't find <a href="http://netzfisch.github.io/ruby/2014/06/26/pundit-rails-authorisation-with-rspec.html " target="_blank">this only site</a> with just the thing I needed.</p>
+<p>Writing specs for Pundit was fun, but I tried covering the specs with least examples possible. By the time, the implementation of policy was complete, there were exactly 99 spec examples just for the policy.</p>
+<h2>5 minutes presentation On Pundit</h2>
+<p><div class="text-center"><iframe src="http://krazedkrish.github.io/presentation_pundit_gem/" frameborder="0" height="400px" width="100%"></iframe></div>
+  <span class="caption text-muted">Lunch and learn presentation in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a></span></p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+
+    <!-- jQuery Version 1.11.0 -->
+<script src="/blog/js/jquery-1.11.0.js"></script>
+
+<!-- Plugin JavaScript -->
+    <script src="/blog/js/jquery.easing.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/blog/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/blog/js/landing-page.js"></script>
+
+<!-- Contact Validation JavaScript -->
+<script src="/blog/js/concact-validate.js"></script>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66064598-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	</body>
+</html>
