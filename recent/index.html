@@ -39,6 +39,102 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/05/16/plim-with-bottlepy/">
+        <div class="post-heading">
+          <h1>Using Plim with bottlepy</h1>
+          
+          <h2 class="post-subheading">How to use plim template, with bottle.py micro framework</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on May 16, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2><a href="https://github.com/avanov/Plim" target="_blank">Plim</a></h2>
+<p><a href="https://github.com/avanov/Plim" target="_blank">Plim</a> is a Python port of <a href="http://slim-lang.com/" target="_blank">Ruby's Slim template language </a>built on top of Mako Templates. It uses Mako's preprocessor feature to translate its syntax into a valid HTML/Mako markup.</p>
+<h2><a href="http://bottlepy.org/" target="_blank">Bottle</a></h2>
+<p><a href="http://bottlepy.org/" target="_blank">Bottle</a> is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.</p>
+<blockquote>
+  <p>BTW it is the best framework to be used with Raspberry Pi</p>
+</blockquote>
+<h2>Using <a href="https://github.com/avanov/Plim" target="_blank">Plim</a> with <a href="http://bottlepy.org/" target="_blank">Bottle</a></h2>
+<p>All you need to do is create a wrapper. Mine is called bottlim.py</p>
+<div class="highlight"><pre><span class="c"># bottlim.py</span>
+
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span>  <span class="nn">bottle</span> <span class="kn">import</span> <span class="n">template</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">BaseTemplate</span><span class="p">,</span> <span class="n">DEBUG</span>
+
+<span class="k">class</span> <span class="nc">PlimTemplate</span><span class="p">(</span><span class="n">BaseTemplate</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">mako.template</span> <span class="kn">import</span> <span class="n">Template</span>
+        <span class="kn">from</span> <span class="nn">mako.lookup</span> <span class="kn">import</span> <span class="n">TemplateLookup</span>
+        <span class="kn">from</span> <span class="nn">plim</span> <span class="kn">import</span> <span class="n">preprocessor</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;input_encoding&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">})</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">&#39;format_exceptions&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">DEBUG</span><span class="p">))</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="n">TemplateLookup</span><span class="p">(</span><span class="n">directories</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tpl</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">lookup</span><span class="o">=</span><span class="n">lookup</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tpl</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">lookup</span><span class="o">=</span><span class="n">lookup</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">dictarg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dictarg</span><span class="p">)</span>
+        <span class="n">_defaults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">_defaults</span><span class="p">)</span>
+
+
+<span class="n">plim_template</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">template_adapter</span><span class="o">=</span><span class="n">PlimTemplate</span><span class="p">)</span>
+<span class="n">plim_view</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">template_adapter</span><span class="o">=</span><span class="n">PlimTemplate</span><span class="p">)</span>
+</pre></div>
+<p>Then you can use PlimTemplate by importing plim_template, here is an example</p>
+<div class="highlight"><pre><span class="c"># the import lines</span>
+<span class="kn">from</span> <span class="nn">bottlim</span> <span class="kn">import</span> <span class="n">plim_template</span> <span class="k">as</span> <span class="n">template</span><span class="p">,</span> <span class="n">plim_view</span> <span class="k">as</span> <span class="n">view</span>
+
+<span class="nd">@route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="c"># the view file name is expected to have extension .html</span>
+    <span class="c"># in the following case it will use the template file index.html</span>
+    <span class="k">return</span> <span class="n">template</span><span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">)</span>
+</pre></div>
+<p>If you don't have your index.html in plim template ready. Copy paste these</p>
+<div class="highlight"><pre><span class="nt">doctype</span> html
+<span class="nt">html</span>
+  <span class="nt">body</span>
+    <span class="nt">h1</span> Hello World
+</pre></div>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/05/16/plim-with-bottlepy/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
         <a href="/blog/2016/03/21/awesome-git-commands/">
         <div class="post-heading">
           <h1>Awesome git commands</h1>
@@ -958,70 +1054,6 @@ $ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
 
         <div class="comment-link">
         <a href="/blog/2015/09/10/ipython-bpython-django/">
-          <i class="fa fa-comment"></i>
-          Leave a Comment
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-  </div>
-
-<div class="post-detailed-preview">
-  <div class="post-header post-detailed-preview-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
-        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/">
-        <div class="post-heading">
-          <h1>Fun using pundit gem on Rails</h1>
-          
-          <h2 class="post-subheading">Implementing ACL (Access control List) using pundit gem on Rails</h2>
-          
-        </div>
-        </a>
-    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on August 16, 2015</p>
-      </div>
-    </div>
-  </div>
-  <!-- /.container -->
-</div>
-<!-- /.page-header -->
-
-
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10">
-
-        <p>While working on <a href="http://emitii.com/" target="_blank">Emitii.com</a> project in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a>, I got assigned the ACL(Access Controll List) task. After an android app using Ruboto, I knew implementing ACL would be the next fun project. Imaging, planing whole bunch access levels, and controlling the access. The superior person would be able to add, view and modify any thing, but the inferior one has only a limited view. Well, I first designed the proposal, with diagrams of hierarchy of access levels and permitted actions, and the usual Use Cases and Activity diagrams. I enjoyed creating diagrams through Xmind and Umbrello. And then added some visual effects using Inkscape.</p>
-<p>My proposed solution was simple, four levels of access, adhering to KISS principle as much as possible. The access level were, one to the vendor, then admin of each company(client) followed by project leads and project members. The permitted actions are exactly the ones you imagined. However, I also included an alternate solution, with an extra feature creating template roles. The use case actors were based on the persona of Software Architects, Solution Architects, Qas. Analyzing and comparing, many factors, the simpler one won.</p>
-<p>Starting on implementing, I did'nt touch the code for next day. Instead, I researched on the right gem. By noon, I narrowed down the gems to</p>
-<p><b><a href="https://github.com/be9/acl9" target="_blank">Acl9</a>:</b></p>
-<ul>
-  <li>It is highly configurable. One can dynamically grant authorization at the object level.</li>
-</ul>
-<p><b><a href="" target="_blank">CanCanCan</a>:</b></p>
-<ul>
-  <li>It is simple to implement, and ease to use.</li>
-</ul>
-<p><b><a href="https://github.com/elabs/pundit/" target="_blank">Pundit</a>:</b></p>
-<ul>
-  <li>Pundit is not limited to ActiveRecord or even an ActiveModel object.</li>
-</ul>
-<p>Though, acl9 felt the right tool for my toolbox, it was not. It's not just about ease of user, readability, write-ability, or time/space cost of code, but amount of time to develop the solution as well. The system was already using Devise for authentication, which acl9 was not compatible with. So, despite CanCanCan simplicity, pundit was chosen for it feature of scope.</p>
-<p>Following the TDD pattern, where you write the spec followed by its solution, there were about a hundred criteria, that I needed include. In this project, a major obstable I faced was, writing specs. The github site of pundit did not have instructions on writing specs for scoping. It might have been end of hope, if I didn't find <a href="http://netzfisch.github.io/ruby/2014/06/26/pundit-rails-authorisation-with-rspec.html " target="_blank">this only site</a> with just the thing I needed.</p>
-<p>Writing specs for Pundit was fun, but I tried covering the specs with least examples possible. By the time, the implementation of policy was complete, there were exactly 99 spec examples just for the policy.</p>
-<h2>5 minutes presentation On Pundit</h2>
-<p><div class="text-center"><iframe src="http://krazedkrish.github.io/presentation_pundit_gem/" frameborder="0" height="400px" width="100%"></iframe></div>
-  <span class="caption text-muted">Lunch and learn presentation in <a href="http://jyaasa.com" _target="blank">Jyaasa Technologies</a></span></p>
-
-
-        <hr>
-
-        <div class="comment-link">
-        <a href="/blog/2015/08/16/fun-using-pundit-on-rails/">
           <i class="fa fa-comment"></i>
           Leave a Comment
         </a>
