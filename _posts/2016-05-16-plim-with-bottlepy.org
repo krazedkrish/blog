@@ -1,0 +1,80 @@
+#+LAYOUT: post
+#+TITLE: Using Plim with bottlepy
+#+SUBTITLE: How to use plim template, with bottle.py micro framework
+#+DESCRIPTION: how to use plim template, with bottle.py micro framework
+#+DATE: 2016-05-16 22:00
+#+liquid: enabled
+#+comments: true
+#+plim_link: <a href="https://github.com/avanov/Plim" target="_blank">Plim</a>
+#+slim_link: <a href="http://slim-lang.com/" target="_blank">Ruby's Slim template language </a>
+#+bottle_link: <a href="http://bottlepy.org/" target="_blank">Bottle</a>
+
+** {{ page.plim_link }}
+
+{{ page.plim_link }} is a Python port of {{ page.slim_link }}built on top of Mako Templates. It uses Mako's preprocessor feature to translate its syntax into a valid HTML/Mako markup.
+
+** {{ page.bottle_link }}
+
+{{ page.bottle_link }} is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.
+
+#+BEGIN_QUOTE
+BTW it is the best framework to be used with Raspberry Pi
+#+END_QUOTE
+
+** Using {{ page.plim_link }} with {{ page.bottle_link }}
+
+All you need to do is create a wrapper. Mine is called bottlim.py
+
+#+BEGIN_SRC python
+# bottlim.py
+
+import functools
+from  bottle import template, view, BaseTemplate, DEBUG
+
+class PlimTemplate(BaseTemplate):
+    def prepare(self, **options):
+        from mako.template import Template
+        from mako.lookup import TemplateLookup
+        from plim import preprocessor
+        options.update({'input_encoding':self.encoding})
+        options.setdefault('format_exceptions', bool(DEBUG))
+        lookup = TemplateLookup(directories=self.lookup, **options)
+        if self.source:
+            self.tpl = Template(self.source, preprocessor = preprocessor, lookup=lookup, **options)
+        else:
+            self.tpl = Template(uri=self.name, preprocessor = preprocessor, filename=self.filename, lookup=lookup, **options)
+
+    def render(self, *args, **kwargs):
+        for dictarg in args: kwargs.update(dictarg)
+        _defaults = self.defaults.copy()
+        _defaults.update(kwargs)
+        return self.tpl.render(**_defaults)
+
+
+plim_template = functools.partial(template, template_adapter=PlimTemplate)
+plim_view = functools.partial(view, template_adapter=PlimTemplate)
+
+#+END_SRC
+
+Then you can use PlimTemplate by importing plim_template, here is an example
+
+#+BEGIN_SRC python
+# the import lines
+from bottlim import plim_template as template, plim_view as view
+
+@route('/')
+def index():
+    # the view file name is expected to have extension .html
+    # in the following case it will use the template file index.html
+    return template('index')
+
+#+END_SRC
+
+If you don't have your index.html in plim template ready. Copy paste these
+
+#+BEGIN_SRC slim
+doctype html
+html
+  body
+    h1 Hello World
+#+END_SRC
