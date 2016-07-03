@@ -1,0 +1,55 @@
+#+LAYOUT: post
+#+TITLE: Running Concurrent Headless Tests In Jenkins
+#+SUBTITLE: How to use selinium chrome drivers to run concurrent Tests in Jenkins
+#+DESCRIPTION: how to use selinium chrome drivers to run tests in jenkins
+#+DATE: 2016-05-16 22:00
+#+liquid: enabled
+#+comments: true
+#+jenkins_link: <a href="hhttps://jenkins.io/" target="_blank">Jenkins</a>
+
+** {{ page.jenkins_link }}
+
+   {{page.jenkins_link}} is a cross-platform, continuous integration and continuous delivery application. It is opensource and  distributed under the MIT License.
+
+** Solution First
+
+   1. Install Xvfb
+
+   Xvfb is an X server that can run on machines with no display hardware and no physical input devices. It emulates a dumb framebuffer using virtual memory.
+
+   #+BEGIN_SRC bash
+   $ # for ubuntu
+   $ sudo apt-get install xvfb
+
+   # for centos
+   $ yum install Xvfb firefox
+   #+END_SRC
+   
+   2. Install your browser
+      
+   You can install firefox 
+   #+BEGIN_SRC bash
+   $ # for ubuntu
+   $ apt-get install firefox
+
+   $ # for centos
+   $ yum install Xvfb firefox
+   #+END_SRC
+
+   If you want to install Google Chrome instead
+
+   #+BEGIN_SRC
+   $ # for ubuntu
+   $ wget -q -O – https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add –
+   $ sudo sh -c `echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list`
+   $ sudo apt-get update
+   $ sudo apt-get install google-chrome-stable
+   #+END_SRC
+
+   #+BEGIN_SRC
+   $ # for centos
+   $ wget http://chrome.richardlloyd.org.uk/install_chrome.sh
+   $ chmod u+x install_chrome.sh
+   $ ./install_chrome.sh
+   #+END_SRC
+
