@@ -8,6 +8,7 @@ email: krazedkrish@gmail.com
 author: Shalil Awaley
 description: > # "This is my awesome site. It has projects and blog articles related to linux, ruby, rails, python, javascript, jquery and other tech related fields"
 baseurl: "/blog"
+future: true
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -33,5 +34,4 @@ social:
   - title: linkedin
     url: https://np.linkedin.com/pub/shalil-awaley/69/618/b21
 
-gems:
-  - jekyll-sitemap
+gems: [jekyll-paginate, jekyll-sitemap]
