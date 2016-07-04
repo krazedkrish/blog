@@ -39,6 +39,128 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/07/04/how-to-begin-spacemacs/">
+        <div class="post-heading">
+          <h1>Spacemacs for Ruby on rails</h1>
+          
+          <h2 class="post-subheading">How to begin spacemacs for</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on July 4, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2><a href="https://en.wikipedia.org/wiki/Editor_war" target="_blank"> The Editor War </a></h2>
+<p>According to wikipedia: Editor war is the common name for the rivalry between users of the <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> and <a href="https://en.wikipedia.org/wiki/Vi" target="_blank"> Vi </a> (<a href="http://www.vim.org/ tareget="_blank"> Vim </a>) text editors. The rivalry has become a lasting part of hacker culture and the free software community.</p>
+<p>There are a lot more interesting stuffs about <a href="https://en.wikipedia.org/wiki/Editor_war" target="_blank"> The Editor War </a>. Make sure you read the wikipedia.</p>
+<h2><a href="http://www.vim.org/ tareget="_blank"> Vim </a></h2>
+<p>Vim is a highly configurable text editor built to make creating and changing any kind of text very efficient. It is included as &#8220;vi&#8221; with most UNIX systems and with Apple OS X.</p>
+<h2><a href="https://www.emacswiki.org/" target="_blank"> Emacs </a></h2>
+<p><a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> is almost like an operating system, you can do lots of things from it. It also happens to be a text editor.</p>
+<p>You wouldn't want to use <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> unless you have a problem or you have reached a limitation with other editors.</p>
+<h2><a href="http://spacemacs.org/" target="_blank"> Spacemacs</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Editor_war" target="_blank"> The Editor War </a> created the idea of <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> vs <a href="http://www.vim.org/ tareget="_blank"> Vim </a>. Also, that <a href="https://en.wikipedia.org/wiki/Vi" target="_blank"> Vi </a> and <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> are incompatible.</p>
+<p>However <a href="http://www.vim.org/ tareget="_blank"> Vim </a> users have recently realized that <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> can be <a href="https://github.com/emacsmirror/evil" target="_blank"> Evil </a>, being compatible with the idea to the Cult of <a href="https://en.wikipedia.org/wiki/Vi" target="_blank"> Vi </a>.</p>
+<p><a href="http://spacemacs.org/" target="_blank"> Spacemacs</a> has proven &#8220;The best editor is neither <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> nor <a href="http://www.vim.org/ tareget="_blank"> Vim </a>, it's <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a> and <a href="http://www.vim.org/ tareget="_blank"> Vim </a>!</p>
+<h2>Beginning <a href="http://spacemacs.org/" target="_blank"> Spacemacs</a></h2>
+<ol>
+  <li>Install the latest stable version of <a href="http://spacemacs.org/" target="_blank"> Spacemacs</a>
+    <blockquote>
+      <p>The current stable version is 24.5</p>
+    </blockquote>
+    <p>For Archlinux the command is:</p>
+<div class="highlight"><pre>sudo pacman -S emacs
+</pre></div>
+    <p>For Ubuntu the command is:</p>
+<div class="highlight"><pre>sudo apt-get install emacs
+</pre></div>
+  </li>
+  <li>Download the <a href="http://spacemacs.org/" target="_blank"> Spacemacs</a> to ~/.emacs.d/
+<div class="highlight"><pre>git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d/
+</pre></div>
+  </li>
+  <li>Add auto-complete, better-defaults, git, helm, html, javascript, ruby, ruby-on-rails, spell-checking version-control and yaml to dotspacemacs-configuration-layers
+    <p>For reference check the <a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline32" target="_blank"> Configuration Layer Documenation </a></p>
+<div class="highlight"><pre><span class="nv">dotspacemacs-configuration-layers</span>
+<span class="o">&#39;</span><span class="p">(</span>
+
+<span class="nv">auto-completion</span>
+<span class="nv">better-defaults</span>
+<span class="nv">git</span>
+<span class="nv">helm</span>
+<span class="nv">html</span>
+<span class="nv">javascript</span>
+<span class="nv">ruby</span>
+<span class="nv">ruby-on-rails</span>
+<span class="nv">spell-checking</span>
+<span class="nv">syntax-checking</span>
+<span class="nv">version-control</span>
+<span class="nv">yaml</span>
+<span class="p">)</span>
+</pre></div>
+  </li>
+  <li>[ OPTIONAL ] Or, better you can use my use <a href="https://github.com/syl20bnr/spacemacs.git" target="_blank">my spacemacs configurations</a>
+    <p>All you need to do is download them, and copy configs</p>
+<div class="highlight"><pre><span class="nb">cd</span> ~/.emacs.d/
+rm -rf private
+git clone http://github.com/krazedkrish/spacemacs-private-layer.git private
+mv private/.spacemacs ~/.spacemacs
+</pre></div>
+    <p>This command copies my configs for spacemacs in your machine</p>
+  </li>
+  <li>Now all you, all you need to do is run emacs
+<div class="highlight"><pre>emacs
+</pre></div>
+    <p>It will automatically download the necessary the first time, or after any changes made to the configurations.</p>
+  </li>
+</ol>
+<h2>Why <a href="http://spacemacs.org/" target="_blank"> Spacemacs</a>?</h2>
+<p>According to <a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline6" target="_blank"> Spacemacs's Hihghlighted features </a>:</p>
+<ul>
+  <li><b>Bring the efficiency of modal editing</b> to the powerful Emacs lisp platform. Modal UX is optional and Spacemacs can be used with only Emacs key bindings.</li>
+  <li>Integrate nicely with Evil states (Vim modes).</li>
+  <li><b>Keep your fingers on the home row</b> for quicker editing with support for QWERTY and BEPO layouts.</li>
+  <li><b>Minimalistic and nice graphical UI</b>, keep your available screen space for what matters: your text files.</li>
+  <li><b>Fast boot time</b>, packages and configuration are lazy-loaded as much as possible.</li>
+  <li><b>Lower the risk of RSI</b> by heavily using the space bar instead of modifiers. If you have issues with your thumbs you can still use Spacemacs using modifiers.</li>
+  <li>Contribute easily your improvements and new configuration layers.</li>
+  <li><b>Very active and helpful community</b> on Gitter and IRC (via Gitter IRC bridge)</li>
+</ul>
+<blockquote>
+  <p>In my next article I will write about the basic key bindings you would need to know for Spacemacs</p>
+</blockquote>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/07/04/how-to-begin-spacemacs/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
         <a href="/blog/2016/05/16/plim-with-bottlepy/">
         <div class="post-heading">
           <h1>Using Plim with bottlepy</h1>
@@ -963,97 +1085,6 @@ $ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
 
         <div class="comment-link">
         <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
-          <i class="fa fa-comment"></i>
-          Leave a Comment
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-  </div>
-
-<div class="post-detailed-preview">
-  <div class="post-header post-detailed-preview-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
-        <a href="/blog/2015/09/10/ipython-bpython-django/">
-        <div class="post-heading">
-          <h1>IPython, bpython and django</h1>
-          
-          <h2 class="post-subheading">Tricks using ipython and bpython with django</h2>
-          
-        </div>
-        </a>
-    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on September 10, 2015</p>
-      </div>
-    </div>
-  </div>
-  <!-- /.container -->
-</div>
-<!-- /.page-header -->
-
-
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10">
-
-        <h2><a href="http://ipython.org" target="_blank">IPython</a></h2>
-<p>I am sure you have used <a href="http://ipython.org" target="_blank">IPython</a> for a number of purposes. For interactive shell, usually because it has some enhancements. You would also probable use it for RELP(Read Eval Print Loop). Let me brag about my favourite editor. RELP comes from the names of Lisp primitive function which implements this functionality, just the reason Emacs acts the way you want it to.</p>
-<p>It's a must for a Pythonista to know this. Within any arbitary place in your python code (including django) you can drop into an <a href="http://ipython.org" target="_blank">IPython</a> shell.</p>
-<blockquote>
-  <p>You didn't! Try inserting these, in between your codes.</p>
-</blockquote>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">embed</span>
-<span class="n">embed</span><span class="p">()</span>
-</pre></div>
-<blockquote>
-  <p>Note: This will not work for older versions of python</p>
-</blockquote>
-<p>By the way running python manage.py shell in django starts <a href="http://ipython.org" target="_blank">IPython</a> by default if you have installed it.</p>
-<h2><a href="http://bpython-interpreter.org/" target="_blank">bpython</a></h2>
-<p>You have used  right! I am sure you loved its auto-complete and syntax highlight features. If you havent used it then, check out the screenshot below.</p>
-<p><center><img src="http://bpython-interpreter.org/images/4.png"></center>
-  <span class="caption text-muted"><a href="http://bpython-interpreter.org/screenshots.html" _target="blank">See more screenshots</a></span></p>
-<p>Did you like it? If you did then you might want to use it for django as well.</p>
-<p>Start by modifying your ~/.bashrc to define a python startup environment variable</p>
-<div class="highlight"><pre><span class="nb">export </span><span class="nv">PYTHONSTARTUP</span><span class="o">=</span>~/.pythonrc
-</pre></div>
-<p>Then insert the following code in ~/.pythonrc!</p>
-<div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span>
-    <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="n">project</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">+</span><span class="s">&quot;.settings&quot;</span><span class="p">)</span>
-    <span class="k">exec</span><span class="p">(</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s"> import settings&quot;</span><span class="o">%</span><span class="n">project</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Imported django settings&#39;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">exec_strs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;from </span><span class="si">%s</span><span class="s">.models import *&quot;</span><span class="o">%</span><span class="n">apps</span> <span class="k">for</span> <span class="n">apps</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span> <span class="p">]</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">exec_strs</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">exec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-</pre></div>
-<blockquote>
-  <p>Note: This will not work for older versions of python</p>
-</blockquote>
-<p>Now run</p>
-<div class="highlight"><pre><span class="nv">$ </span><span class="nb">exec</span> <span class="nv">$SHELL</span>
-</pre></div>
-<p>From now, when you go to the django project folder(where manage.py resides) run <a href="http://bpython-interpreter.org/" target="_blank">bpython</a> instead of python manage.py shell</p>
-
-
-        <hr>
-
-        <div class="comment-link">
-        <a href="/blog/2015/09/10/ipython-bpython-django/">
           <i class="fa fa-comment"></i>
           Leave a Comment
         </a>
