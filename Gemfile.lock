@@ -130,9 +130,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  github-pages (= 85)
+  github-pages
   jekyll-sitemap
-  json
   org-ruby
   pygments.rb
 
