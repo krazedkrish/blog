@@ -124,7 +124,9 @@
    - Contribute easily your improvements and new configuration layers.
    - *Very active and helpful community* on Gitter and IRC (via Gitter IRC bridge)
 
-*** You might be interested to read about:
+*** You might be interested to
+
+    You might be interested to read about these:
 
     - {{ page.how_to_emacs_link }}
     - {{ page.awesome_emacs_link }}
