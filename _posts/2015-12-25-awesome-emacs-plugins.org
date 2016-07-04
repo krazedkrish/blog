@@ -1,6 +1,6 @@
 #+LAYOUT: post
-#+TITLE: Awesome Emacs plugins you might not know.
-#+SUBTITLE: You might not have heard of these cool plugins.
+#+TITLE: Awesome Emacs plugins you might not know
+#+SUBTITLE: You might not have heard of these cool plugins
 #+DESCRIPTION: new and awesome unheard emacs plugins
 #+DATE: 2015-12-27 11:20
 #+liquid: enabled

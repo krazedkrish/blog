@@ -1,10 +1,12 @@
 #+LAYOUT: post
-#+TITLE: Spacemacs for Ruby on rails
-#+SUBTITLE: How to begin spacemacs for
-#+DESCRIPTION: how to begin spacemacs for
+#+TITLE: Spacemacs for Ruby on Rails
+#+SUBTITLE: How to begin spacemacs for Ruby on Rails
+#+DESCRIPTION: tutorial, how to begin spacemacs for Ruby on Rails
 #+DATE: 2016-07-04 20:00
 #+liquid: enabled
 #+comments: true
+#+awesome_emacs_link: <a href="http://localhost:4000/blog/2015/12/27/awesome-emacs-plugins/" target="_blank"> Awesome Emacs plugins you might not know </a>
+#+how_to_emacs_link: <a href="http://localhost:4000/blog/2015/12/22/how-to-begin-emacs/" target="_blank"> How to begin emacs </a>
 #+configuration_layer_link: <a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline32" target="_blank"> Configuration Layer Documenation </a>
 #+editor_war_link: <a href="https://en.wikipedia.org/wiki/Editor_war" target="_blank"> The Editor War </a>
 #+emacs_link: <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a>
@@ -111,7 +113,7 @@
 
 ** Why {{ page.spacemacs_link }}?
    
-   According to {{ page.spacemacs_highlighted_features_link }}:
+   According to {{ page.spacemacs_highlighted_features_link }}, the reasons to use {{ page.spacemacs_link }} are:
    
    - *Bring the efficiency of modal editing* to the powerful Emacs lisp platform. Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
    - Integrate nicely with Evil states (Vim modes).
@@ -121,6 +123,11 @@
    - *Lower the risk of RSI* by heavily using the space bar instead of modifiers. If you have issues with your thumbs you can still use Spacemacs using modifiers.
    - Contribute easily your improvements and new configuration layers.
    - *Very active and helpful community* on Gitter and IRC (via Gitter IRC bridge)
+
+*** You might be interested to read about:
+
+    - {{ page.how_to_emacs_link }}
+    - {{ page.awesome_emacs_link }}
 
    #+BEGIN_QUOTE
    In my next article I will write about the basic key bindings you would need to know for Spacemacs
