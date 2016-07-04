@@ -1,0 +1,127 @@
+#+LAYOUT: post
+#+TITLE: Spacemacs for Ruby on rails
+#+SUBTITLE: How to begin spacemacs for
+#+DESCRIPTION: how to begin spacemacs for
+#+DATE: 2016-07-04 20:00
+#+liquid: enabled
+#+comments: true
+#+configuration_layer_link: <a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline32" target="_blank"> Configuration Layer Documenation </a>
+#+editor_war_link: <a href="https://en.wikipedia.org/wiki/Editor_war" target="_blank"> The Editor War </a>
+#+emacs_link: <a href="https://www.emacswiki.org/" target="_blank"> Emacs </a>
+#+evil_link: <a href="https://github.com/emacsmirror/evil" target="_blank"> Evil </a>
+#+private_link: <a href="https://github.com/syl20bnr/spacemacs.git" target="_blank">my spacemacs configurations</a>
+#+spacemacs_link: <a href="http://spacemacs.org/" target="_blank"> Spacemacs</a>
+#+spacemacs_highlighted_features_link: <a href="http://spacemacs.org/doc/DOCUMENTATION#orgheadline6" target="_blank"> Spacemacs's Hihghlighted features </a>
+#+vi_link:<a href="https://en.wikipedia.org/wiki/Vi" target="_blank"> Vi </a>
+#+vim_link: <a href="http://www.vim.org/ tareget="_blank"> Vim </a>
+
+** {{ page.editor_war_link }}
+
+   According to wikipedia: Editor war is the common name for the rivalry between users of the {{page.emacs_link}} and {{page.vi_link}} ({{page.vim_link}}) text editors. The rivalry has become a lasting part of hacker culture and the free software community.
+
+   There are a lot more interesting stuffs about {{page.editor_war_link}}. Make sure you read the wikipedia.
+
+** {{ page.vim_link }}
+   
+   Vim is a highly configurable text editor built to make creating and changing any kind of text very efficient. It is included as "vi" with most UNIX systems and with Apple OS X. 
+
+** {{ page.emacs_link }}
+
+   {{ page.emacs_link }} is almost like an operating system, you can do lots of things from it. It also happens to be a text editor.
+
+   You wouldn't want to use {{ page.emacs_link }} unless you have a problem or you have reached a limitation with other editors.
+
+** {{ page.spacemacs_link }}
+
+   {{ page.editor_war_link }} created the idea of {{ page.emacs_link }} vs {{ page.vim_link }}. Also, that {{ page.vi_link }} and {{ page.emacs_link }} are incompatible.
+
+   However {{ page.vim_link }} users have recently realized that {{ page.emacs_link }} can be {{ page.evil_link }}, being compatible with the idea to the Cult of {{page.vi_link}}.
+   
+   {{ page.spacemacs_link }} has proven "The best editor is neither {{ page.emacs_link }} nor {{ page.vim_link }}, it's {{ page.emacs_link }} and {{ page.vim_link }}!
+
+** Beginning {{ page.spacemacs_link }}
+   
+   1. Install the latest stable version of {{ page.spacemacs_link }}
+   
+      #+BEGIN_QUOTE
+      The current stable version is 24.5
+      #+END_QUOTE
+
+      For Archlinux the command is:
+      
+      #+BEGIN_SRC bash
+      sudo pacman -S emacs
+      #+END_SRC
+
+      For Ubuntu the command is:
+      
+      #+BEGIN_SRC bash
+      sudo apt-get install emacs
+      #+END_SRC
+
+   2. Download the {{ page.spacemacs_link }} to ~/.emacs.d/
+      
+      #+BEGIN_SRC bash
+      git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d/
+      #+END_SRC
+
+   3. Add auto-complete, better-defaults, git, helm, html, javascript, ruby, ruby-on-rails, spell-checking version-control and yaml to dotspacemacs-configuration-layers
+      
+      For reference check the {{ page.configuration_layer_link }}
+      
+      #+BEGIN_SRC lisp
+        dotspacemacs-configuration-layers
+        '(
+
+        auto-completion
+        better-defaults
+        git
+        helm
+        html
+        javascript
+        ruby
+        ruby-on-rails
+        spell-checking
+        syntax-checking
+        version-control
+        yaml
+        )
+      #+END_SRC
+      
+   4. [ OPTIONAL ] Or, better you can use my use {{ page.private_link }}
+
+      All you need to do is download them, and copy configs
+
+      #+BEGIN_SRC bash
+      cd ~/.emacs.d/
+      rm -rf private
+      git clone http://github.com/krazedkrish/spacemacs-private-layer.git private
+      mv private/.spacemacs ~/.spacemacs
+      #+END_SRC
+
+      This command copies my configs for spacemacs in your machine
+      
+   5. Now all you, all you need to do is run emacs
+
+      #+BEGIN_SRC bash
+      emacs
+      #+END_SRC
+
+      It will automatically download the necessary the first time, or after any changes made to the configurations.
+
+** Why {{ page.spacemacs_link }}?
+   
+   According to {{ page.spacemacs_highlighted_features_link }}:
+   
+   - *Bring the efficiency of modal editing* to the powerful Emacs lisp platform. Modal UX is optional and Spacemacs can be used with only Emacs key bindings.
+   - Integrate nicely with Evil states (Vim modes).
+   - *Keep your fingers on the home row* for quicker editing with support for QWERTY and BEPO layouts.
+   - *Minimalistic and nice graphical UI*, keep your available screen space for what matters: your text files.
+   - *Fast boot time*, packages and configuration are lazy-loaded as much as possible.
+   - *Lower the risk of RSI* by heavily using the space bar instead of modifiers. If you have issues with your thumbs you can still use Spacemacs using modifiers.
+   - Contribute easily your improvements and new configuration layers.
+   - *Very active and helpful community* on Gitter and IRC (via Gitter IRC bridge)
+
+   #+BEGIN_QUOTE
+   In my next article I will write about the basic key bindings you would need to know for Spacemacs
+   #+END_QUOTE
