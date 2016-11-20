@@ -1,0 +1,45 @@
+#+LAYOUT: post
+#+TITLE: How to add plugins in ckeditor on Rails
+#+SUBTITLE: Adding external plugins to ckeditor on rails
+#+DESCRIPTION: Adding external plugins to ckeditor on rails
+#+KEYWORDS: add external plugins ckeditor rails
+#+DATE: 2016-11-20 13:00
+#+liquid: enabled
+#+comments: true
+#+ckeditor_reference: <a href="https://github.com/galetahub/ckeditor/issues/450" target="_blank">https://github.com/galetahub/ckeditor/issues/450</a>
+#+plugins_folder: <em>app/assets/javascripts/ckeditor/plugins</em>
+#+ckeditor_config: <em>config/initializers/ckeditor.rb</em>
+#+default_config: <a href="https://github.com/galetahub/ckeditor/blob/master/app/assets/javascripts/ckeditor/config.js" target="_blank">default config</a>
+#+ckeditor_config_link: <a href="http://docs.ckeditor.com/#!/guide/dev_configuration" target="_blank"> page </a>
+
+I needed to add codesnippet *plugin* for source code syntax highlighting in *ckeditor*. This was to edit blog articles, and it was built in rails.
+
+Ok so, I google searched the solution for installing the plugin and even tried reading the source code and understanding how it worked. Luckly, I found the solution in one of the issues pointed by google. I have summarized the solution for you. 
+
+** Solution:
+
+1. Create folder {{ page.plugins_folder }}
+
+  #+BEGIN_SRC bash
+  mkdir -p app/assets/javascripts/ckeditor/plugins
+  #+END_SRC
+
+2. Copy the plugins you want to add, in {{ page.plugins_folder }}
+
+3. Add the plugin assets in to the asset compilation tree, by adding the following in {{ page.ckeditor_config }}
+
+  #+BEGIN_SRC bash
+  #handle custom addons
+  assets_root =  Rails.root.join('app','assets','javascripts')
+  ckeditor_plugins_root = assets_root.join('ckeditor','plugins')
+  %w(openlink sourcedialog).each do |ckeditor_plugin|
+    Ckeditor.assets += Dir[ckeditor_plugins_root.join(ckeditor_plugin, '**', '*.js')].map do |x|
+      x.sub(assets_root.to_path, '').sub(/^\/+/, '')
+    end
+  end
+  #+END_SRC
+
+4. /[Optional]/ Depending on the *plugin* you are installing you might need to modify the *configs* for *ckeditor*. There is a {{ page.default_config }} file is added by the ckeditor gem. You can refer to this page for more info.
+
+
+For reference, you can study the following link: {{ page.ckeditor_reference }}
