@@ -2,6 +2,7 @@
 #+TITLE: Deploying Spree with ansible
 #+SUBTITLE: Wanna automate your spree deployment on ubuntu in 5 minutes?
 #+DESCRIPTION: Automate your spree deployment on ubuntu in 5 minutes
+#+KEYWORDS: deploy-spree deployment-spree spree deploy-spree-ansible spree-ansible ansible 5-minutes
 #+DATE: 2015-11-18 17:40
 #+liquid: enabled
 #+comments: true

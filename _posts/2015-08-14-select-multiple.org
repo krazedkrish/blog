@@ -3,6 +3,7 @@
 #+SUBTITLE: An awesome user-friendlier drop-in replacement for the standard <b>&#60;select&#62;</b>.
 #+DATE: 2015-08-14 17:15
 #+DESCRIPTION: An awesome user-friendlier drop-in replacement for the standard select tag
+#+KEYWORDS: awesome select select-tag jquery-plugin select-multiple multi-select
 #+liquid: enabled
 #+comments: true
 #+select_multiple_link: <a href="http://krazedkrish.com/select-multiple" target="_blank">Select Multiple</a>

@@ -2,6 +2,7 @@
 #+TITLE: Awesome git commands
 #+SUBTITLE: Of course you use git. Lets use it in awesome ways
 #+DESCRIPTION: awesome git commands
+#+KEYWORDS: awesome git commands
 #+DATE: 2016-03-21 16:30
 #+liquid: enabled
 #+comments: true

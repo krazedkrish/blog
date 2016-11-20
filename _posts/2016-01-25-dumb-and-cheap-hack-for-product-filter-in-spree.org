@@ -2,6 +2,7 @@
 #+TITLE: Dumb and Cheap Hack for Product Filter in Spree
 #+SUBTITLE: Spree: Feeling lazy, here is how to build easy Product Filters
 #+DESCRIPTION: quick tricks for product filter
+#+KEYWORDS: quick-tricks product-filter-spree spree
 #+DATE: 2016-01-27 21:00
 #+liquid: enabled
 #+comments: true

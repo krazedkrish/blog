@@ -2,6 +2,7 @@
 #+TITLE: How to begin emacs
 #+SUBTITLE: Want to configure the most awesome editor in minutes
 #+DESCRIPTION: configure the most awesome editor in minutes
+#+KEYWORDS: configure-emacs in-minutes begin-emacs how-to-begin-emacs easy-way-to-begin-emacs configure-el-get
 #+DATE: 2015-12-22 13:30
 #+liquid: enabled
 #+comments: true

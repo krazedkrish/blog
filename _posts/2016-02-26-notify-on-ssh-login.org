@@ -2,6 +2,7 @@
 #+TITLE: How to show notification on ssh login
 #+SUBTITLE: love team work, with ssh and  x2x, and you want to feel secure then ...
 #+DESCRIPTION: show notification when user logins through ssh
+#+KEYWORDS: show noftication ssh login ssh-notification notification-gui
 #+DATE: 2016-02-26 16:00
 #+liquid: enabled
 #+comments: true

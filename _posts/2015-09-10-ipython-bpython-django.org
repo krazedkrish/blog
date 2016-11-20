@@ -2,6 +2,7 @@
 #+TITLE: IPython, bpython and django
 #+SUBTITLE: Tricks using ipython and bpython with django
 #+DESCRIPTION: Tricks using ipython and bpython with django
+#+KEYWORDS: ipython bpython django
 #+DATE: 2015-09-10 21:48
 #+liquid: enabled
 #+comments: true

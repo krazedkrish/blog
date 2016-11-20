@@ -2,6 +2,7 @@
 #+TITLE: Blogging with spree 3-0-stable
 #+SUBTITLE: A blogging extension for spree 3.0 stable
 #+DESCRIPTION: A blogging extension for spree 3.0 stable
+#+KEYWORDS: blog blog-extension blog-plugin spree spree-ecommerce spree-3.0 rails
 #+DATE: 2015-11-03 12:00
 #+liquid: enabled
 #+comments: true

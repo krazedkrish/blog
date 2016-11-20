@@ -2,6 +2,7 @@
 #+TITLE: Using Plim with bottlepy
 #+SUBTITLE: How to use plim template, with bottle.py micro framework
 #+DESCRIPTION: how to use plim template, with bottle.py micro framework
+#+KEYWORDS: plim template bottle-py bottle bottle-framework
 #+DATE: 2016-05-16 22:00
 #+liquid: enabled
 #+comments: true

@@ -2,6 +2,7 @@
 #+TITLE: 5 Useful List of ppas for Ubuntu 14.04
 #+SUBTITLE: Being a developer using Ubuntu 14.04, you will always wanna use these 5 ppa
 #+DESCRIPTION: ppa for git tmux emacs nodejs postgresql ubuntu
+#+KEYWORDS: ppa git tmux emacs nodejs postgresql ubuntu
 #+DATE: 2016-03-03 13:00
 #+liquid: enabled
 #+comments: true

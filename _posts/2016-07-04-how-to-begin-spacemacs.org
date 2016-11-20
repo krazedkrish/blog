@@ -2,6 +2,7 @@
 #+TITLE: Spacemacs for Ruby on Rails
 #+SUBTITLE: How to begin spacemacs for Ruby on Rails
 #+DESCRIPTION: tutorial, how to begin spacemacs for Ruby on Rails
+#+KEYWORDS: tutorial spacemacs begin-spacemacs rails spacemaces-rails
 #+DATE: 2016-07-04 20:00
 #+liquid: enabled
 #+comments: true
