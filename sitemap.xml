@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://krazedkrish.com/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/</loc>
+<lastmod>2016-11-20T13:00:00+05:45</lastmod>
+</url>
+<url>
 <loc>http://krazedkrish.com/blog/2016/07/04/how-to-begin-spacemacs/</loc>
 <lastmod>2016-07-04T20:00:00+05:45</lastmod>
 </url>

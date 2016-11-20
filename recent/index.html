@@ -39,6 +39,72 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/">
+        <div class="post-heading">
+          <h1>How to add plugins in ckeditor on Rails</h1>
+          
+          <h2 class="post-subheading">Adding external plugins to ckeditor on rails</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 20, 2016</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <p>I needed to add codesnippet <b>plugin</b> for source code syntax highlighting in <b>ckeditor</b>. This was to edit blog articles, and it was built in rails.</p>
+<p>Ok so, I google searched the solution for installing the plugin and even tried reading the source code and understanding how it worked. Luckly, I found the solution in one of the issues pointed by google. I have summarized the solution for you.</p>
+<h2>Solution:</h2>
+<ol>
+  <li>Create folder <em>app/assets/javascripts/ckeditor/plugins</em>
+<div class="highlight"><pre>mkdir -p app/assets/javascripts/ckeditor/plugins
+</pre></div>
+  </li>
+  <li>Copy the plugins you want to add, in <em>app/assets/javascripts/ckeditor/plugins</em></li>
+  <li>Add the plugin assets in to the asset compilation tree, by adding the following in <em>config/initializers/ckeditor.rb</em>
+<div class="highlight"><pre><span class="c">#handle custom addons</span>
+<span class="nv">assets_root</span> <span class="o">=</span>  Rails.root.join<span class="o">(</span><span class="s1">&#39;app&#39;</span>,<span class="s1">&#39;assets&#39;</span>,<span class="s1">&#39;javascripts&#39;</span><span class="o">)</span>
+<span class="nv">ckeditor_plugins_root</span> <span class="o">=</span> assets_root.join<span class="o">(</span><span class="s1">&#39;ckeditor&#39;</span>,<span class="s1">&#39;plugins&#39;</span><span class="o">)</span>
+%w<span class="o">(</span>openlink sourcedialog<span class="o">)</span>.each <span class="k">do</span> <span class="p">|</span>ckeditor_plugin<span class="p">|</span>
+  Ckeditor.assets +<span class="o">=</span> Dir<span class="o">[</span>ckeditor_plugins_root.join<span class="o">(</span>ckeditor_plugin, <span class="s1">&#39;**&#39;</span>, <span class="s1">&#39;*.js&#39;</span><span class="o">)]</span>.map <span class="k">do</span> <span class="p">|</span>x<span class="p">|</span>
+    x.sub<span class="o">(</span>assets_root.to_path, <span class="s1">&#39;&#39;</span><span class="o">)</span>.sub<span class="o">(</span>/^<span class="se">\/</span>+/, <span class="s1">&#39;&#39;</span><span class="o">)</span>
+  end
+end
+</pre></div>
+  </li>
+  <li><i>[Optional]</i> Depending on the <b>plugin</b> you are installing you might need to modify the <b>configs</b> for <b>ckeditor</b>. There is a <a href="https://github.com/galetahub/ckeditor/blob/master/app/assets/javascripts/ckeditor/config.js" target="_blank">default config</a> file is added by the ckeditor gem. You can refer to this page for more info.</li>
+</ol>
+<p>For reference, you can study the following link: <a href="https://github.com/galetahub/ckeditor/issues/450" target="_blank">https://github.com/galetahub/ckeditor/issues/450</a></p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
         <a href="/blog/2016/07/04/how-to-begin-spacemacs/">
         <div class="post-heading">
           <h1>Spacemacs for Ruby on Rails</h1>
@@ -1007,90 +1073,6 @@ $ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
 
         <div class="comment-link">
         <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
-          <i class="fa fa-comment"></i>
-          Leave a Comment
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-  </div>
-
-<div class="post-detailed-preview">
-  <div class="post-header post-detailed-preview-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
-        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
-        <div class="post-heading">
-          <h1>Blogging with spree 3-0-stable</h1>
-          
-          <h2 class="post-subheading">A blogging extension for spree 3.0 stable</h2>
-          
-        </div>
-        </a>
-    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 3, 2015</p>
-      </div>
-    </div>
-  </div>
-  <!-- /.container -->
-</div>
-<!-- /.page-header -->
-
-
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10">
-
-        <h2><a href="http://spreecommerce.com/" target="_blank">Spree Commerce</a></h2>
-<p>(also known as <a href="http://spreecommerce.com/" target="_blank">Spree</a>) is an open source e-commerce solution based on Ruby on Rails. It was created by Sean Schofield in 2007 and has since had over 740 contributors</p>
-<p>If you are using <a href="http://spreecommerce.com/" target="_blank">Spree</a>, you must be wishing to add a blog for you site. Since spree 3.0 you must be struggling to do it.</p>
-<blockquote>
-  <p>Well, I did. And I am writing this blog, so that you dont &#8230;(tl;dw)</p>
-</blockquote>
-<p>Here is how you do it:</p>
-<h3>Installation:</h3>
-<ul>
-  <li>Add <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a> to your Gemfile:</li>
-</ul>
-<div class="highlight"><pre><span class="n">gem</span> <span class="s1">&#39;spree_blogging_spree&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s1">&#39;krazedkrish/spree-blogging-spree&#39;</span><span class="p">,</span> <span class="ss">branch</span><span class="p">:</span> <span class="s1">&#39;3-0-stable&#39;</span>
-</pre></div>
-<ul>
-  <li>Bundle your dependencies and run the installation generator:</li>
-</ul>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
-<span class="err">$</span> <span class="n">rake</span> <span class="ss">railties</span><span class="p">:</span><span class="ss">install</span><span class="p">:</span><span class="n">migrations</span>
-<span class="err">$</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
-</pre></div>
-<h3>Alternatives:</h3>
-<p>Several other contributors have forked and added spree 3-0 stable compatibility. Here are some alternative fork you might wanna check:</p>
-<ul>
-  <li><a href="https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable">https://github.com/kshlyk/spree-blogging-spree/tree/3-0-stable</a></li>
-  <li><a href="https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/JuandGirald/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
-  <li><a href="https://github.com/coalla/spree-blogging-spree/tree/3-0-stable">https://github.com/coalla/spree-blogging-spree/tree/3-0-stable</a></li>
-  <li><a href="https://github.com/garpit/spree-blogging-spree/tree/3-0-stable">https://github.com/garpit/spree-blogging-spree/tree/3-0-stable</a></li>
-  <li><a href="https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable">https://github.com/mobentec/spree-blogging-spree/tree/3-0-stable</a></li>
-  <li><a href="https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2">https://github.com/b8in/spree-blogging-spree/tree/spree-3-0-rc2</a></li>
-</ul>
-<h3>More about <a href="https://github.com/krazedkrish/spree-blogging-spree" target="_blank">spree-blogging-spree</a></h3>
-<p>The blog is found under <b>/blog</b> on the website font end. Blog entries have fields for title, body, summary, date published, and author. Each blog entry can also have categories and tags associated with it.</p>
-<p>The <a href="http://github.com/spree/spree_editor/">Spree Editor</a> extension can be used to provide a rich text experience when editing the body of a blog entry.</p>
-<p>The author is an instance of <code>Spree.user_class</code>, typically a <code>Spree::User</code>. The author can be selected from users with the blogger role when editing a blog entry in the admin. Some additional fields, including nickname, website URL, and Google Plus URL are added to the user model. Google Authorship information is added to the page head when the Google Plus URL is set.</p>
-<p>There is no commenting system yet. One option for adding comments is to override the <span style="text-decoration:underline;">spree/blog_entries/comments partial</span> and include and external commenting system, such as <a href="http://disqus.com/">Disqus</a>.</p>
-<p>Admin users can preview blog entries before they're made publicly visible.</p>
-<p>Lastly hope you guys contribute and help the blogging site become better.</p>
-<h3>You might also..</h3>
-<p>If you like my blog and this gem you would really wanna do one of these:</p>
-<p><div class="row"><div class="col-md-2"><a aria-label="Fork krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# forks on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#forks_count" data-count-href="/krazedkrish/spree-blogging-spree/network" data-style="mega" data-icon="octicon-repo-forked" href="https://github.com/krazedkrish/spree-blogging-spree/fork" class="github-button">Fork</a> </div><div class="col-md-2"> <a aria-label="Star krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#stargazers_count" data-count-href="/krazedkrish/spree-blogging-spree/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Star</a> </div><div class="col-md-2"> <a aria-label="Watch krazedkrish/spree-blogging-spree on GitHub" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/krazedkrish/spree-blogging-spree#subscribers_count" data-count-href="/krazedkrish/spree-blogging-spree/watchers" data-style="mega" data-icon="octicon-eye" href="https://github.com/krazedkrish/spree-blogging-spree" class="github-button">Watch</a> </div><div class="col-md-2 col-md-offset-3"> <a aria-label="Follow @krazedkrish on GitHub" data-style="mega" href="https://github.com/krazedkrish" class="github-button">Follow @krazedkrish</a> </div> </div></p>
-<p><script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script></p>
-
-
-        <hr>
-
-        <div class="comment-link">
-        <a href="/blog/2015/11/03/blogging-with-spree-3-0-stable/">
           <i class="fa fa-comment"></i>
           Leave a Comment
         </a>

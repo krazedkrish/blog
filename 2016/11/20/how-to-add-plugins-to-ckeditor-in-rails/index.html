@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-      <meta name="description" content="a blog by krazedkrish" />
+      <meta name="description" content="Adding external plugins to ckeditor on rails" />
     
     
-      <meta name="keywords" content="linux-expert-linux ruby-developer-ruby on rails-krazedkrish krazedkrish-nepal">
+      <meta name="keywords" content="add external plugins ckeditor rails krazedkrish blog ">
     
     <meta name="author" content="Shalil Awaley">
 
-    <title>My Blog</title>
+    <title>How to add plugins in ckeditor on Rails</title>
 
-    <link rel="canonical" href="http://krazedkrish.com/blog/page2/">
+    <link rel="canonical" href="http://krazedkrish.com/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
@@ -88,122 +88,101 @@
 </header>
 
     <section id="blog">
-        <div class="page-header">
-
-  <div class="container">
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-message">
-          <h1>My Blog</h1>
-          <hr class="small">
-          <h3>random thoughts of my mind</h3>
+        <div class="post-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>How to add plugins in ckeditor on Rails</h1>
+                    
+                    <h2 class="post-subheading">Adding external plugins to ckeditor on rails</h2>
+                    
+                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 20, 2016</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-  </div>
-  <!-- /.container -->
-
+    <!-- /.container -->
 </div>
 <!-- /.page-header -->
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			
-<div class="post-preview">
-    <a href="/blog/2016/02/26/notify-on-ssh-login/">
-        <h2 class="post-title">            How to show notification on ssh login
-        </h2>
-        
-        <h3 class="post-subtitle">
-            love team work, with ssh and  x2x, and you want to feel secure then ...
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on February 26, 2016</p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/blog/2016/01/27/dumb-and-cheap-hack-for-product-filter-in-spree/">
-        <h2 class="post-title">            Dumb and Cheap Hack for Product Filter in Spree
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Spree: Feeling lazy, here is how to build easy Product Filters
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on January 27, 2016</p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<div class="post-preview">
-    <a href="/blog/2015/12/27/awesome-emacs-plugins/">
-        <h2 class="post-title">            Awesome Emacs plugins you might not know
-        </h2>
-        
-        <h3 class="post-subtitle">
-            You might not have heard of these cool plugins
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on December 27, 2015</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/blog/2015/12/22/how-to-begin-emacs/">
-        <h2 class="post-title">            How to begin emacs
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Want to configure the most awesome editor in minutes
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on December 22, 2015</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
-        <h2 class="post-title">            Deploying Spree with ansible
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Wanna automate your spree deployment on ubuntu in 5 minutes?
-        </h3>
-        
-    </a>
-    <p class="post-meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</p>
-</div>
-<hr>
+                <p>I needed to add codesnippet <b>plugin</b> for source code syntax highlighting in <b>ckeditor</b>. This was to edit blog articles, and it was built in rails.</p>
+<p>Ok so, I google searched the solution for installing the plugin and even tried reading the source code and understanding how it worked. Luckly, I found the solution in one of the issues pointed by google. I have summarized the solution for you.</p>
+<h2>Solution:</h2>
+<ol>
+  <li>Create folder <em>app/assets/javascripts/ckeditor/plugins</em>
+<div class="highlight"><pre>mkdir -p app/assets/javascripts/ckeditor/plugins
+</pre></div>
+  </li>
+  <li>Copy the plugins you want to add, in <em>app/assets/javascripts/ckeditor/plugins</em></li>
+  <li>Add the plugin assets in to the asset compilation tree, by adding the following in <em>config/initializers/ckeditor.rb</em>
+<div class="highlight"><pre><span class="c">#handle custom addons</span>
+<span class="nv">assets_root</span> <span class="o">=</span>  Rails.root.join<span class="o">(</span><span class="s1">&#39;app&#39;</span>,<span class="s1">&#39;assets&#39;</span>,<span class="s1">&#39;javascripts&#39;</span><span class="o">)</span>
+<span class="nv">ckeditor_plugins_root</span> <span class="o">=</span> assets_root.join<span class="o">(</span><span class="s1">&#39;ckeditor&#39;</span>,<span class="s1">&#39;plugins&#39;</span><span class="o">)</span>
+%w<span class="o">(</span>openlink sourcedialog<span class="o">)</span>.each <span class="k">do</span> <span class="p">|</span>ckeditor_plugin<span class="p">|</span>
+  Ckeditor.assets +<span class="o">=</span> Dir<span class="o">[</span>ckeditor_plugins_root.join<span class="o">(</span>ckeditor_plugin, <span class="s1">&#39;**&#39;</span>, <span class="s1">&#39;*.js&#39;</span><span class="o">)]</span>.map <span class="k">do</span> <span class="p">|</span>x<span class="p">|</span>
+    x.sub<span class="o">(</span>assets_root.to_path, <span class="s1">&#39;&#39;</span><span class="o">)</span>.sub<span class="o">(</span>/^<span class="se">\/</span>+/, <span class="s1">&#39;&#39;</span><span class="o">)</span>
+  end
+end
+</pre></div>
+  </li>
+  <li><i>[Optional]</i> Depending on the <b>plugin</b> you are installing you might need to modify the <b>configs</b> for <b>ckeditor</b>. There is a <a href="https://github.com/galetahub/ckeditor/blob/master/app/assets/javascripts/ckeditor/config.js" target="_blank">default config</a> file is added by the ckeditor gem. You can refer to this page for more info.</li>
+</ol>
+<p>For reference, you can study the following link: <a href="https://github.com/galetahub/ckeditor/issues/450" target="_blank">https://github.com/galetahub/ckeditor/issues/450</a></p>
 
 
-<!-- Pager -->
+                <hr>
 
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/blog/">&larr; Newer Posts</a>
-    </li>
-    
-    
-    <li class="next">
-        <a href="/blog/page3">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/2016/07/04/how-to-begin-spacemacs/" data-toggle="tooltip" data-placement="top" title="Spacemacs for Ruby on Rails">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
 
+            </div>
+        </div>
+    </div>
+</article>
 
-		</div>
-	</div>
-</div>
 <br />
+
+<!-- Disqus Comment -->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    // Required: on line below, replace text in quotes with your forum shortname
+    var disqus_shortname = 'krazedkrish';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+    </div>
+</div>
+
     </section>
 		<!-- Footer -->
 <footer>
