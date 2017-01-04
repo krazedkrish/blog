@@ -2,7 +2,7 @@
 #+TITLE: How to add plugins in ckeditor on Rails
 #+SUBTITLE: Adding external plugins to ckeditor on rails
 #+DESCRIPTION: Adding external plugins to ckeditor on rails
-#+KEYWORDS: add external plugins ckeditor rails
+#+KEYWORDS: ckeditor-plugins-rails add-ckeditor-plugins-rails ckeditor-plugins rails-ckeditor
 #+DATE: 2016-11-20 13:00
 #+liquid: enabled
 #+comments: true
