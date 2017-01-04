@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+      <meta name="description" content="Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)" />
+    
+    
+      <meta name="keywords" content="music-server mpd mopidy arch archlinux raspberry pi begalboard light-weight upnp media server krazedkrish blog ">
+    
+    <meta name="author" content="Shalil Awaley">
+
+    <title>DIY Music Server with Arch Linux</title>
+
+    <link rel="canonical" href="http://krazedkrish.com/blog/2017/01/04/diy-music-server-with-archlinux-raspbery-pi-or-anywhere/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/landing-page.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/blog/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="//load.sumome.com/" data-sumo-site-id="b69bfe6ce63ca7cb0c4751c89e49217bb06a757a6d64ce3b381c6c921972f81d" async="async"></script>
+</head>
+
+
+	<body id="index">
+		<header id="blog">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="http://krazedkrish.com#home">krazedkrish</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="page-scroll" href="/#about">About</a>
+                    </li>
+                    <li>
+                      <a class="page-scroll" href="/#services">Services</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/#recent">Recent Works</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/#contact">Contact</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/projects">Projects</a>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+</header>
+
+    <section id="blog">
+        <div class="post-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>DIY Music Server with Arch Linux</h1>
+                    
+                    <h2 class="post-subheading">Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)</h2>
+                    
+                    <span class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on January 4, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                <h2>Before you begin</h2>
+<p>Install the iso image of archlinux in your device. Arch linux iso images for arm devices are available at <a href="https://archlinuxarm.org/platforms" target="_blank">https://archlinuxarm.org/platforms</a>.</p>
+<p>For Raspberry pies, you could also use other distros like raspbian, but I perfer Arch for its ease of use, lightness and performance.</p>
+<p>If you are using a raspbian flavor you will want to replace the <b>pacman -S</b> or <b>yaourt -S</b> with the distro's packet manager, like apt, yum or portage. After installation, ssh into the server and follow the instructions below.</p>
+<h2>Install the MPD, Minidlna, vsftpd in the server</h2>
+<div class="highlight"><pre>ssh &lt;username&gt;@&lt;ip address&gt;
+<span class="c"># Example: ssh alarm@192.168.1.123</span>
+</pre></div>
+<h3>MPD</h3>
+<p>Its a very lightweight music server and awesome as well. It is installed in the player device (server). The client can be running in this server or any other devices in the network.</p>
+<div class="highlight"><pre>sudo pacman -S mpd
+</pre></div>
+<p>You might wanna use mopidy as its replacement. Mopidy is kind of cool. If you haven't heard of it yet, think of it as mpd with lots of plugins like, playing from youtube, spotify, sound cloud, etc. Even with all these features, there are two downsides that may or may not bother you.</p>
+<p><b>Downsides:</b></p>
+<ul>
+  <li>It cannot give you the lightness like mpd. Sometimes, you might feel degrade in performance of raspberry pi.</li>
+  <li>You will not be able to play both in your music server and stream the song to other devices.</li>
+</ul>
+<h3>Minidlna</h3>
+<p>This is the lightweight Media server through which you can stream pictures, audios, and videos into your desktop, latop, or mobile devices. You can replace it with lots of other upnp/dlna servers like Kodi, Rygel, etc.</p>
+<div class="highlight"><pre>sudo pacman -S minidlna
+</pre></div>
+<h3>Vsftpd</h3>
+<p>This is the ftpserver for you to upload your music to raspberry pi. When you want to upload musical contents to your server, you will be able to do so using ftp browsers. Almost all file browsers in linux can handle ftp. Plus you can access it via command line. For OS X, and Windows use filezilla.</p>
+<div class="highlight"><pre>sudo pacman -S vsftpd
+</pre></div>
+<h2>Configure those servers.</h2>
+<h3>MPD</h3>
+<p>Here is the configuration you can use for mpd <b>/etc/mpd.conf</b>. The music_directory is where you keep your music files. In the config we are pointing the files to /srv/ftp/music, because we will be using ftp to upload files to this folder.</p>
+<p>You can see two audio_outputs below. One of them is to play via alsa in the server. The other is to stream via http.</p>
+<div class="highlight"><pre> <span class="c"># /etc/mpd.conf</span>
+ <span class="c"># See: /usr/share/doc/mpd/mpdconf.example</span>
+ 
+ log_file <span class="s2">&quot;/var/log/mpd.log&quot;</span>
+ music_directory <span class="s2">&quot;/srv/ftp/music&quot;</span>
+ pid_file <span class="s2">&quot;/run/mpd/mpd.pid&quot;</span>
+ db_file <span class="s2">&quot;/var/lib/mpd/mpd.db&quot;</span>
+ state_file <span class="s2">&quot;/var/lib/mpd/mpdstate&quot;</span>
+ playlist_directory <span class="s2">&quot;/var/lib/mpd/playlists&quot;</span>
+ sticker_file <span class="s2">&quot;/var/lib/mpd/sticker.sql&quot;</span>
+ 
+ audio_output <span class="o">{</span>
+ <span class="nb">type</span>            <span class="s2">&quot;alsa&quot;</span>
+ name            <span class="s2">&quot;My ALSA Device&quot;</span>
+ <span class="c">#      device          &quot;hw:0,0&quot;        # optional</span>
+ <span class="c">#      mixer_type      &quot;hardware&quot;      # optional</span>
+ <span class="c">#      mixer_device    &quot;default&quot;       # optional</span>
+ <span class="c">#      mixer_control   &quot;PCM&quot;           # optional</span>
+ <span class="c">#      mixer_index     &quot;0&quot;             # optional</span>
+ <span class="o">}</span>
+ 
+ audio_output <span class="o">{</span>
+	  <span class="nb">type</span>		<span class="s2">&quot;httpd&quot;</span>
+	  name		<span class="s2">&quot;My HTTP Stream&quot;</span>
+	  encoder		<span class="s2">&quot;vorbis&quot;</span>		<span class="c"># optional</span>
+	  port		<span class="s2">&quot;8000&quot;</span>
+ <span class="c">#	quality		&quot;5.0&quot;			# do not define if bitrate is defined</span>
+	  bitrate		<span class="s2">&quot;128&quot;</span>			<span class="c"># do not define if quality is defined</span>
+	  format		<span class="s2">&quot;44100:16:1&quot;</span>
+	  always_on       <span class="s2">&quot;yes&quot;</span>			<span class="c"># prevent MPD from disconnecting all listeners when playback is stopped.</span>
+	  tags            <span class="s2">&quot;yes&quot;</span>			<span class="c"># httpd supports sending tags to listening streams.</span>
+ <span class="o">}</span>
+</pre></div>
+<h3>Minidlna</h3>
+<p>Add the following configs to <b>/etc/minidlna.conf</b></p>
+<div class="highlight"><pre><span class="c"># /etc/minidlna.conf</span>
+<span class="nv">port</span><span class="o">=</span>8200
+<span class="nv">user</span><span class="o">=</span>minidlna
+<span class="nv">media_dir</span><span class="o">=</span>/srv/ftp
+<span class="nv">friendly_name</span><span class="o">=</span>Pie Media Server                      <span class="c"># Optional</span>
+
+<span class="nv">album_art_names</span><span class="o">=</span>Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
+
+<span class="nv">inotify</span><span class="o">=</span>yes
+<span class="nv">enable_tivo</span><span class="o">=</span>no
+<span class="nv">strict_dlna</span><span class="o">=</span>no
+<span class="nv">notify_interval</span><span class="o">=</span>900
+<span class="nv">serial</span><span class="o">=</span>12345678
+<span class="nv">model_number</span><span class="o">=</span>1
+</pre></div>
+<h3>Vsftpd</h3>
+<p>This one to to allow users to anonymously login and upload music to your server. Put the followings in <b>/etc/vsftpd.conf</b></p>
+<div class="highlight"><pre><span class="c"># /etc/vsftpd.conf</span>
+<span class="nv">anonymous_enable</span><span class="o">=</span>YES
+<span class="nv">local_enable</span><span class="o">=</span>NO
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">anonymous_enable</span><span class="o">=</span>YES
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_root</span><span class="o">=</span>/srv/ftp
+<span class="nv">anon_max_rate</span><span class="o">=</span>2048000
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES
+<span class="nv">listen</span><span class="o">=</span>YES
+<span class="nv">chown_uploads</span><span class="o">=</span>YES
+<span class="nv">chown_username</span><span class="o">=</span>ftp
+<span class="nv">chown_upload_mode</span><span class="o">=</span>0755
+<span class="nv">allow_writeable_chroot</span><span class="o">=</span>YES
+</pre></div>
+<h2>Create the necessary folders</h2>
+<p>Create the music folder for mpd to work. You can also create pictures and videos folder and upload the contents respectively. These will work only for minidlna. Make sure necessary access to user, and groups are given to the folders. Here is one that will work for you.</p>
+<div class="highlight"><pre>sudo mkdir /srv/ftp/music/
+sudo gpasswd -a mpd audio
+sudo gpasswd -a mpd ftp
+sudo chmod g+w /srv/ftp/ -R
+sudo chown ftp.ftp /srv/ftp/ -R
+
+sudo touch /var/log/mpd.log
+sudo chown mpd.mpd /var/log/mpd.log 
+</pre></div>
+<h2>Install Upmpdcli from AUR</h2>
+<p>You can use yaourt for installing upmpdcli. You will also need to install libupnpp, from aur. When using yaourt, it will automatically take are of this for you. If you are manually installing then here are the links for you. Dont forget to install base-devel package.</p>
+<ul>
+  <li>libupnpp <a href="https://aur.archlinux.org/packages/libupnpp/" target="_blank">https://aur.archlinux.org/packages/libupnpp/</a></li>
+  <li>upmpdcli <a href="https://aur.archlinux.org/packages/upmpdcli/" target="_blank">https://aur.archlinux.org/packages/upmpdcli/</a></li>
+</ul>
+<p>Dont forget to change the architecture in PKGBUILDs of upmpdcli and libupnpp, if you are compling for arm devices. For exmaple if you are compiling for raspberry pi v1, assign armv6h to arch variable</p>
+<div class="highlight"><pre><span class="nv">arch</span><span class="o">=(</span><span class="s1">&#39;armv6h&#39;</span><span class="o">)</span>
+</pre></div>
+<h2>Install Ympd from AUR</h2>
+<p>Ympd is a great MPD Client for web. You can use yaourt for installing ympd. Or, manual installation can be done, from <a href="https://aur.archlinux.org/packages/ympd-git/" target="_blank">https://aur.archlinux.org/packages/ympd-git/</a>. You will need to download the aur and extract the pkbuild. Then run command `makepkg -is` to build and install ympd.</p>
+<h3>Enable servers</h3>
+<div class="highlight"><pre>sudo systemctl <span class="nb">enable </span>vsftpd
+sudo systemctl <span class="nb">enable </span>mpd
+sudo systemctl <span class="nb">enable </span>upmpdcli
+sudo systemctl <span class="nb">enable </span>ympd
+</pre></div>
+<h2>[Optional] Automatic Mounting removable media to music folder</h2>
+<p>The following settings will automatically mount your usb to <i>media which will be a symbolic link from /srv/ftp/music/media</i>.</p>
+<h3>Install Udevil</h3>
+<div class="highlight"><pre>sudo pacman -S udevil
+</pre></div>
+<h3>Enable kernel polling on removable devices</h3>
+<div class="highlight"><pre>sudo <span class="nb">echo</span> <span class="s1">&#39;ACTION==&quot;add&quot;, ATTR{removable}==&quot;1&quot;, ATTR{events_poll_msecs}==&quot;-1&quot;, ATTR{events_poll_msecs}=&quot;2000&quot;&#39;</span> &gt; /etc/udev/rules.d/61-removable-storage-polling.rules 
+</pre></div>
+<h3>Add the `allowed_internal_devices = <b>` into */etc/udevil/udevil.conf</b></h3>
+<div class="highlight"><pre>sudo <span class="nb">echo</span> <span class="s1">&#39;allowed_internal_devices = *&#39;</span> &gt;&gt; /etc/udevil/udevil.conf
+</pre></div>
+<h3>Create symlink</h3>
+<div class="highlight"><pre>sudo ln -s /media /srv/ftp/music/media
+</pre></div>
+<h3>Enable devmon service for mpd user</h3>
+<div class="highlight"><pre>sudo systemctl <span class="nb">enable </span>devmon@mpd
+</pre></div>
+<p>Now you will be able to play from mounted usb drives after refreshing/updating the database.</p>
+<h2>Accessing the music server</h2>
+<h3>Static IP</h3>
+<p>A static ip is recommended for the server. There are several ways to do this. You can configure it in the music server. Here is the link to do it: <a href="https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address" target="_blank">https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address</a>. However, adding static ip through your router is recommended.</p>
+<h3>Web GUI</h3>
+<p>Via web browsers you can access the music player using <span style="text-decoration:underline;">http://&lt;ip address&gt;:8080</span>. If the ip address of music server is <b>192.168.1.123</b>, enter <span style="text-decoration:underline;">http://192.168.1.123:8080</span> in your web browser.</p>
+<h3>Android Smart Phones</h3>
+<p>You can use mpd clients like <a href="https://github.com/abarisain/dmix" target="_blank">MPDroid</a>. Install it from google play. You can now set the default settings as this music server. All you will need to do is store the server's ip address in the app.</p>
+<h3>Streaming the audio in other devices via network</h3>
+<p>If you want to use other devices to stream audio via network then enter the url <span style="text-decoration:underline;">http://&lt;ip address&gt;:8000</span> [Example: http://192.168.1.123:8000] in your web browser or music players like vlc or mplayer. You can used both the music server and http streaming. Note: There can be small difference in the timing of playing in different http streamed devices. Make sure that <b>My HTTP Stream</b> is enabled in audio outputs. If you disable <b>My ALSA Device</b>, only the http stream get played.</p>
+<p>You can try it now, play music and run the following command.</p>
+<div class="highlight"><pre>mpv http://&lt;ip address&gt;:8000
+<span class="c"># Example: mpv http://192.168.1.123:8000</span>
+</pre></div>
+<h3>Desktop Applications</h3>
+<p>You can use mpd client like sonata, ncmcpp and cantata to control the music player. Client like cantata also alow you to stream audio, if you enter <span style="text-decoration:underline;">http://&lt;ip address&gt;:8000</span> [Example: http://192.168.1.123:8000], in the http stream url.</p>
+<p>These apps are available in the repo. So, for example you can install cantata by:</p>
+<div class="highlight"><pre>sudo pacman -S cantata
+</pre></div>
+<p>If you want at different client, for a different devices check this list: <a href="http://mpd.wikia.com/wiki/Clients" target="_blank">http://mpd.wikia.com/wiki/Clients</a></p>
+<h2>Rendering media to music server through your source.</h2>
+<p>You can play music from your own devices into the music server. For this you need to have UPNP control poin application such as Upplay and BubbleUpnp player, in your device. For linux upplay works good. For android you will have lots of options like Yaacc(Open source) and BubbleUpnp player.</p>
+<p>In these apps you get to select two options: Renderer and Library. You play the music from the library in the renderer device. So, you want to play your songs in to music server, select local library and music server for renderer.</p>
+<p>Hope you enjoyed creating your music server.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/" data-toggle="tooltip" data-placement="top" title="How to add plugins in ckeditor on Rails">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<br />
+
+<!-- Disqus Comment -->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    // Required: on line below, replace text in quotes with your forum shortname
+    var disqus_shortname = 'krazedkrish';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+    </div>
+</div>
+
+    </section>
+		<!-- Footer -->
+<footer>
+    <hr class="footer-divider"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a class="social" href="https://twitter.com/krazedkrish">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-twitter fa-fw"></i> -->
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="social" href="https://github.com/krazedkrish">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-github fa-fw"></i> -->
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="social" href="https://np.linkedin.com/pub/shalil-awaley/69/618/b21">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <!-- <i class="fa fa-linkedin fa-fw"></i> -->
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted text-center">Copyright &copy; krazedkrish 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+		<!-- jQuery Version 1.11.0 -->
+<script src="/blog/js/jquery-1.11.0.js"></script>
+
+<!-- Plugin JavaScript -->
+    <script src="/blog/js/jquery.easing.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/blog/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/blog/js/landing-page.js"></script>
+
+<!-- Contact Validation JavaScript -->
+<script src="/blog/js/concact-validate.js"></script>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66064598-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	</body>
+</html>

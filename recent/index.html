@@ -39,6 +39,216 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
+        <a href="/blog/2017/01/04/diy-music-server-with-archlinux-raspbery-pi-or-anywhere/">
+        <div class="post-heading">
+          <h1>DIY Music Server with Arch Linux</h1>
+          
+          <h2 class="post-subheading">Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)</h2>
+          
+        </div>
+        </a>
+    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on January 4, 2017</p>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.page-header -->
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+
+        <h2>Before you begin</h2>
+<p>Install the iso image of archlinux in your device. Arch linux iso images for arm devices are available at <a href="https://archlinuxarm.org/platforms" target="_blank">https://archlinuxarm.org/platforms</a>.</p>
+<p>For Raspberry pies, you could also use other distros like raspbian, but I perfer Arch for its ease of use, lightness and performance.</p>
+<p>If you are using a raspbian flavor you will want to replace the <b>pacman -S</b> or <b>yaourt -S</b> with the distro's packet manager, like apt, yum or portage. After installation, ssh into the server and follow the instructions below.</p>
+<h2>Install the MPD, Minidlna, vsftpd in the server</h2>
+<div class="highlight"><pre>ssh &lt;username&gt;@&lt;ip address&gt;
+<span class="c"># Example: ssh alarm@192.168.1.123</span>
+</pre></div>
+<h3>MPD</h3>
+<p>Its a very lightweight music server and awesome as well. It is installed in the player device (server). The client can be running in this server or any other devices in the network.</p>
+<div class="highlight"><pre>sudo pacman -S mpd
+</pre></div>
+<p>You might wanna use mopidy as its replacement. Mopidy is kind of cool. If you haven't heard of it yet, think of it as mpd with lots of plugins like, playing from youtube, spotify, sound cloud, etc. Even with all these features, there are two downsides that may or may not bother you.</p>
+<p><b>Downsides:</b></p>
+<ul>
+  <li>It cannot give you the lightness like mpd. Sometimes, you might feel degrade in performance of raspberry pi.</li>
+  <li>You will not be able to play both in your music server and stream the song to other devices.</li>
+</ul>
+<h3>Minidlna</h3>
+<p>This is the lightweight Media server through which you can stream pictures, audios, and videos into your desktop, latop, or mobile devices. You can replace it with lots of other upnp/dlna servers like Kodi, Rygel, etc.</p>
+<div class="highlight"><pre>sudo pacman -S minidlna
+</pre></div>
+<h3>Vsftpd</h3>
+<p>This is the ftpserver for you to upload your music to raspberry pi. When you want to upload musical contents to your server, you will be able to do so using ftp browsers. Almost all file browsers in linux can handle ftp. Plus you can access it via command line. For OS X, and Windows use filezilla.</p>
+<div class="highlight"><pre>sudo pacman -S vsftpd
+</pre></div>
+<h2>Configure those servers.</h2>
+<h3>MPD</h3>
+<p>Here is the configuration you can use for mpd <b>/etc/mpd.conf</b>. The music_directory is where you keep your music files. In the config we are pointing the files to /srv/ftp/music, because we will be using ftp to upload files to this folder.</p>
+<p>You can see two audio_outputs below. One of them is to play via alsa in the server. The other is to stream via http.</p>
+<div class="highlight"><pre> <span class="c"># /etc/mpd.conf</span>
+ <span class="c"># See: /usr/share/doc/mpd/mpdconf.example</span>
+ 
+ log_file <span class="s2">&quot;/var/log/mpd.log&quot;</span>
+ music_directory <span class="s2">&quot;/srv/ftp/music&quot;</span>
+ pid_file <span class="s2">&quot;/run/mpd/mpd.pid&quot;</span>
+ db_file <span class="s2">&quot;/var/lib/mpd/mpd.db&quot;</span>
+ state_file <span class="s2">&quot;/var/lib/mpd/mpdstate&quot;</span>
+ playlist_directory <span class="s2">&quot;/var/lib/mpd/playlists&quot;</span>
+ sticker_file <span class="s2">&quot;/var/lib/mpd/sticker.sql&quot;</span>
+ 
+ audio_output <span class="o">{</span>
+ <span class="nb">type</span>            <span class="s2">&quot;alsa&quot;</span>
+ name            <span class="s2">&quot;My ALSA Device&quot;</span>
+ <span class="c">#      device          &quot;hw:0,0&quot;        # optional</span>
+ <span class="c">#      mixer_type      &quot;hardware&quot;      # optional</span>
+ <span class="c">#      mixer_device    &quot;default&quot;       # optional</span>
+ <span class="c">#      mixer_control   &quot;PCM&quot;           # optional</span>
+ <span class="c">#      mixer_index     &quot;0&quot;             # optional</span>
+ <span class="o">}</span>
+ 
+ audio_output <span class="o">{</span>
+	  <span class="nb">type</span>		<span class="s2">&quot;httpd&quot;</span>
+	  name		<span class="s2">&quot;My HTTP Stream&quot;</span>
+	  encoder		<span class="s2">&quot;vorbis&quot;</span>		<span class="c"># optional</span>
+	  port		<span class="s2">&quot;8000&quot;</span>
+ <span class="c">#	quality		&quot;5.0&quot;			# do not define if bitrate is defined</span>
+	  bitrate		<span class="s2">&quot;128&quot;</span>			<span class="c"># do not define if quality is defined</span>
+	  format		<span class="s2">&quot;44100:16:1&quot;</span>
+	  always_on       <span class="s2">&quot;yes&quot;</span>			<span class="c"># prevent MPD from disconnecting all listeners when playback is stopped.</span>
+	  tags            <span class="s2">&quot;yes&quot;</span>			<span class="c"># httpd supports sending tags to listening streams.</span>
+ <span class="o">}</span>
+</pre></div>
+<h3>Minidlna</h3>
+<p>Add the following configs to <b>/etc/minidlna.conf</b></p>
+<div class="highlight"><pre><span class="c"># /etc/minidlna.conf</span>
+<span class="nv">port</span><span class="o">=</span>8200
+<span class="nv">user</span><span class="o">=</span>minidlna
+<span class="nv">media_dir</span><span class="o">=</span>/srv/ftp
+<span class="nv">friendly_name</span><span class="o">=</span>Pie Media Server                      <span class="c"># Optional</span>
+
+<span class="nv">album_art_names</span><span class="o">=</span>Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
+
+<span class="nv">inotify</span><span class="o">=</span>yes
+<span class="nv">enable_tivo</span><span class="o">=</span>no
+<span class="nv">strict_dlna</span><span class="o">=</span>no
+<span class="nv">notify_interval</span><span class="o">=</span>900
+<span class="nv">serial</span><span class="o">=</span>12345678
+<span class="nv">model_number</span><span class="o">=</span>1
+</pre></div>
+<h3>Vsftpd</h3>
+<p>This one to to allow users to anonymously login and upload music to your server. Put the followings in <b>/etc/vsftpd.conf</b></p>
+<div class="highlight"><pre><span class="c"># /etc/vsftpd.conf</span>
+<span class="nv">anonymous_enable</span><span class="o">=</span>YES
+<span class="nv">local_enable</span><span class="o">=</span>NO
+<span class="nv">write_enable</span><span class="o">=</span>YES
+<span class="nv">anonymous_enable</span><span class="o">=</span>YES
+<span class="nv">anon_upload_enable</span><span class="o">=</span>YES
+<span class="nv">anon_mkdir_write_enable</span><span class="o">=</span>YES
+<span class="nv">anon_root</span><span class="o">=</span>/srv/ftp
+<span class="nv">anon_max_rate</span><span class="o">=</span>2048000
+<span class="nv">xferlog_enable</span><span class="o">=</span>YES
+<span class="nv">listen</span><span class="o">=</span>YES
+<span class="nv">chown_uploads</span><span class="o">=</span>YES
+<span class="nv">chown_username</span><span class="o">=</span>ftp
+<span class="nv">chown_upload_mode</span><span class="o">=</span>0755
+<span class="nv">allow_writeable_chroot</span><span class="o">=</span>YES
+</pre></div>
+<h2>Create the necessary folders</h2>
+<p>Create the music folder for mpd to work. You can also create pictures and videos folder and upload the contents respectively. These will work only for minidlna. Make sure necessary access to user, and groups are given to the folders. Here is one that will work for you.</p>
+<div class="highlight"><pre>sudo mkdir /srv/ftp/music/
+sudo gpasswd -a mpd audio
+sudo gpasswd -a mpd ftp
+sudo chmod g+w /srv/ftp/ -R
+sudo chown ftp.ftp /srv/ftp/ -R
+
+sudo touch /var/log/mpd.log
+sudo chown mpd.mpd /var/log/mpd.log 
+</pre></div>
+<h2>Install Upmpdcli from AUR</h2>
+<p>You can use yaourt for installing upmpdcli. You will also need to install libupnpp, from aur. When using yaourt, it will automatically take are of this for you. If you are manually installing then here are the links for you. Dont forget to install base-devel package.</p>
+<ul>
+  <li>libupnpp <a href="https://aur.archlinux.org/packages/libupnpp/" target="_blank">https://aur.archlinux.org/packages/libupnpp/</a></li>
+  <li>upmpdcli <a href="https://aur.archlinux.org/packages/upmpdcli/" target="_blank">https://aur.archlinux.org/packages/upmpdcli/</a></li>
+</ul>
+<p>Dont forget to change the architecture in PKGBUILDs of upmpdcli and libupnpp, if you are compling for arm devices. For exmaple if you are compiling for raspberry pi v1, assign armv6h to arch variable</p>
+<div class="highlight"><pre><span class="nv">arch</span><span class="o">=(</span><span class="s1">&#39;armv6h&#39;</span><span class="o">)</span>
+</pre></div>
+<h2>Install Ympd from AUR</h2>
+<p>Ympd is a great MPD Client for web. You can use yaourt for installing ympd. Or, manual installation can be done, from <a href="https://aur.archlinux.org/packages/ympd-git/" target="_blank">https://aur.archlinux.org/packages/ympd-git/</a>. You will need to download the aur and extract the pkbuild. Then run command `makepkg -is` to build and install ympd.</p>
+<h3>Enable servers</h3>
+<div class="highlight"><pre>sudo systemctl <span class="nb">enable </span>vsftpd
+sudo systemctl <span class="nb">enable </span>mpd
+sudo systemctl <span class="nb">enable </span>upmpdcli
+sudo systemctl <span class="nb">enable </span>ympd
+</pre></div>
+<h2>[Optional] Automatic Mounting removable media to music folder</h2>
+<p>The following settings will automatically mount your usb to <i>media which will be a symbolic link from /srv/ftp/music/media</i>.</p>
+<h3>Install Udevil</h3>
+<div class="highlight"><pre>sudo pacman -S udevil
+</pre></div>
+<h3>Enable kernel polling on removable devices</h3>
+<div class="highlight"><pre>sudo <span class="nb">echo</span> <span class="s1">&#39;ACTION==&quot;add&quot;, ATTR{removable}==&quot;1&quot;, ATTR{events_poll_msecs}==&quot;-1&quot;, ATTR{events_poll_msecs}=&quot;2000&quot;&#39;</span> &gt; /etc/udev/rules.d/61-removable-storage-polling.rules 
+</pre></div>
+<h3>Add the `allowed_internal_devices = <b>` into */etc/udevil/udevil.conf</b></h3>
+<div class="highlight"><pre>sudo <span class="nb">echo</span> <span class="s1">&#39;allowed_internal_devices = *&#39;</span> &gt;&gt; /etc/udevil/udevil.conf
+</pre></div>
+<h3>Create symlink</h3>
+<div class="highlight"><pre>sudo ln -s /media /srv/ftp/music/media
+</pre></div>
+<h3>Enable devmon service for mpd user</h3>
+<div class="highlight"><pre>sudo systemctl <span class="nb">enable </span>devmon@mpd
+</pre></div>
+<p>Now you will be able to play from mounted usb drives after refreshing/updating the database.</p>
+<h2>Accessing the music server</h2>
+<h3>Static IP</h3>
+<p>A static ip is recommended for the server. There are several ways to do this. You can configure it in the music server. Here is the link to do it: <a href="https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address" target="_blank">https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address</a>. However, adding static ip through your router is recommended.</p>
+<h3>Web GUI</h3>
+<p>Via web browsers you can access the music player using <span style="text-decoration:underline;">http://&lt;ip address&gt;:8080</span>. If the ip address of music server is <b>192.168.1.123</b>, enter <span style="text-decoration:underline;">http://192.168.1.123:8080</span> in your web browser.</p>
+<h3>Android Smart Phones</h3>
+<p>You can use mpd clients like <a href="https://github.com/abarisain/dmix" target="_blank">MPDroid</a>. Install it from google play. You can now set the default settings as this music server. All you will need to do is store the server's ip address in the app.</p>
+<h3>Streaming the audio in other devices via network</h3>
+<p>If you want to use other devices to stream audio via network then enter the url <span style="text-decoration:underline;">http://&lt;ip address&gt;:8000</span> [Example: http://192.168.1.123:8000] in your web browser or music players like vlc or mplayer. You can used both the music server and http streaming. Note: There can be small difference in the timing of playing in different http streamed devices. Make sure that <b>My HTTP Stream</b> is enabled in audio outputs. If you disable <b>My ALSA Device</b>, only the http stream get played.</p>
+<p>You can try it now, play music and run the following command.</p>
+<div class="highlight"><pre>mpv http://&lt;ip address&gt;:8000
+<span class="c"># Example: mpv http://192.168.1.123:8000</span>
+</pre></div>
+<h3>Desktop Applications</h3>
+<p>You can use mpd client like sonata, ncmcpp and cantata to control the music player. Client like cantata also alow you to stream audio, if you enter <span style="text-decoration:underline;">http://&lt;ip address&gt;:8000</span> [Example: http://192.168.1.123:8000], in the http stream url.</p>
+<p>These apps are available in the repo. So, for example you can install cantata by:</p>
+<div class="highlight"><pre>sudo pacman -S cantata
+</pre></div>
+<p>If you want at different client, for a different devices check this list: <a href="http://mpd.wikia.com/wiki/Clients" target="_blank">http://mpd.wikia.com/wiki/Clients</a></p>
+<h2>Rendering media to music server through your source.</h2>
+<p>You can play music from your own devices into the music server. For this you need to have UPNP control poin application such as Upplay and BubbleUpnp player, in your device. For linux upplay works good. For android you will have lots of options like Yaacc(Open source) and BubbleUpnp player.</p>
+<p>In these apps you get to select two options: Renderer and Library. You play the music from the library in the renderer device. So, you want to play your songs in to music server, select local library and music server for renderer.</p>
+<p>Hope you enjoyed creating your music server.</p>
+
+
+        <hr>
+
+        <div class="comment-link">
+        <a href="/blog/2017/01/04/diy-music-server-with-archlinux-raspbery-pi-or-anywhere/">
+          <i class="fa fa-comment"></i>
+          Leave a Comment
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+
+<div class="post-detailed-preview">
+  <div class="post-header post-detailed-preview-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
         <a href="/blog/2016/11/20/how-to-add-plugins-to-ckeditor-in-rails/">
         <div class="post-heading">
           <h1>How to add plugins in ckeditor on Rails</h1>
@@ -900,179 +1110,6 @@ $ git clone -b essentials https://github.com/krazedkrish/emacs-kicker ~/.emacs.d
 
         <div class="comment-link">
         <a href="/blog/2015/12/22/how-to-begin-emacs/">
-          <i class="fa fa-comment"></i>
-          Leave a Comment
-        </a>
-      </div>
-    </div>
-  </div>
-</article>
-  </div>
-
-<div class="post-detailed-preview">
-  <div class="post-header post-detailed-preview-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1">
-        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
-        <div class="post-heading">
-          <h1>Deploying Spree with ansible</h1>
-          
-          <h2 class="post-subheading">Wanna automate your spree deployment on ubuntu in 5 minutes?</h2>
-          
-        </div>
-        </a>
-    <p class="meta">Posted by <a href="https://twitter.com/krazedkrish">@krazedkrish</a > on November 18, 2015</p>
-      </div>
-    </div>
-  </div>
-  <!-- /.container -->
-</div>
-<!-- /.page-header -->
-
-
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10">
-
-        <h2><a href="http://www.ansible.com/" target="_blank">Ansible</a></h2>
-<p>According to the website <a href="http://www.ansible.com/" target="_blank">Ansible</a> is opensource, simple, agentless and yet powerful. It is an app deployment, configuration management and orchestration - all from one system. And I very much agree.</p>
-<p>There are configuration management and provisioning tool, similar to Chef, Puppet or Salt.</p>
-<blockquote>
-  <p>But then why ansible?</p>
-  <p><a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank">Keep It Simple, Stupid (KISS)</a></p>
-</blockquote>
-<p>Ok, so how to begin? Here is how you do it:</p>
-<h3><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank">Installation:</a></h3>
-<ul>
-  <li>Archlinux
-<div class="highlight"><pre><span class="nv">$ </span>sudo pacman -S ansible
-</pre></div>
-  </li>
-  <li>Ubuntu
-    <p>To configure the PPA on your machine and install ansible run these commands:</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install software-properties-common
-<span class="nv">$ </span>sudo apt-add-repository ppa:ansible/ansible
-<span class="nv">$ </span>sudo apt-get update
-<span class="nv">$ </span>sudo apt-get install ansible
-</pre></div>
-  </li>
-  <li>Install using pip
-<div class="highlight"><pre><span class="nv">$ </span>sudo pip install ansible
-</pre></div>
-  </li>
-</ul>
-<h3>Configuring <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">playbook</a></h3>
-<blockquote>
-  <p>Playbooks are Ansible’s configuration, deployment, and orchestration language. They can describe a policy you want your remote systems to enforce, or a set of steps in a general IT process.</p>
-</blockquote>
-<p>Basically a playbook has</p>
-<ul>
-  <li>tasks:
-    that we run</li>
-  <li>handlers:
-    that tasks run</li>
-  <li>files:
-    that we copy to server</li>
-  <li>templates:
-    that are files with variables</li>
-  <li>variables:
-    that we modify to deploy different site in different servers</li>
-</ul>
-<p>There are other terms like roles, meta, vault, facts, etc that you would be interested to learn for further knowlege.</p>
-<blockquote>
-  <p>Are we going to configure all these by ourselves?</p>
-  <p>No, lets keep it DDIA (Don't Do It Again)</p>
-</blockquote>
-<p>So, someone has already done that. Prepared the templates, tasks, etc, and we will just customize the variables. Here is the playbook that spreecommerce suggests: <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a></p>
-<p>Now, we clone it. Its going to install:</p>
-<ul>
-  <li>Ruby 2.1</li>
-  <li>PostgreSQL</li>
-  <li>nginx</li>
-  <li>Puma (jungle)</li>
-</ul>
-<p>All we have to do is:</p>
-<ol>
-  <li>Change the app name and deploy directory in vars/defaults.yml.
-    vars/defaults.yml
-<div class="highlight"><pre><span class="c1">## webapp</span>
-
-<span class="ss">webserver_name</span><span class="p">:</span> <span class="n">spree</span><span class="o">.</span><span class="n">krazedkrish</span><span class="o">.</span><span class="n">com</span>
-<span class="ss">deploy_directory</span><span class="p">:</span> <span class="sr">/data/s</span><span class="n">pree</span>
-<span class="ss">app_name</span><span class="p">:</span> <span class="n">krazedkrish</span>
-
-<span class="c1">## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src</span>
-<span class="ss">rubyTmpDir</span><span class="p">:</span> <span class="sr">/usr/</span><span class="n">local</span><span class="o">/</span><span class="n">src</span>
-<span class="ss">rubyUrl</span><span class="p">:</span> <span class="ss">http</span><span class="p">:</span><span class="sr">//</span><span class="n">cache</span><span class="o">.</span><span class="n">ruby</span><span class="o">-</span><span class="n">lang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="ss">rubyCompressedFile</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="ss">rubyName</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
-<span class="ss">tmpRubyPath</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span>
-</pre></div>
-    <p>Make sure you update the variables webserver_name, deploy_directory, and app_name. You might also want to update the ruby variables, if you are using different version of ruby.</p>
-  </li>
-  <li>Rename hosts.example to hosts and change it to your hosts. For example if you deployment host ip is 192.168.56.101. Insert the ip in the host file
-<div class="highlight"><pre>192.168.56.101
-</pre></div>
-  </li>
-</ol>
-<p>Note: If you want to understand some details of the playbook, you can check out the <a href="https://guides.spreecommerce.com/developer/ansible-ubuntu.html" target="_blank">official spree guide</a>.</p>
-<h3>Deploy ansible playbook</h3>
-<p>First, set up key-based authentication on the server so we are not asked for our password:</p>
-<div class="highlight"><pre><span class="nv">$ </span>ssh-copy-id -i ~/.ssh/id_rsa root@spree.example.com
-</pre></div>
-<p>Then run ansible playbook to install ruby, followed by deploy, postgresql and nginx.</p>
-<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t ruby,deploy,postgresql,nginx -i hosts
-</pre></div>
-<h3>Capistrano Deploy</h3>
-<p>Add capistrano gem to Gemfile</p>
-<div class="highlight"><pre><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
-  <span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1&#39;</span>
-  <span class="n">gem</span> <span class="s1">&#39;capistrano-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1&#39;</span>
-  <span class="n">gem</span> <span class="s1">&#39;capistrano-bundler&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1.2&#39;</span>
-<span class="k">end</span>
-</pre></div>
-<p>Then run bundle install and set up Capistrano within our application by running this command:</p>
-<div class="highlight"><pre><span class="nv">$ </span>bundle install
-<span class="nv">$ </span>cap install
-</pre></div>
-<p>Now, the following lines need to be uncommented in the Capfile.</p>
-<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;capistrano/bundler&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/assets&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/migrations&#39;</span>
-</pre></div>
-<p>Next, the capistrano needs to be configured. I suggest you copy the deploy.rb from <a href="https://github.com/radar/ansible-rails-app">ansible-rails-app</a> to config/deploy.rb. The following parameters should configured and ssh forward options should be added.</p>
-<div class="highlight"><pre><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">&#39;krazedkrish&#39;</span>
-<span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">&#39;git@github.com:krazedkrish/krazedkrish.git&#39;</span>
-<span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">&#39;/home/deploy/www/krazedkrish&#39;</span>
-<span class="o">.</span><span class="n">.</span><span class="o">.</span>
-<span class="o">.</span><span class="n">.</span><span class="o">.</span>
-<span class="n">set</span> <span class="ss">:ssh_options</span><span class="p">,</span> <span class="p">{</span><span class="ss">:forward_agent</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span>
-</pre></div>
-<p>Then configure config/deploy/production.rb to point to the correct server, and finally run this command to deploy:</p>
-<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
-</pre></div>
-<p>One of the final steps, the one that restarts Puma, will probably fail because we have not yet set up Puma on the server. We can rectify this by setting that up on the server using Ansible within the ansible-rails-app directory:</p>
-<div class="highlight"><pre><span class="nv">$ </span>ansible-playbook ruby-webapp.yml -t puma
-</pre></div>
-<p>Now run the deploy command again</p>
-<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
-</pre></div>
-<p>It succeed congratulations. Now to deploy, updated code next time all you have to do is &#8230; You know it right.</p>
-<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap production deploy
-</pre></div>
-<blockquote>
-  <p>So, deploying with Ansible is fun right. So, if you like is make sure you star it.</p>
-  <p><a href="https://github.com/ansible/ansible">https://github.com/ansible/ansible</a></p>
-</blockquote>
-
-
-        <hr>
-
-        <div class="comment-link">
-        <a href="/blog/2015/11/18/deploy-spree-with-ansible-ubuntu/">
           <i class="fa fa-comment"></i>
           Leave a Comment
         </a>
