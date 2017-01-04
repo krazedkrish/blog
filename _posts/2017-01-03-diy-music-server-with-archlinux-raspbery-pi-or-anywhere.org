@@ -1,0 +1,263 @@
+#+LAYOUT: post
+#+TITLE: DIY Music Server with Arch Linux
+#+SUBTITLE: Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)
+#+DESCRIPTION: Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)
+#+KEYWORDS: music-server mpd mopidy arch archlinux raspberry pi begalboard light-weight upnp media server
+#+DATE: 2017-01-04 12:10
+#+liquid: enabled
+#+comments: true
+#+libupnpp_link: <a href="https://aur.archlinux.org/packages/libupnpp/" target="_blank">https://aur.archlinux.org/packages/libupnpp/</a>
+#+upmpdcli_link: <a href="https://aur.archlinux.org/packages/upmpdcli/" target="_blank">https://aur.archlinux.org/packages/upmpdcli/</a>
+#+ympd_link: <a href="https://aur.archlinux.org/packages/ympd-git/" target="_blank">https://aur.archlinux.org/packages/ympd-git/</a>
+#+network_manager_static_ip_link: <a href="https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address" target="_blank">https://wiki.archlinux.org/index.php/Network_configuration#Static_IP_address</a>
+#+mpdroid_link: <a href="https://github.com/abarisain/dmix" target="_blank">MPDroid</a>
+#+arm_archlinux_link: <a href="https://archlinuxarm.org/platforms" target="_blank">https://archlinuxarm.org/platforms</a>
+#+mpd_clients_link: <a href="http://mpd.wikia.com/wiki/Clients" target="_blank">http://mpd.wikia.com/wiki/Clients</a>
+
+** Before you begin 
+
+   Install the iso image of archlinux in your device. Arch linux iso images for arm devices are available at {{ page.arm_archlinux_link }}.
+   
+   For Raspberry pies, you could also use other distros like raspbian, but I perfer Arch for its ease of use, lightness and performance.
+
+   If you are using a raspbian flavor you will want to replace the *pacman -S* or *yaourt -S* with the distro's packet manager, like apt, yum or portage. After installation, ssh into the server and follow the instructions below.
+
+** Install the MPD, Minidlna, vsftpd in the server
+   #+BEGIN_SRC bash
+   ssh <username>@<ip address>
+   # Example: ssh alarm@192.168.1.123
+   #+END_SRC
+
+*** MPD
+
+    Its a very lightweight music server and awesome as well. It is installed in the player device (server). The client can be running in this server or any other devices in the network.
+
+    #+BEGIN_SRC bash
+    sudo pacman -S mpd
+    #+END_SRC
+
+    You might wanna use mopidy as its replacement. Mopidy is kind of cool. If you haven't heard of it yet, think of it as mpd with lots of plugins like, playing from youtube, spotify, sound cloud, etc. Even with all these features, there are two downsides that may or may not bother you.
+   
+    *Downsides:*
+    - It cannot give you the lightness like mpd. Sometimes, you might feel degrade in performance of raspberry pi.
+   
+    - You will not be able to play both in your music server and stream the song to other devices. 
+  
+*** Minidlna
+
+    This is the lightweight Media server through which you can stream pictures, audios, and videos into your desktop, latop, or mobile devices. You can replace it with lots of other upnp/dlna servers like Kodi, Rygel, etc.
+
+    #+BEGIN_SRC bash
+    sudo pacman -S minidlna
+    #+END_SRC
+
+*** Vsftpd
+
+    This is the ftpserver for you to upload your music to raspberry pi. When you want to upload musical contents to your server, you will be able to do so using ftp browsers. Almost all file browsers in linux can handle ftp. Plus you can access it via command line. For OS X, and Windows use filezilla.
+
+    #+BEGIN_SRC bash
+    sudo pacman -S vsftpd
+    #+END_SRC
+
+** Configure those servers.
+   
+*** MPD
+    
+    Here is the configuration you can use for mpd */etc/mpd.conf*. The music_directory is where you keep your music files. In the config we are pointing the files to /srv/ftp/music, because we will be using ftp to upload files to this folder. 
+
+    You can see two audio_outputs below. One of them is to play via alsa in the server. The other is to stream via http.
+
+    #+BEGIN_SRC bash
+    # /etc/mpd.conf
+    # See: /usr/share/doc/mpd/mpdconf.example
+    
+    log_file "/var/log/mpd.log"
+    music_directory "/srv/ftp/music"
+    pid_file "/run/mpd/mpd.pid"
+    db_file "/var/lib/mpd/mpd.db"
+    state_file "/var/lib/mpd/mpdstate"
+    playlist_directory "/var/lib/mpd/playlists"
+    sticker_file "/var/lib/mpd/sticker.sql"
+    
+    audio_output {
+    type            "alsa"
+    name            "My ALSA Device"
+    #      device          "hw:0,0"        # optional
+    #      mixer_type      "hardware"      # optional
+    #      mixer_device    "default"       # optional
+    #      mixer_control   "PCM"           # optional
+    #      mixer_index     "0"             # optional
+    }
+    
+    audio_output {
+	  type		"httpd"
+	  name		"My HTTP Stream"
+	  encoder		"vorbis"		# optional
+	  port		"8000"
+    #	quality		"5.0"			# do not define if bitrate is defined
+	  bitrate		"128"			# do not define if quality is defined
+	  format		"44100:16:1"
+	  always_on       "yes"			# prevent MPD from disconnecting all listeners when playback is stopped.
+	  tags            "yes"			# httpd supports sending tags to listening streams.
+    }
+    #+END_SRC
+
+*** Minidlna
+
+    Add the following configs to */etc/minidlna.conf*
+
+    #+BEGIN_SRC bash
+    # /etc/minidlna.conf
+    port=8200
+    user=minidlna
+    media_dir=/srv/ftp
+    friendly_name=Pie Media Server                      # Optional
+
+    album_art_names=Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
+
+    inotify=yes
+    enable_tivo=no
+    strict_dlna=no
+    notify_interval=900
+    serial=12345678
+    model_number=1
+    #+END_SRC
+    
+*** Vsftpd
+    
+    This one to to allow users to anonymously login and upload music to your server. Put the followings in */etc/vsftpd.conf*
+    #+BEGIN_SRC bash
+    # /etc/vsftpd.conf
+    anonymous_enable=YES
+    local_enable=NO
+    write_enable=YES
+    anonymous_enable=YES
+    anon_upload_enable=YES
+    anon_mkdir_write_enable=YES
+    anon_root=/srv/ftp
+    anon_max_rate=2048000
+    xferlog_enable=YES
+    listen=YES
+    chown_uploads=YES
+    chown_username=ftp
+    chown_upload_mode=0755
+    allow_writeable_chroot=YES
+    #+END_SRC
+    
+** Create the necessary folders
+  
+   Create the music folder for mpd to work. You can also create pictures and videos folder and upload the contents respectively. These will work only for minidlna. Make sure necessary access to user, and groups are given to the folders. Here is one that will work for you.
+
+   #+BEGIN_SRC bash
+   sudo mkdir /srv/ftp/music/
+   sudo gpasswd -a mpd audio
+   sudo gpasswd -a mpd ftp
+   sudo chmod g+w /srv/ftp/ -R
+   sudo chown ftp.ftp /srv/ftp/ -R
+   
+   sudo touch /var/log/mpd.log
+   sudo chown mpd.mpd /var/log/mpd.log 
+   #+END_SRC
+   
+** Install Upmpdcli from AUR
+
+   You can use yaourt for installing upmpdcli. You will also need to install libupnpp, from aur. When using yaourt, it will automatically take are of this for you. If you are manually installing then here are the links for you. Dont forget to install base-devel package.
+
+   - libupnpp {{ page.libupnpp_link }}
+   - upmpdcli {{ page.upmpdcli_link }}
+
+   Dont forget to change the architecture in PKGBUILDs of upmpdcli and libupnpp, if you are compling for arm devices. For exmaple if you are compiling for raspberry pi v1, assign armv6h to arch variable
+
+   #+BEGIN_SRC bash
+   arch=('armv6h')
+   #+END_SRC
+  
+** Install Ympd from AUR
+
+   Ympd is a great MPD Client for web. You can use yaourt for installing ympd. Or, manual installation can be done, from {{ page.ympd_link }}. You will need to download the aur and extract the pkbuild. Then run command `makepkg -is` to build and install ympd.
+
+*** Enable servers
+   #+BEGIN_SRC bash
+   sudo systemctl enable vsftpd
+   sudo systemctl enable mpd
+   sudo systemctl enable upmpdcli
+   sudo systemctl enable ympd
+   #+END_SRC
+
+** [Optional] Automatic Mounting removable media to music folder
+
+   The following settings will automatically mount your usb to /media which will be a symbolic link from /srv/ftp/music/media/.
+
+*** Install Udevil
+
+    #+BEGIN_SRC bash
+    sudo pacman -S udevil
+    #+END_SRC
+
+*** Enable kernel polling on removable devices
+
+    #+BEGIN_SRC bash
+    sudo echo 'ACTION=="add", ATTR{removable}=="1", ATTR{events_poll_msecs}=="-1", ATTR{events_poll_msecs}="2000"' > /etc/udev/rules.d/61-removable-storage-polling.rules 
+    #+END_SRC
+
+*** Add the `allowed_internal_devices = *` into */etc/udevil/udevil.conf*
+    
+    #+BEGIN_SRC bash
+    sudo echo 'allowed_internal_devices = *' >> /etc/udevil/udevil.conf
+    #+END_SRC
+
+*** Create symlink
+    #+BEGIN_SRC bash
+    sudo ln -s /media /srv/ftp/music/media
+    #+END_SRC
+
+*** Enable devmon service for mpd user
+
+    #+BEGIN_SRC bash
+    sudo systemctl enable devmon@mpd
+    #+END_SRC
+
+    Now you will be able to play from mounted usb drives after refreshing/updating the database. 
+** Accessing the music server
+
+*** Static IP
+
+    A static ip is recommended for the server. There are several ways to do this. You can configure it in the music server. Here is the link to do it: {{ page.network_manager_static_ip_link }}. However, adding static ip through your router is recommended.
+
+*** Web GUI
+
+    Via web browsers you can access the music player using _http://<ip address>:8080_. If the ip address of music server is *192.168.1.123*, enter _http://192.168.1.123:8080_ in your web browser.
+
+*** Android Smart Phones
+
+    You can use mpd clients like {{ page.mpdroid_link }}. Install it from google play. You can now set the default settings as this music server. All you will need to do is store the server's ip address in the app.
+    
+*** Streaming the audio in other devices via network
+
+    If you want to use other devices to stream audio via network then enter the url _http://<ip address>:8000_ [Example: http://192.168.1.123:8000] in your web browser or music players like vlc or mplayer. You can used both the music server and http streaming. Note: There can be small difference in the timing of playing in different http streamed devices. Make sure that *My HTTP Stream* is enabled in audio outputs. If you disable *My ALSA Device*, only the http stream get played.
+
+    You can try it now, play music and run the following command. 
+    #+BEGIN_SRC bash
+    mpv http://<ip address>:8000
+    # Example: mpv http://192.168.1.123:8000
+    #+END_SRC
+
+*** Desktop Applications
+
+    You can use mpd client like sonata, ncmcpp and cantata to control the music player. Client like cantata also alow you to stream audio, if you enter _http://<ip address>:8000_ [Example: http://192.168.1.123:8000], in the http stream url.
+
+    These apps are available in the repo. So, for example you can install cantata by:
+
+    #+BEGIN_SRC bash
+    sudo pacman -S cantata
+    #+END_SRC
+
+    If you want at different client, for a different devices check this list: {{ page.mpd_clients_link }}
+
+** Rendering media to music server through your source.
+
+   You can play music from your own devices into the music server. For this you need to have UPNP control poin application such as Upplay and BubbleUpnp player, in your device. For linux upplay works good. For android you will have lots of options like Yaacc(Open source) and BubbleUpnp player.
+
+   In these apps you get to select two options: Renderer and Library. You play the music from the library in the renderer device. So, you want to play your songs in to music server, select local library and music server for renderer.
+
+   Hope you enjoyed creating your music server.
