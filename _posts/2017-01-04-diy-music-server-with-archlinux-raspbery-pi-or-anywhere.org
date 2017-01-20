@@ -2,7 +2,7 @@
 #+TITLE: DIY Music Server with Arch Linux
 #+SUBTITLE: Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)
 #+DESCRIPTION: Create your own Lightweight Music Server with Arch Linux( in raspberry pi, or anywhere)
-#+KEYWORDS: music-server mpd mopidy arch archlinux raspberry pi begalboard light-weight upnp media server
+#+KEYWORDS: music-server mpd mopidy arch-linux archlinux raspberry pi begalboard light-weight upnp media server
 #+DATE: 2017-01-04 12:10
 #+liquid: enabled
 #+comments: true
