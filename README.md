@@ -29,7 +29,7 @@ The article of the blog
 
 ===
 
-For more Jekyll details, read [documentation](http://jekyllrb.com/).
+For more Jekyll details, read [documentation](https://jekyllrb.com/).
 This Jekyll theme used [Freelancer Jekyll theme](https://github.com/jeromelachaud/freelancer-theme/) as reference.
 
 ## License
